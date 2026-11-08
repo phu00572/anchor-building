@@ -5,659 +5,763 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>固定點架設</title>
 <meta name="description" content="固定點架設互動簡報：SREDDA 原則、分力與均力架設、兩點夾角與偏離受力" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="icon" href="images/more-logo.png" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/night.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/wordcloud@1.2.2/src/wordcloud2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 :root{
-  --accent:#e8643a; --accent2:#4fc3f7; --success:#81c784; --warn:#ffb74d; --danger:#ef5350;
-  --ink:#e8edf3; --muted:#9fb0c0; --card:rgba(255,255,255,0.06); --line:rgba(255,255,255,0.12);
+  --bg:#0d1117; --bg-2:#141a2e; --card:rgba(255,255,255,.055); --line:rgba(255,255,255,.1);
+  --ink:#eef3fa; --ink-2:#b9c6d8; --ink-3:#7d8ba3; --ink-4:#45526b;
+  --accent:#ff7a2f; --accent2:#4cc9f0; --ok:#81c784; --warn:#ffb74d; --bad:#ef5350;
+  --t1:40px; --t2:26px; --t3:18px; --t4:14px;
 }
-html,body{ background:#0d1117; }
-.reveal{ font-family:'Noto Sans TC','Microsoft JhengHei','Segoe UI',sans-serif; font-size:24px; color:var(--ink); }
-.reveal h1,.reveal h2,.reveal h3{ font-family:'Noto Sans TC','Microsoft JhengHei',sans-serif; font-weight:900; letter-spacing:0; text-transform:none; text-shadow:none; }
-.reveal h1{ font-size:66px; line-height:1.15; }
-.reveal h2{ font-size:40px; color:var(--accent2); margin:0 0 14px; }
-.reveal h3{ font-size:26px; color:var(--warn); margin:0 0 8px; }
-.reveal p{ margin:0 0 10px; line-height:1.6; }
-.reveal .progress{ color:var(--accent); }
-.reveal .slides section{ text-align:left; }
-.reveal .slide-number{ background:rgba(0,0,0,0.35); font-size:14px; }
-.reveal .backgrounds .slide-background-content::after{ content:''; position:absolute; inset:0; background:rgba(7,11,18,0.35); }
-.center{ text-align:center; }
-.lead{ font-size:22px; color:var(--muted); }
-.small{ font-size:16px; color:var(--muted); }
-.src{ font-size:13px; color:#71808f; margin-top:10px; }
-.hl{ color:var(--accent); font-weight:700; }
-.hl2{ color:var(--accent2); font-weight:700; }
-.ok{ color:var(--success); font-weight:700; } .warn{ color:var(--warn); font-weight:700; } .bad{ color:var(--danger); font-weight:700; }
-.kicker{ display:inline-block; font-size:15px; letter-spacing:.12em; color:var(--accent); font-weight:700; border:1px solid rgba(232,100,58,.5); border-radius:20px; padding:3px 12px; margin-bottom:10px; }
+html,body{background:var(--bg)}
+.reveal-viewport{background:var(--bg)}
+.reveal{font-family:'Noto Sans TC',sans-serif;font-size:18px;color:var(--ink)}
+.reveal .slides{text-align:left}
+.reveal .slides section{box-sizing:border-box}
+.reveal .slides section *{box-sizing:border-box}
+.reveal h1,.reveal h2,.reveal h3,.reveal h4{font-family:'Noto Sans TC',sans-serif;text-transform:none;color:var(--ink);margin:0;letter-spacing:.01em;line-height:1.2;text-shadow:none;font-weight:900}
+.reveal h4{font-weight:700}
+.reveal p{margin:0;line-height:1.55}
+.reveal ul{display:block;margin:0;padding-left:1.1em}
+.reveal section img{margin:0;max-width:none;max-height:none}
+.reveal .progress{color:var(--accent);height:3px}
+.reveal .controls{color:var(--accent)}
+.reveal .backgrounds .slide-background-content::after{content:'';position:absolute;inset:0;background:rgba(7,11,18,.35)}
 
-/* 封面 */
-.title-slide{ text-align:center; }
-.title-slide .tag{ display:inline-block; background:var(--accent); color:#fff; padding:5px 16px; border-radius:20px; font-size:18px; letter-spacing:.08em; font-weight:700; margin-bottom:18px; }
-.title-slide .subtitle{ font-size:26px; color:#cfd8e2; margin-top:14px; }
-.title-slide .chips{ display:flex; gap:12px; justify-content:center; margin-top:28px; flex-wrap:wrap; }
-.chip{ background:rgba(79,195,247,.12); border:1px solid rgba(79,195,247,.4); color:var(--accent2); border-radius:30px; padding:6px 16px; font-size:18px; font-weight:700; }
+.mono{font-family:'JetBrains Mono',monospace}
+.hl{color:var(--accent)} .hl2{color:var(--accent2)} .ok{color:var(--ok)} .warn{color:var(--warn)} .bad{color:var(--bad)}
+.inner{width:1180px;margin:0 auto;position:relative}
+.head{margin-bottom:18px}
+.kicker{font:500 var(--t4) 'JetBrains Mono','Noto Sans TC',monospace;letter-spacing:.2em;color:var(--accent);margin-bottom:8px}
+.reveal h2{font-size:var(--t1)}
+.reveal h3{font-size:var(--t2);font-weight:700}
+.sub{font-size:18px;color:var(--ink-2);margin-top:6px}
+.body{font-size:var(--t3);line-height:1.6;color:var(--ink-2)}
+.note{font-size:var(--t4);color:var(--ink-3);line-height:1.5}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.btn{font:500 15px 'Noto Sans TC',sans-serif;color:var(--ink-2);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer;transition:all .2s}
+.btn:hover{color:var(--ink);border-color:var(--ink-3)}
+.btn.on{color:#111;background:var(--accent);border-color:var(--accent);font-weight:700}
+.list{list-style:none;padding:0 !important;margin:0}
+.list li{position:relative;padding:6px 0 6px 20px;font-size:18px;line-height:1.55;color:var(--ink-2)}
+.list li::before{content:'';position:absolute;left:3px;top:16px;width:7px;height:7px;border-radius:50%;background:var(--accent2)}
+.list li b{color:var(--ink)}
+.list.o li::before{background:var(--accent)}
+.tap{position:absolute;right:12px;top:12px;font:700 12px 'JetBrains Mono','Noto Sans TC',monospace;letter-spacing:.12em;background:rgba(11,18,32,.78);padding:4px 8px;border-radius:6px;color:var(--ink-2);z-index:2}
 
-/* 卡片 */
-.card{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px; }
-.grid2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-.grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
-.grid4{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
-.blist{ list-style:none; padding:0; margin:0; }
-.blist li{ position:relative; padding:5px 0 5px 22px; font-size:20px; line-height:1.5; }
-.blist li::before{ content:''; position:absolute; left:4px; top:15px; width:8px; height:8px; border-radius:50%; background:var(--accent2); }
-.blist.orange li::before{ background:var(--accent); }
+/* ---------- 全域 UI ---------- */
+#section-tag{position:fixed;top:16px;left:24px;z-index:40;font:500 14px 'JetBrains Mono','Noto Sans TC',monospace;letter-spacing:.2em;color:var(--ink-3)}
+#logo{position:fixed;top:12px;right:20px;z-index:40;height:46px;opacity:.85}
+#pageInfo{position:fixed;bottom:14px;right:130px;z-index:40;font:500 14px 'JetBrains Mono',monospace;color:var(--ink-3);letter-spacing:.12em}
+#hint{position:fixed;bottom:14px;left:70px;z-index:40;font:500 13.5px 'JetBrains Mono','Noto Sans TC',monospace;color:var(--ink-4);letter-spacing:.05em}
+#hint b{color:var(--ink-3)}
 
-/* SREDDA 卡 */
-.sred-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:6px; }
-.sred{ background:rgba(255,255,255,.05); border-top:4px solid var(--accent2); border-radius:10px; padding:14px 14px 12px; text-align:center; }
-.sred img{ width:64px; height:64px; object-fit:contain; display:block; margin:0 auto 4px; filter:drop-shadow(0 0 10px rgba(79,195,247,.6)); }
-.sred .L{ font-size:40px; font-weight:900; color:var(--accent); line-height:1; }
-.sred .en{ font-size:18px; color:var(--accent2); font-weight:700; }
-.sred .zh{ font-size:20px; font-weight:700; margin:2px 0 4px; }
-.sred .d{ font-size:15px; color:var(--muted); line-height:1.5; }
+/* ---------- 封面 ---------- */
+.cover h1{font-size:64px;line-height:1.18;text-shadow:0 2px 18px rgba(0,0,0,.6)}
+.cover .lead{font-size:24px;color:var(--ink-2);margin-top:14px;max-width:760px}
+.cover .tags{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.cover .tags span{font-size:16px;padding:6px 14px;border-radius:999px;border:1px solid rgba(76,201,240,.45);color:var(--accent2);background:rgba(76,201,240,.08);font-weight:700}
+.cover .who{margin-top:44px;display:flex;align-items:center;gap:16px}
+.cover .who .bar{width:4px;height:52px;background:var(--accent);border-radius:2px}
+.cover .who .name{font-size:var(--t2);font-weight:700}
+.cover .who .org{font-size:18px;color:var(--ink-2)}
+.join{position:absolute;right:0;bottom:-10px;display:flex;gap:14px;align-items:center;padding:14px 16px;background:rgba(11,18,32,.8)}
+.join .qr{background:#fff;padding:6px;border-radius:8px;width:104px;height:104px}
+.join .qr img,.join .qr canvas{width:92px !important;height:92px !important}
+.join p{font-size:16px;line-height:1.5}
 
-/* 原則大字頁 */
-.prin{ display:grid; grid-template-columns:150px 1fr; gap:18px; align-items:start; margin-bottom:14px; }
-.prin .big{ font-size:110px; font-weight:900; color:var(--accent); line-height:.9; text-align:center; text-shadow:0 0 30px rgba(232,100,58,.45); }
-.prin .big small{ display:block; font-size:18px; color:var(--accent2); letter-spacing:.05em; margin-top:8px; text-shadow:none; }
+/* ---------- 文字雲 ---------- */
+.wc-grid{display:grid;grid-template-columns:300px 1fr;gap:20px}
+.wc-box{height:440px;position:relative;overflow:hidden;background:rgba(0,0,0,.25)}
+#wc-list{font-size:16px;overflow-y:auto;max-height:220px;color:var(--ink-2)}
 
-/* 表格 */
-table.t{ width:100%; border-collapse:collapse; font-size:18px; }
-table.t th{ background:rgba(79,195,247,.15); color:var(--accent2); font-weight:700; padding:8px 10px; border-bottom:2px solid rgba(79,195,247,.4); text-align:center; }
-table.t td{ padding:8px 10px; border-bottom:1px solid rgba(255,255,255,.08); text-align:center; }
-table.t td.l{ text-align:left; }
-table.t tr.hi td{ background:rgba(129,199,132,.12); }
+/* ---------- 投票 ---------- */
+.poll-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:36px;align-items:center}
+.poll-q{font-size:32px;font-weight:900;line-height:1.35;margin-bottom:6px}
+.poll-opts{display:flex;flex-direction:column;gap:11px;margin-top:18px}
+.popt{display:grid;grid-template-columns:34px 1fr 200px 56px;align-items:center;gap:14px;padding:12px 18px;cursor:pointer;transition:all .25s;font-family:inherit;color:var(--ink);text-align:left;width:100%}
+.popt:hover{border-color:var(--ink-3)}
+.popt .k{width:30px;height:30px;border-radius:50%;border:2px solid var(--ink-4);font:700 16px/26px 'JetBrains Mono',monospace;text-align:center;color:var(--ink-3)}
+.popt .lb{font-size:20px;font-weight:700}
+.popt .bar{height:10px;border-radius:5px;background:rgba(255,255,255,.08);overflow:hidden}
+.popt .bar i{display:block;height:100%;width:0;background:var(--accent2);border-radius:5px;transition:width .5s}
+.popt .pc{font:700 17px 'JetBrains Mono',monospace;text-align:right;color:var(--ink-2)}
+.popt.mine{border-color:var(--accent2)} .popt.mine .k{background:var(--accent2);border-color:var(--accent2);color:#111}
+.popt.answer{border-color:var(--accent);background:rgba(255,122,47,.12)} .popt.answer .bar i{background:var(--accent)} .popt.answer .pc{color:var(--accent)}
+.poll-meta{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:16px;color:var(--ink-3)}
+.live-badge{display:inline-block;background:#ff4757;color:#fff;padding:2px 8px;border-radius:10px;font:700 13.5px 'JetBrains Mono',monospace;vertical-align:middle;animation:pulse 1.5s infinite;margin-left:8px;letter-spacing:.08em}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
+.qr-card{padding:24px;text-align:center}
+.qr-card .qr{background:#fff;padding:10px;border-radius:12px;display:inline-block;width:220px;height:220px}
+.qr-card .qr img,.qr-card .qr canvas{width:200px !important;height:200px !important}
+.qr-card h4{font-size:20px;margin-top:14px}
+.qr-card .url{font:500 14px 'JetBrains Mono',monospace;color:var(--accent2);margin-top:10px;word-break:break-all}
+.ixStatus{font-size:14px;color:var(--ink-3);margin-top:6px}
 
-/* 架設方式卡 */
-.rig{ background:rgba(255,255,255,.05); border:1px solid var(--line); border-radius:12px; padding:10px 12px; display:flex; flex-direction:column; }
-.rig svg{ width:100%; height:150px; display:block; }
-.rig .nm{ font-size:20px; font-weight:900; color:var(--warn); margin:4px 0 2px; }
-.rig .nm span{ font-size:14px; color:var(--muted); font-weight:500; margin-left:6px; }
-.rig ul{ list-style:none; margin:0; padding:0; }
-.rig li{ font-size:14.5px; color:#cdd6df; line-height:1.5; padding-left:14px; position:relative; }
-.rig li::before{ content:'›'; position:absolute; left:2px; color:var(--accent2); font-weight:900; }
+/* ---------- 案例 ---------- */
+.case-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:start}
+.case{padding:20px 22px;border-left:4px solid var(--bad)}
+.case h3{color:var(--bad);font-size:22px;margin-bottom:10px}
+.case .tl{display:grid;grid-template-columns:86px 1fr;gap:6px 12px;font-size:17px;line-height:1.5;color:var(--ink-2)}
+.case .tl b{font:700 14px 'JetBrains Mono','Noto Sans TC',monospace;color:var(--ink-3);padding-top:3px}
+.rev{display:flex;flex-direction:column;gap:12px}
+.rv{position:relative;padding:14px 18px;cursor:pointer;transition:all .3s;border-left:4px solid var(--ink-4)}
+.rv:hover{border-color:var(--ink-3)}
+.rv .L{font:700 30px 'JetBrains Mono',monospace;color:var(--accent);float:left;width:44px;line-height:1.1}
+.rv h4{font-size:19px}
+.rv .q{font-size:16px;color:var(--ink-3);margin-top:2px}
+.rv .a{clear:both;font-size:16.5px;color:var(--accent2);line-height:1.5;max-height:0;opacity:0;overflow:hidden;transition:all .45s ease}
+.rv.open{border-left-color:var(--accent)} .rv.open .a{max-height:120px;opacity:1;margin-top:8px;padding-top:8px;border-top:1px dashed var(--ink-4)}
+.rv.open .tap{color:var(--accent2)}
 
-/* VS */
-.vs{ display:grid; grid-template-columns:1fr 54px 1fr; align-items:stretch; }
-.vs .mid{ display:flex; align-items:center; justify-content:center; font-size:30px; font-weight:900; color:#5a6775; }
-.vs .col{ border-radius:14px; padding:16px 18px; background:var(--card); }
-.vs .col.a{ border-top:4px solid var(--accent); } .vs .col.b{ border-top:4px solid var(--accent2); }
-.vs .col h3{ font-size:28px; } .vs .col.a h3{ color:var(--accent); } .vs .col.b h3{ color:var(--accent2); }
+/* ---------- SREDDA 總覽 ---------- */
+.sred-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.sred{position:relative;padding:16px 18px;text-align:left;cursor:pointer;transition:all .3s;border-top:3px solid var(--accent2);display:grid;grid-template-columns:64px 1fr;gap:4px 14px;align-items:center}
+.reveal .sred img{width:60px;height:60px;object-fit:contain;grid-row:span 2;filter:drop-shadow(0 0 10px rgba(76,201,240,.45))}
+.sred .L{font:700 13.5px 'JetBrains Mono',monospace;color:var(--ink-3);letter-spacing:.12em}
+.sred h4{font-size:22px} .sred h4 small{font:500 15px 'JetBrains Mono',monospace;color:var(--accent2);margin-left:8px}
+.sred .d{grid-column:1/3;font-size:16px;color:var(--ink-2);line-height:1.5;margin-top:6px}
+.sred .x{grid-column:1/3;font-size:15.5px;color:var(--accent2);line-height:1.5;max-height:0;opacity:0;overflow:hidden;transition:all .4s}
+.sred.open{border-top-color:var(--accent)} .sred.open .x{max-height:100px;opacity:1;margin-top:6px;padding-top:6px;border-top:1px dashed var(--ink-4)}
 
-/* 數字記憶條 */
-.mnemo{ display:flex; gap:10px; justify-content:center; align-items:center; flex-wrap:wrap; margin:6px 0 14px; }
-.mnemo .n{ width:84px; padding:8px 0; border-radius:12px; text-align:center; font-weight:900; font-size:34px; background:rgba(255,255,255,.06); border:1px solid var(--line); }
-.mnemo .n small{ display:block; font-size:13px; color:var(--muted); font-weight:500; }
-.mnemo .arrow{ font-size:34px; color:var(--accent); font-weight:900; margin:0 8px; }
+/* ---------- 原則頁 ---------- */
+.pr-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.pr{padding:20px 22px}
+.pr .top{display:flex;align-items:baseline;gap:14px;margin-bottom:10px}
+.pr .big{font:700 74px/1 'JetBrains Mono',monospace;color:var(--accent);text-shadow:0 0 24px rgba(255,122,47,.35)}
+.pr .top h3{font-size:26px} .pr .top h3 small{display:block;font:500 14px 'JetBrains Mono',monospace;color:var(--accent2);letter-spacing:.12em;margin-top:4px}
 
-/* 角度實驗室 */
-.lab{ display:grid; grid-template-columns:1.25fr 1fr; gap:18px; align-items:start; }
-.lab svg{ width:100%; height:auto; background:rgba(0,0,0,.25); border:1px solid var(--line); border-radius:14px; }
-.ctrl label{ display:flex; justify-content:space-between; font-size:18px; font-weight:700; margin-top:10px; }
-.ctrl input[type=range]{ width:100%; accent-color:var(--accent2); touch-action:none; height:28px; }
-.seg{ display:flex; gap:8px; margin-top:4px; }
-.seg button{ flex:1; padding:9px; border-radius:10px; border:1px solid var(--line); background:rgba(255,255,255,.06); color:#ddd; font-family:inherit; font-size:16px; font-weight:700; cursor:pointer; }
-.seg button.on{ background:var(--accent2); color:#0d1117; border-color:var(--accent2); }
-.readout{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
-.readout .r{ border-radius:12px; padding:10px; text-align:center; background:rgba(255,255,255,.06); border:1px solid var(--line); }
-.readout .r .v{ font-size:38px; font-weight:900; line-height:1.1; }
-.readout .r .k{ font-size:14px; color:var(--muted); }
-.zone{ margin-top:10px; border-radius:10px; padding:9px 12px; font-size:16px; font-weight:700; }
+/* ---------- 對照表 ---------- */
+table.t{width:100%;border-collapse:collapse;font-size:17px}
+table.t th{color:var(--accent2);font-weight:700;padding:10px;border-bottom:2px solid rgba(76,201,240,.4);text-align:center;font-size:17px}
+table.t th small{display:block;font-size:13px;color:var(--ink-3);font-weight:500}
+table.t td{padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.07);text-align:center;color:var(--ink-2);transition:background .2s}
+table.t td.l{text-align:left;color:var(--ink);font-weight:700}
+table.t tr.row{cursor:pointer}
+table.t tr.row:hover td,table.t tr.row.on td{background:rgba(255,122,47,.09)}
+table.t tr.hi td{background:rgba(129,199,132,.12)}
 
-/* 甜蜜點條 */
-.zbar{ position:relative; height:46px; border-radius:10px; overflow:hidden; display:flex; margin:10px 0 4px; }
-.zbar div{ display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:700; color:#0d1117; }
-.zticks{ position:relative; height:22px; font-size:13px; color:var(--muted); }
-.zticks span{ position:absolute; transform:translateX(-50%); }
+/* ---------- 分力 vs 均力 ---------- */
+.vs{display:grid;grid-template-columns:1fr 54px 1fr;align-items:stretch}
+.vs .mid{display:flex;align-items:center;justify-content:center;font:700 26px 'JetBrains Mono',monospace;color:var(--ink-4)}
+.vs .col{padding:18px 20px}
+.vs .col.a{border-top:3px solid var(--accent)} .vs .col.b{border-top:3px solid var(--accent2)}
+.vs .col h3{font-size:26px} .vs .col.a h3{color:var(--accent)} .vs .col.b h3{color:var(--accent2)}
+.vs .col h3 small{font:500 14px 'JetBrains Mono',monospace;color:var(--ink-3);margin-left:8px}
+.vs svg{width:100%;height:160px;display:block;margin:8px 0}
 
-/* 互動通用 */
-.ui-input{ width:100%; padding:10px 12px; border-radius:8px; border:1px solid rgba(79,195,247,.3); background:rgba(255,255,255,.08); color:#fff; font-size:15px; box-sizing:border-box; font-family:inherit; outline:none; }
-.ui-btn{ padding:10px 14px; background:var(--accent2); color:#0d1117; border:none; border-radius:8px; font-weight:700; font-size:15px; cursor:pointer; font-family:inherit; }
-.ui-btn:disabled{ opacity:.5; cursor:default; }
-.live-badge{ display:inline-block; background:#ff4757; color:#fff; padding:2px 8px; border-radius:10px; font-size:13px; vertical-align:middle; animation:pulse 1.5s infinite; margin-left:8px; font-weight:700; }
-@keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:.55;} }
-.qa-item{ background:rgba(255,255,255,.06); border-left:3px solid var(--accent); border-radius:8px; padding:10px 12px; margin-bottom:8px; font-size:14px; display:flex; align-items:center; gap:10px; }
-.qa-text{ flex:1; color:#eee; line-height:1.5; text-align:left; word-break:break-word; }
-.qa-like{ flex:0 0 auto; background:rgba(232,100,58,.15); border:1px solid rgba(232,100,58,.4); color:var(--accent); border-radius:20px; padding:4px 10px; cursor:pointer; font-size:13px; font-family:inherit; white-space:nowrap; }
+/* ---------- 架設卡（點擊展開要點） ---------- */
+.rigs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.rigs.two{grid-template-columns:1fr 1fr;gap:22px}
+.rig{position:relative;padding:12px 14px 14px;cursor:pointer;transition:transform .3s,border-color .3s}
+.rig:hover{transform:translateY(-4px);border-color:var(--ink-4)}
+.rig svg{width:100%;height:150px;display:block}
+.rigs.two .rig svg{height:180px}
+.rig .no{font:700 13px 'JetBrains Mono',monospace;color:var(--ink-3);letter-spacing:.15em;margin-top:4px}
+.rig .nm{font-size:22px;font-weight:900;color:var(--warn);line-height:1.2;margin:2px 0 4px}
+.rig .nm small{font:500 14px 'JetBrains Mono',monospace;color:var(--ink-3);margin-left:6px}
+.rig .d{font-size:16px;color:var(--ink-2);line-height:1.5}
+.rig .sol{font-size:15.5px;color:var(--accent2);line-height:1.5;max-height:0;opacity:0;overflow:hidden;transition:all .45s ease}
+.rig .sol ul{padding-left:1.1em}
+.rig.open .sol{max-height:200px;opacity:1;margin-top:8px;padding-top:8px;border-top:1px dashed var(--ink-4)}
+.rig.open .tap{color:var(--accent2)}
 
-/* 提問牆側邊欄 */
-#qa-sidebar{ position:fixed; top:0; left:0; height:100vh; width:340px; background:linear-gradient(180deg,#141a2e,#0d1117); border-right:1px solid rgba(79,195,247,.25); box-shadow:6px 0 30px rgba(0,0,0,.55); transform:translateX(-100%); transition:transform .35s ease; z-index:1000; font-family:'Noto Sans TC','Microsoft JhengHei',sans-serif; color:#eee; }
-@media (max-width:380px){ #qa-sidebar{ width:300px; } }
-#qa-sidebar.open{ transform:translateX(0); }
-#qa-sidebar .qa-inner{ display:flex; flex-direction:column; height:100%; padding:26px 20px; box-sizing:border-box; }
-#qa-handle{ position:absolute; right:-46px; top:auto; bottom:24px; width:46px; padding:14px 0; opacity:.85; background:var(--accent); color:#fff; border:none; border-radius:0 12px 12px 0; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:6px; font-family:inherit; box-shadow:3px 0 12px rgba(0,0,0,.4); }
-#qa-handle .qh-dot{ width:7px; height:7px; border-radius:50%; background:#fff; animation:pulse 1.5s infinite; }
-#qa-overlay{ position:fixed; inset:0; background:rgba(0,0,0,.45); opacity:0; pointer-events:none; transition:opacity .35s; z-index:999; }
-#qa-overlay.show{ opacity:1; pointer-events:auto; }
-#admin-reset{ position:fixed; right:14px; bottom:70px; z-index:1100; display:none; background:rgba(239,83,80,.9); color:#fff; border:none; border-radius:10px; padding:10px 14px; font-weight:700; font-family:inherit; cursor:pointer; }
+/* ---------- 3·6·9·12 ---------- */
+.mnemo{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:4px 0 20px}
+.mnemo .n{width:96px;padding:10px 0;border-radius:14px;text-align:center;font:700 40px/1 'JetBrains Mono',monospace;background:var(--card);border:1px solid var(--line)}
+.mnemo .n small{display:block;font:500 13px 'Noto Sans TC';color:var(--ink-3);margin-top:6px}
+.mnemo .arrow{font:700 36px 'JetBrains Mono',monospace;color:var(--accent);margin:0 10px}
+.p15-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:start}
+.formula{padding:20px 22px}
+.formula .f{font:700 26px 'JetBrains Mono','Noto Sans TC',monospace;color:var(--ink);text-align:center;margin:12px 0 16px;padding:14px;border-radius:12px;background:rgba(76,201,240,.08);border:1px solid rgba(76,201,240,.3)}
 
-/* ===== 手機直式 ===== */
-body.mobile .reveal{ font-size:18px; }
+/* ---------- 角度實驗室 ---------- */
+.lab{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:start}
+.lab svg{width:100%;height:auto;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:14px;display:block}
+.ctrl label{display:flex;justify-content:space-between;font-size:18px;font-weight:700;margin-top:12px}
+.ctrl input[type=range]{width:100%;accent-color:var(--accent2);touch-action:none;height:28px}
+.seg{display:flex;gap:8px}
+.seg .btn{flex:1;border-radius:10px;padding:9px}
+.readout{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.readout .r{padding:10px;text-align:center}
+.readout .r .v{font:700 40px/1.1 'JetBrains Mono',monospace}
+.readout .r .k{font-size:14px;color:var(--ink-3)}
+.zone{margin-top:10px;border-radius:10px;padding:9px 12px;font-size:16px;font-weight:700}
+
+/* ---------- 圖表 ---------- */
+.chart-box{position:relative;height:430px;padding:16px 18px 10px}
+
+/* ---------- 甜蜜點 ---------- */
+.zbar{display:flex;height:50px;border-radius:12px;overflow:hidden;margin:8px 0 4px}
+.zbar div{display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#0d1117}
+.zticks{position:relative;height:22px;font:500 13px 'JetBrains Mono',monospace;color:var(--ink-3)}
+.zticks span{position:absolute;transform:translateX(-50%)}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:16px}
+.three .card{padding:16px 18px}
+.three .card .v{font:700 34px 'JetBrains Mono',monospace;line-height:1.1;margin:4px 0}
+.three .card p{font-size:16.5px;color:var(--ink-2)}
+
+/* ---------- 輔助繩 ---------- */
+.cords{display:flex;flex-direction:column;gap:10px}
+.cord{display:grid;grid-template-columns:70px 1fr 90px;align-items:center;gap:14px}
+.cord .dm{font:700 20px 'JetBrains Mono',monospace}
+.cord .track{height:14px;border-radius:7px;background:rgba(255,255,255,.06);overflow:hidden}
+.cord .fill{height:100%;width:0;border-radius:7px;background:var(--accent2);transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+.cord .kn{font:700 18px 'JetBrains Mono',monospace;text-align:right;color:var(--ink)}
+.cord .kn small{font-size:12px;color:var(--ink-3)}
+
+/* ---------- 檢核清單 ---------- */
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.chk{display:grid;grid-template-columns:52px 1fr 34px;align-items:center;gap:14px;padding:12px 16px;cursor:pointer;transition:all .3s}
+.chk .L{width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font:700 22px 'JetBrains Mono',monospace;color:var(--ink-3);transition:all .3s}
+.chk h4{font-size:18.5px} .chk p{font-size:15px;color:var(--ink-3)}
+.chk .box{width:30px;height:30px;border-radius:8px;border:2px solid var(--ink-4);display:flex;align-items:center;justify-content:center;font-weight:900;color:#111}
+.chk.on{border-color:var(--ok)} .chk.on .L{background:var(--ok);color:#111} .chk.on .box{background:var(--ok);border-color:var(--ok)}
+.chk-result{margin-top:16px;padding:14px 18px;border-radius:12px;font-size:20px;font-weight:700;background:rgba(255,183,77,.08);border:1px solid rgba(255,183,77,.35);color:var(--warn);transition:all .3s}
+.chk-result.done{background:rgba(129,199,132,.12);border-color:var(--ok);color:var(--ok)}
+
+/* ---------- 結尾 ---------- */
+.end{text-align:center}
+.end .thx{font-size:80px;font-weight:900}
+.end .thx2{font-size:var(--t2);color:var(--ink-2);margin-top:6px}
+.end img{height:140px;margin-top:30px !important;opacity:.95}
+.src{font-size:13.5px;color:var(--ink-3);margin-top:12px;line-height:1.5}
+
+/* ---------- 講稿面板 ---------- */
+#notes{position:fixed;right:18px;bottom:40px;width:min(580px,90vw);z-index:60;background:rgba(10,15,28,.96);border:1px solid var(--line);border-radius:14px;padding:14px 18px;display:none;box-shadow:0 20px 50px rgba(0,0,0,.5);font-family:'Noto Sans TC',sans-serif}
+#notes.show{display:block}
+#notes .meta{display:flex;justify-content:space-between;font:500 14px 'JetBrains Mono','Noto Sans TC',monospace;color:var(--ink-3);margin-bottom:8px}
+#notes .meta .tm{color:var(--accent2)} #notes .meta .tm.over{color:var(--accent)}
+#notes .txt{font-size:18px;line-height:1.7;color:var(--ink);max-height:48vh;overflow:auto}
+#notes .txt p{margin:0 0 8px}
+
+/* ---------- 互動通用 ---------- */
+.ui-input{width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(76,201,240,.3);background:rgba(255,255,255,.08);color:#fff;font-size:16px;box-sizing:border-box;font-family:inherit;outline:none}
+.ui-btn{padding:10px 14px;background:var(--accent2);color:#0d1117;border:none;border-radius:8px;font-weight:700;font-size:16px;cursor:pointer;font-family:inherit}
+.ui-btn:disabled{opacity:.5;cursor:default}
+.qa-item{background:rgba(255,255,255,.06);border-left:3px solid var(--accent);border-radius:8px;padding:10px 12px;margin-bottom:8px;font-size:16px;display:flex;align-items:center;gap:10px}
+.qa-text{flex:1;color:#eee;line-height:1.5;text-align:left;word-break:break-word}
+.qa-like{flex:0 0 auto;background:rgba(255,122,47,.15);border:1px solid rgba(255,122,47,.4);color:var(--accent);border-radius:20px;padding:4px 10px;cursor:pointer;font-size:15px;font-family:inherit;white-space:nowrap}
+
+/* ---------- 全域提問牆 ---------- */
+#qa-sidebar{position:fixed;top:0;left:0;height:100vh;width:360px;background:linear-gradient(180deg,#141a2e,#0d1117);border-right:1px solid rgba(76,201,240,.25);box-shadow:6px 0 30px rgba(0,0,0,.55);transform:translateX(-100%);transition:transform .35s ease;z-index:1000;font-family:'Noto Sans TC',sans-serif;color:var(--ink)}
+@media (max-width:380px){#qa-sidebar{width:300px}}
+#qa-sidebar.open{transform:translateX(0)}
+#qa-sidebar .qa-inner{display:flex;flex-direction:column;height:100%;padding:24px 18px;box-sizing:border-box}
+#qa-handle{position:absolute;right:-44px;top:50%;transform:translateY(-50%);width:44px;padding:16px 0;background:var(--accent);color:#fff;border:none;border-radius:0 12px 12px 0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;font-family:inherit;box-shadow:3px 0 12px rgba(0,0,0,.4)}
+#qa-handle .qh-dot{width:7px;height:7px;border-radius:50%;background:#fff;animation:pulse 1.5s infinite}
+#qa-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .35s;z-index:999}
+#qa-overlay.show{opacity:1;pointer-events:auto}
+
+/* ---------- 📱 手機 ---------- */
 body.mobile .reveal .slides > section.present,
 body.mobile .reveal .slides > section.past,
-body.mobile .reveal .slides > section.future{ height:100%; box-sizing:border-box; display:flex; flex-direction:column; justify-content:safe center; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch; padding:16px 12px 70px; scrollbar-width:none; }
-body.mobile .reveal .slides > section::-webkit-scrollbar{ display:none; }
-body.mobile .reveal .controls{ right:10px; bottom:10px; }
-body.mobile .reveal .controls .controls-arrow{ width:52px; height:52px; }
-body.mobile .reveal h1{ font-size:40px; }
-body.mobile .reveal h2{ font-size:28px; }
-body.mobile .reveal h3{ font-size:21px; }
-body.mobile .grid2, body.mobile .grid3, body.mobile .lab, body.mobile .wc-wrap, body.mobile .case-grid{ grid-template-columns:1fr !important; }
-body.mobile .grid4{ grid-template-columns:1fr 1fr; }
-body.mobile .sred-grid{ grid-template-columns:1fr 1fr; }
-body.mobile .vs{ grid-template-columns:1fr; } body.mobile .vs .mid{ padding:6px 0; font-size:22px; }
-body.mobile .prin{ grid-template-columns:70px 1fr; gap:10px; } body.mobile .prin .big{ font-size:58px; } body.mobile .prin .big small{ font-size:12px; }
-body.mobile .blist li{ font-size:17px; }
-body.mobile table.t{ font-size:14px; } body.mobile table.t th, body.mobile table.t td{ padding:6px 4px; }
-body.mobile .mnemo .n{ width:62px; font-size:26px; }
-body.mobile .wc-canvas-box{ height:300px !important; }
-body.mobile .wc-form{ display:flex; gap:8px; align-items:center; }
-body.mobile .wc-form .ui-input{ flex:1 1 auto; min-width:0; font-size:16px; }
-body.mobile .wc-form #wc-btn{ width:auto !important; margin-top:0 !important; flex:0 0 auto; white-space:nowrap; }
-body.mobile .chart-box{ height:320px !important; }
-body.mobile .title-slide .subtitle{ font-size:19px; }
-body.mobile .chip{ font-size:15px; }
-body.mobile #qa-handle{ top:auto; bottom:16px; right:-48px; transform:none; width:48px; height:48px; padding:0; border-radius:50%; justify-content:center; align-items:center; }
-body.mobile #qa-handle > span:nth-child(2), body.mobile #qa-handle .qh-dot{ display:none; }
+body.mobile .reveal .slides > section.future{height:100%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:safe center;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:16px 12px 64px;scrollbar-width:none}
+body.mobile .reveal .slides > section::-webkit-scrollbar{display:none}
+body.mobile .reveal .controls{right:10px;bottom:10px}
+body.mobile .reveal .controls .controls-arrow{width:52px;height:52px}
+body.mobile .inner{width:100%}
+body.mobile .grid2,body.mobile .poll-grid,body.mobile .wc-grid,body.mobile .case-grid,body.mobile .pr-grid,body.mobile .p15-grid,body.mobile .lab,body.mobile .three,body.mobile .checks,body.mobile .rigs.two{grid-template-columns:1fr;gap:14px}
+body.mobile .sred-grid,body.mobile .rigs{grid-template-columns:1fr 1fr;gap:10px}
+body.mobile .sred{grid-template-columns:1fr} body.mobile .sred img{grid-row:auto}
+body.mobile .vs{grid-template-columns:1fr} body.mobile .vs .mid{padding:6px 0;font-size:20px}
+body.mobile .popt{grid-template-columns:30px 1fr 50px}
+body.mobile .popt .bar{grid-column:2/4;grid-row:2}
+body.mobile .popt .pc{grid-column:3;grid-row:1}
+body.mobile .qr-card,body.mobile .join{display:none}
+body.mobile .reveal h2{font-size:28px} body.mobile .cover h1{font-size:40px} body.mobile .cover .lead{font-size:18px}
+body.mobile .pr .big{font-size:52px}
+body.mobile .mnemo .n{width:66px;font-size:28px}
+body.mobile table.t{font-size:13.5px} body.mobile table.t th,body.mobile table.t td{padding:6px 4px}
+body.mobile .wc-box{height:300px}
+body.mobile .chart-box{height:320px}
+body.mobile .ui-input{font-size:18px}
+body.mobile #hint,body.mobile #notes,body.mobile #section-tag,body.mobile #pageInfo{display:none !important}
+body.mobile #logo{height:34px}
+body.mobile #qa-handle{top:auto;bottom:16px;right:-48px;transform:none;width:48px;height:48px;padding:0;border-radius:50%;justify-content:center;align-items:center}
+body.mobile #qa-handle > span:nth-child(2),body.mobile #qa-handle .qh-dot{display:none}
+/* 截圖模式（?shot）：關閉動畫；聽眾版（?clean）：隱藏操作介面、展開所有點擊內容 */
+html.shot *,html.shot *::before,html.shot *::after{transition:none !important;animation:none !important}
+html.clean #hint,html.clean #qa-sidebar,html.clean #qa-overlay,html.clean #notes,html.clean .reveal .controls,html.clean .reveal .progress,html.clean .tap{display:none !important}
+html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opacity:1;margin-top:8px;padding-top:8px;border-top:1px dashed var(--ink-4)}
 </style>
 </head>
 <body>
+<div id="section-tag"></div>
+<img id="logo" src="images/more-logo-white.png" alt="MoRE">
+<div id="pageInfo"></div>
+<div id="hint"><b>← →</b> 切頁 · <b>F</b> 全螢幕 · <b>N</b> 講稿／計時 · <b>T</b> 計時歸零 · <b>S</b> 講者視窗</div>
+
 <div class="reveal">
 <div class="slides">
 
-<!-- 1 封面 -->
-<section data-background-image="images/cover.jpg" data-background-opacity="0.5" data-background-size="cover">
-  <div class="title-slide">
-    <div class="tag">山域搜救 · 繩索技術</div>
+<!-- ================= P1 封面 ================= -->
+<section data-page="1" data-section="引起動機" data-background-image="images/cover.jpg" data-background-opacity="0.55" data-background-size="cover">
+  <div class="inner cover">
+    <div class="kicker">山域搜救繩索技術 · 固定點系統</div>
     <h1>固定點架設</h1>
-    <p class="subtitle">原則先行，再談繩結；角度決定每一個點承受多少力</p>
-    <div class="chips">
-      <span class="chip">SREDDA 原則</span>
-      <span class="chip">分力 × 均力</span>
-      <span class="chip">夾角與偏離受力</span>
-    </div>
+    <p class="lead">先有原則，再談繩結；<br>夾角，決定每一個點承受多少力。</p>
+    <div class="tags"><span>SREDDA 原則</span><span>分力 × 均力</span><span>夾角與偏離受力</span></div>
+    <div class="who"><div class="bar"></div><div>
+      <div class="name">尤翰彬 <span style="font-size:18px;color:var(--ink-2);font-weight:500">執行長</span></div>
+      <div class="org">台灣山域搜救技能交流（MoRE）</div>
+    </div></div>
+    <div class="card join"><div class="qr" id="qr-cover"></div><div><p><b>掃描加入互動</b><br>文字雲・投票・匿名提問</p></div></div>
   </div>
+  <aside class="notes" data-sec="30"><p>大家好，今天這堂課的主題是固定點架設。先請大家用手機掃右下角的 QR code，等一下有文字雲和投票，有問題也可以隨時從左邊的提問牆匿名提問。</p><p>今天分三段：第一段是架設原則 SREDDA；第二段是分力與均力的架設方法；第三段是兩個固定點的受力，也就是夾角和偏離會讓每個點承受多少力。</p></aside>
 </section>
 
-<!-- 2 破冰文字雲 -->
-<section id="slide-wordcloud" data-background-image="images/icebreak.jpg" data-background-opacity="0.18" data-background-size="cover">
-  <span class="kicker">破冰</span>
-  <h2>架設固定點時，你<span class="hl">第一個</span>檢查什麼？<span class="live-badge">LIVE</span></h2>
-  <div class="wc-wrap" style="display:grid; grid-template-columns:270px 1fr; gap:16px;">
-    <div style="display:flex; flex-direction:column; gap:10px;">
-      <div class="card" style="padding:14px;">
-        <div style="font-size:15px; color:var(--accent2); font-weight:700; margin-bottom:8px;">輸入一個關鍵詞（可多次送出）</div>
-        <div class="wc-form">
-          <input id="wc-input" class="ui-input" type="text" placeholder="例如：岩質、樹徑…" maxlength="20" />
-          <button id="wc-btn" class="ui-btn" style="width:100%; margin-top:8px;">送出 ↵</button>
+<!-- ================= 破冰文字雲 ================= -->
+<section id="wordcloud" data-page="Q" data-section="引起動機" data-background-image="images/icebreak.jpg" data-background-opacity="0.18" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">文字雲 · 破冰 <span class="live-badge">LIVE</span></div><h2>架設固定點時，你第一個檢查什麼？</h2><p class="sub">用手機輸入一個關鍵詞，可以送出多次</p></div>
+    <div class="wc-grid">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="card" style="padding:14px">
+          <input id="wc-input" class="ui-input" type="text" placeholder="例如：岩質、樹徑、方向…" maxlength="20" />
+          <button id="wc-btn" class="ui-btn" style="width:100%;margin-top:8px">送出 ↵</button>
+          <div class="ixStatus" id="wcStatus"></div>
+        </div>
+        <div class="card" style="padding:14px">
+          <div class="kicker" style="margin-bottom:6px">熱門答案</div>
+          <div id="wc-list"></div>
+          <div class="note" style="margin-top:8px;border-top:1px solid var(--line);padding-top:6px">總提交 <b id="wc-total" class="hl">0</b>　不同答案 <b id="wc-unique" class="hl2">0</b></div>
         </div>
       </div>
-      <div class="card" style="padding:14px; height:270px; display:flex; flex-direction:column;">
-        <div style="font-size:15px; color:var(--accent2); font-weight:700; margin-bottom:6px;">熱門答案</div>
-        <div id="wc-list" style="font-size:15px; overflow-y:auto; flex:1; color:#ccc;"></div>
-        <div style="margin-top:6px; font-size:13px; color:#7a8794; border-top:1px solid rgba(255,255,255,.08); padding-top:6px;">總提交 <span id="wc-total" class="hl">0</span>　不同答案 <span id="wc-unique" class="hl2">0</span></div>
+      <div class="card wc-box"><canvas id="wc-canvas" style="width:100%;height:100%;display:block"></canvas>
+        <div id="wc-empty" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--ink-4);font-size:20px;text-align:center;pointer-events:none;line-height:2">輸入第一個答案<br>文字雲就會出現</div></div>
+    </div>
+  </div>
+  <aside class="notes" data-sec="60"><p>先暖身一下。請大家想一想：當你走到現場、準備架一組固定點，你第一個會檢查什麼？用一個關鍵詞輸入就好。（等 30～40 秒）</p><p>我們看看大家寫了什麼……（挑兩三個詞回應）。這些答案其實都可以放進今天要講的 SREDDA 六個字母裡，等一下我們一個一個對照。</p></aside>
+</section>
+
+<!-- ================= P2 案例 ================= -->
+<section data-page="2" data-section="引起動機" data-background-image="images/why.jpg" data-background-opacity="0.25" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">01 · 為什麼是固定點</div><h2>整套系統，最後都掛在固定點上</h2><p class="sub">人、繩、器材再好，系統也只和<b class="hl">最弱的一環</b>一樣強</p></div>
+    <div class="case-grid">
+      <div class="card case">
+        <h3>2025 年 5 月 · 臺東北絲鬮溪溪降事故</h3>
+        <div class="tl">
+          <b>人員</b><span>3 名經驗豐富的外籍溪降者，含國際溪降嚮導</span>
+          <b>經過</b><span>第 2 人垂降時，把一支<b class="hl">舊的探勘螺栓</b>往<b class="hl">外側方向</b>拉扯</span>
+          <b>失效</b><span>岩質不佳＋螺栓老舊 → 螺栓整支被拉出</span>
+          <b>結果</b><span>約 8 公尺墜落，骨盆骨折</span>
+          <b>救援</b><span>PLB 求救，空勤直升機與地面救援隊接力救出</span>
+        </div>
+        <p class="src">資料：臺東縣消防局新聞稿、同行隊友 Madie 事故紀錄（2025-05）</p>
+      </div>
+      <div class="rev">
+        <p class="body" style="margin-bottom:2px">先想一想：這組固定點哪裡出了問題？<span class="note">（點卡片看分析）</span></p>
+        <div class="card rv"><span class="tap">點擊 → 分析</span><div class="L">S</div><h4>強固</h4><p class="q">岩質和螺栓，夠「強」嗎？</p><p class="a">舊的探勘螺栓＋岩質不佳。第一個人用體重測過，不代表它在每個方向都夠強。</p></div>
+        <div class="card rv"><span class="tap">點擊 → 分析</span><div class="L">R</div><h4>備援</h4><p class="q">如果這個點失效，還有誰撐住？</p><p class="a">只靠<b>單一</b>螺栓，沒有第二個獨立固定點，一失效就是墜落。</p></div>
+        <div class="card rv"><span class="tap">點擊 → 分析</span><div class="L">D</div><h4>方向</h4><p class="q">受力方向有沒有改變？</p><p class="a">第一人沿正確方向受力；第二人改成<b>往外拉</b>，同一個點換個方向就失效。</p></div>
       </div>
     </div>
-    <div class="wc-canvas-box" style="background:rgba(0,0,0,.25); border-radius:14px; overflow:hidden; position:relative; border:1px solid var(--line); height:430px;">
-      <canvas id="wc-canvas" style="width:100%; height:100%; display:block;"></canvas>
-      <div id="wc-empty" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#5a6775; font-size:18px; text-align:center; pointer-events:none; line-height:2;">輸入第一個答案<br>文字雲就會出現 ✨</div>
-    </div>
   </div>
+  <aside class="notes" data-sec="75"><p>先看一個真實案例。2025 年 5 月，臺東北絲鬮溪，三位很有經驗的外籍溪降者，其中還有國際溪降嚮導。第二個人垂降的時候，把一支舊的探勘螺栓往外側拉，岩質不好、螺栓又老舊，整支被拉出來，人掉了大概 8 公尺，骨盆骨折，最後靠 PLB 求救，空勤和地面隊接力救出。</p><p>大家先想想，這組固定點哪裡出了問題？（停 10 秒，再逐張點開）第一，強固：舊螺栓加上岩質差；第二，備援：只有一個點；第三，方向：第一個人沿正確方向受力沒事，第二個人往外拉就失效。這三個問題，剛好就是 SREDDA 裡的三個字母。</p></aside>
 </section>
 
-<!-- 3 為什麼是固定點 -->
-<section data-background-image="images/why.jpg" data-background-opacity="0.25" data-background-size="cover">
-  <span class="kicker">為什麼重要</span>
-  <h2>整套繩索系統，最後都掛在固定點上</h2>
-  <p class="lead">人、繩、器材再好，系統也只和<span class="hl">最弱的一環</span>一樣強。</p>
-  <div class="case-grid" style="display:grid; grid-template-columns:1.35fr 1fr; gap:16px; margin-top:8px;">
-    <div class="card" style="border-left:4px solid var(--danger);">
-      <h3 style="color:var(--danger);">案例｜2025 年 5 月 臺東北絲鬮溪溪降</h3>
-      <ul class="blist orange">
-        <li>3 名經驗豐富的外籍溪降者（含國際溪降嚮導）</li>
-        <li>第 2 人垂降時把一支<span class="hl">舊的探勘螺栓</span>往<span class="hl">外側方向</span>拉扯</li>
-        <li>岩質不佳＋螺栓老舊 → 螺栓整支被拉出，約 8 公尺墜落、骨盆骨折</li>
-        <li>PLB 發出求救，空勤直升機與地面救援隊接力救出</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>用 SREDDA 回頭看</h3>
-      <ul class="blist">
-        <li><b class="hl2">S</b> 岩質與螺栓狀態夠「強」嗎？</li>
-        <li><b class="hl2">R</b> 只靠<b>單一</b>螺栓，沒有備援</li>
-        <li><b class="hl2">D</b> 受力<b>方向</b>改變（往外拉）</li>
-      </ul>
-      <p class="small" style="margin-top:8px;">第一位垂降者有沿正確方向受力，同一個點換個方向就失效。</p>
+<!-- ================= P3 SREDDA 總覽 ================= -->
+<section data-page="3" data-section="維持注意" data-background-image="images/sredda.jpg" data-background-opacity="0.18" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">02 · SREDDA 架設原則</div><h2>架完一組固定點，用六個字母逐一檢查</h2><p class="sub">點卡片看每個字母的檢查重點</p></div>
+    <div class="sred-grid">
+      <div class="card sred"><img src="images/icon_strong.png" alt=""><div class="L">S · 01</div><h4>強固<small>Strong</small></h4><p class="d">每個點都能承受最大預期負荷</p><p class="x">樹要健康、岩要完整、螺栓要可信；連弱方向一起評估。</p></div>
+      <div class="card sred"><img src="images/icon_redundant.png" alt=""><div class="L">R · 02</div><h4>備援<small>Redundant</small></h4><p class="d">任一元件失效，系統仍成立</p><p class="x">至少兩個獨立固定點；繩、扁帶、勾環也不能有單點失效。</p></div>
+      <div class="card sred"><img src="images/icon_equal.png" alt=""><div class="L">E · 03</div><h4>分攤<small>Equalized</small></h4><p class="d">把負荷分配到各固定點</p><p class="x">兩種做法：分力（預先分配）與均力（自動調整）。</p></div>
+      <div class="card sred"><img src="images/icon_distance.png" alt=""><div class="L">D · 04</div><h4>距離<small>Distance</small></h4><p class="d">主力點位置與延展距離</p><p class="x">主力點放岩緣外側；一點失效時，掉落距離越短越好。</p></div>
+      <div class="card sred"><img src="images/icon_direction.png" alt=""><div class="L">D · 05</div><h4>方向<small>Direction</small></h4><p class="d">對準預期的受力方向</p><p class="x">方向一變就要重新評估；螺栓外拉、樹被往上撬都是弱方向。</p></div>
+      <div class="card sred"><img src="images/icon_angle.png" alt=""><div class="L">A · 06</div><h4>角度<small>Angle</small></h4><p class="d">兩腳夾角決定每點受力</p><p class="x">分力夾角 45°～60° 最理想，下限 30°、上限 75°。</p></div>
     </div>
   </div>
-  <p class="src">資料：臺東縣消防局新聞稿與同行隊友 Madie 的事故紀錄（2025-05）</p>
+  <aside class="notes" data-sec="50"><p>今天的架設原則叫 SREDDA，六個字母：Strong 強固、Redundant 備援、Equalized 分攤、Distance 距離、Direction 方向、Angle 角度。</p><p>它的用法很簡單：架完一組固定點，從 S 到 A 逐一檢查一遍。接下來幾頁，我們把每個字母拆開來看。</p></aside>
 </section>
 
-<!-- 4 SREDDA 總覽 -->
-<section data-background-image="images/sredda.jpg" data-background-opacity="0.18" data-background-size="cover">
-  <span class="kicker">原則總覽</span>
-  <h2>SREDDA：架完一組固定點，用六個字母逐一檢查</h2>
-  <div class="sred-grid">
-    <div class="sred"><img src="images/icon_strong.png" alt=""><div class="L">S</div><div class="en">Strong</div><div class="zh">強固</div><div class="d">每個點都能承受最大預期負荷</div></div>
-    <div class="sred"><img src="images/icon_redundant.png" alt=""><div class="L">R</div><div class="en">Redundant</div><div class="zh">備援</div><div class="d">任一元件失效，系統仍成立</div></div>
-    <div class="sred"><img src="images/icon_equal.png" alt=""><div class="L">E</div><div class="en">Equalized</div><div class="zh">分攤</div><div class="d">負荷分配到各固定點（分力／均力）</div></div>
-    <div class="sred"><img src="images/icon_distance.png" alt=""><div class="L">D</div><div class="en">Distance</div><div class="zh">距離</div><div class="d">主力點位置與延展距離</div></div>
-    <div class="sred"><img src="images/icon_direction.png" alt=""><div class="L">D</div><div class="en">Direction</div><div class="zh">方向</div><div class="d">對準受力方向，方向一變就要重新評估</div></div>
-    <div class="sred"><img src="images/icon_angle.png" alt=""><div class="L">A</div><div class="en">Angle</div><div class="zh">角度</div><div class="d">兩腳夾角決定每點受力</div></div>
-  </div>
-</section>
-
-<!-- 5 S + R -->
-<section data-background-image="images/strong.jpg" data-background-opacity="0.18" data-background-size="cover">
-  <span class="kicker">SREDDA ①②</span>
-  <div class="prin">
-    <div class="big">S<small>Strong 強固</small></div>
-    <div>
-      <ul class="blist">
-        <li>天然固定點：<b>健康活樹</b>（非枯木、還有綠葉），登山筆記的基準是樹幹直徑 10 cm 以上；負荷越大要選越粗壯</li>
-        <li>人造固定點：用<b>有認證的 bolt</b>，溪降路線建議 316 不鏽鋼、不混用不同金屬（避免電位差腐蝕）</li>
-        <li>老舊、來歷不明的點，要先打<b>問號</b>：看岩質、看鏽蝕、看裂縫</li>
-      </ul>
-    </div>
-  </div>
-  <div class="prin">
-    <div class="big">R<small>Redundant 備援</small></div>
-    <div>
-      <ul class="blist">
-        <li>至少<b>兩個獨立</b>固定點；溪谷的垂降站原則上都是兩個點</li>
-        <li>不只固定點：繩、扁帶、勾環、主力點都不能只有一個「單點失效」</li>
-        <li>多點合力時，以<b>最弱那一點</b>的強度去估算整組系統</li>
-      </ul>
-    </div>
-  </div>
-  <p class="src">資料：小B《登山筆記 #32 繩結》、2024 高階溪降與傳攀課程筆記</p>
-</section>
-
-<!-- 6 E -->
-<section data-background-image="images/equal.jpg" data-background-opacity="0.18" data-background-size="cover">
-  <span class="kicker">SREDDA ③</span>
-  <div class="prin">
-    <div class="big">E<small>Equalized 分攤</small></div>
-    <div>
-      <p style="font-size:24px;">把負荷<span class="hl">分配</span>到兩個以上的固定點，不讓單一點獨自扛下全部。</p>
-      <div class="grid2" style="margin-top:12px;">
-        <div class="card" style="border-top:4px solid var(--accent);">
-          <h3 style="color:var(--accent);">分力（預先分配）</h3>
-          <p style="font-size:18px;">先把各腳長度綁死，主力點<b>固定</b>不動。受力方向固定時最穩定，某點失效時幾乎<b>不延展</b>。</p>
-        </div>
-        <div class="card" style="border-top:4px solid var(--accent2);">
-          <h3 style="color:var(--accent2);">均力（自動調整）</h3>
-          <p style="font-size:18px;">主力點可在繩上<b>滑動</b>，受力方向小幅改變時仍會重新分攤；但要用<b>限制結</b>控制延展。</p>
-        </div>
+<!-- ================= P4 S + R ================= -->
+<section data-page="4" data-section="維持注意" data-background-image="images/strong.jpg" data-background-opacity="0.18" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">03 · 強固與備援</div><h2>先求「每一點夠強」，再求「壞一點也不倒」</h2></div>
+    <div class="pr-grid">
+      <div class="card pr">
+        <div class="top"><div class="big">S</div><h3>強固<small>STRONG</small></h3></div>
+        <ul class="list">
+          <li><b>天然固定點</b>：健康活樹（非枯木、還有綠葉），登山筆記的基準是樹幹直徑 10 cm 以上；負荷越大，選越粗壯的</li>
+          <li><b>人造固定點</b>：用有認證的 bolt；溪降路線建議 316 不鏽鋼、不混用不同金屬，避免電位差腐蝕</li>
+          <li>老舊、來歷不明的點，先打<b>問號</b>：看岩質、看鏽蝕、看裂縫</li>
+        </ul>
       </div>
-      <p class="small" style="margin-top:12px;">⚠ 「分攤」不等於「一定各 50%」：夾角與受力偏離都會讓分配失衡（第三單元）。</p>
+      <div class="card pr">
+        <div class="top"><div class="big">R</div><h3>備援<small>REDUNDANT</small></h3></div>
+        <ul class="list o">
+          <li>至少<b>兩個獨立</b>固定點；溪谷垂降站原則上都是兩個點</li>
+          <li>不只固定點：繩、扁帶、勾環、主力點，都不能只有一個「單點失效」</li>
+          <li>多點合力時，以<b>最弱那一點</b>的強度估算整組系統</li>
+        </ul>
+      </div>
     </div>
+    <p class="src">資料：小B《登山筆記 #32 繩結》、2024 高階溪降與傳攀課程筆記</p>
   </div>
+  <aside class="notes" data-sec="60"><p>S 是強固。天然固定點要找健康的活樹，不是枯木、還有綠葉，我們登山筆記的基準是直徑 10 公分以上，但負荷越大就要選越粗壯的。人造固定點要用有認證的螺栓，溪降路線建議 316 不鏽鋼，而且不要混用不同金屬，避免電位差腐蝕。遇到老舊、來歷不明的點，先打個問號。</p><p>R 是備援。至少兩個獨立的固定點，溪谷的垂降站原則上都是兩個點。而且不只固定點，繩、扁帶、勾環、主力點，任何一個元件都不能是單點失效。多點合力時，要用最弱那一點的強度去估算。</p></aside>
 </section>
 
-<!-- 7 D + D -->
-<section data-background-image="images/edge.jpg" data-background-opacity="0.18" data-background-size="cover">
-  <span class="kicker">SREDDA ④⑤</span>
-  <div class="prin">
-    <div class="big">D<small>Distance 距離</small></div>
-    <div>
-      <ul class="blist">
-        <li><b>主力點位置</b>：放在岩緣<b>外側</b>，讓繩索自由運行，避免繩在岩角上摩擦</li>
-        <li><b>延展距離</b>：若一個點失效，主力點會掉多遠？距離越長，衝擊負荷越大 → 盡量縮短</li>
-        <li>腿長也會改變<b>夾角</b>：兩點距離固定時，腿越短夾角越大</li>
-      </ul>
+<!-- ================= P5 E ================= -->
+<section data-page="5" data-section="維持注意" data-background-image="images/equal.jpg" data-background-opacity="0.18" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">04 · 分攤</div><h2>E：把負荷分給兩個以上的點</h2><p class="sub">不讓單一點獨自扛下全部，但「分攤」不等於「一定各 50%」</p></div>
+    <div class="pr-grid">
+      <div class="card pr" style="border-top:3px solid var(--accent)">
+        <div class="top"><div class="big" style="font-size:52px">分力</div><h3>預先分配<small>PRE-EQUALIZED</small></h3></div>
+        <ul class="list o">
+          <li>先把各腳長度綁死，主力點<b>固定不動</b></li>
+          <li>受力方向固定時最穩定</li>
+          <li>某點失效時幾乎<b>不延展</b></li>
+        </ul>
+      </div>
+      <div class="card pr" style="border-top:3px solid var(--accent2)">
+        <div class="top"><div class="big" style="font-size:52px;color:var(--accent2);text-shadow:0 0 24px rgba(76,201,240,.35)">均力</div><h3>自動調整<small>SELF-EQUALIZING</small></h3></div>
+        <ul class="list">
+          <li>主力點可以在繩上<b>滑動</b></li>
+          <li>受力方向小幅改變時，會重新分攤</li>
+          <li>要用<b>限制結</b>控制延展</li>
+        </ul>
+      </div>
     </div>
+    <p class="body" style="margin-top:16px">⚠ 夾角與受力偏離，都會讓分配失衡，這是第三單元的重點。</p>
   </div>
-  <div class="prin">
-    <div class="big">D<small>Direction 方向</small></div>
-    <div>
-      <ul class="blist">
-        <li>主力點要<b>對準預期的受力方向</b>（垂降、拖拉、下放的出繩方向）</li>
-        <li>每個固定點都要評估：它在<b>這個方向</b>上夠不夠強？螺栓被外拉、樹被往上撬，都是弱方向</li>
-        <li>受力方向一變，就要重新檢查。北絲鬮溪的螺栓就是在外拉方向失效</li>
-      </ul>
-    </div>
-  </div>
-  <p class="src">Distance／Direction 定義參考 A.D.D.R.E.S.S 原則（ZA Adventure，改編自 Bisson &amp; Barrington）</p>
+  <aside class="notes" data-sec="45"><p>E 是分攤，把負荷分配到兩個以上的點。做法有兩種：分力是預先分配，先把各腳的長度綁死，主力點固定不動；均力是自動調整，主力點可以在繩上滑動。</p><p>這裡先記一件事：分攤不等於一定各 50%。夾角和受力方向偏離，都會讓分配失衡，我們第三單元會用數字來看。</p></aside>
 </section>
 
-<!-- 8 A -->
-<section data-background-image="images/angle.jpg" data-background-opacity="0.32" data-background-size="cover">
-  <span class="kicker">SREDDA ⑥</span>
-  <div class="prin" style="align-items:center;">
-    <div class="big">A<small>Angle 角度</small></div>
-    <div>
-      <h2 style="margin-bottom:8px;">兩腳夾角越大，每個點承受的力越大</h2>
-      <p class="lead">夾角 120° 時，每個固定點都承受 <span class="hl">100%</span> 的負荷，等於沒有分攤。</p>
+<!-- ================= P6 D + D ================= -->
+<section data-page="6" data-section="維持注意" data-background-image="images/edge.jpg" data-background-opacity="0.18" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">05 · 距離與方向</div><h2>主力點放哪裡、朝哪裡受力</h2></div>
+    <div class="pr-grid">
+      <div class="card pr">
+        <div class="top"><div class="big">D</div><h3>距離<small>DISTANCE</small></h3></div>
+        <ul class="list">
+          <li><b>主力點位置</b>：放在岩緣<b>外側</b>，讓繩索自由運行，避免繩在岩角上摩擦</li>
+          <li><b>延展距離</b>：一點失效時主力點會掉多遠？距離越長，衝擊越大，要盡量縮短</li>
+          <li>腿長會改變<b>夾角</b>：兩點距離固定時，腿越短夾角越大</li>
+        </ul>
+      </div>
+      <div class="card pr">
+        <div class="top"><div class="big">D</div><h3>方向<small>DIRECTION</small></h3></div>
+        <ul class="list o">
+          <li>主力點要<b>對準預期的受力方向</b>：垂降、拖拉、下放的出繩方向</li>
+          <li>逐點評估：它在<b>這個方向</b>上夠不夠強？螺栓被外拉、樹被往上撬，都是弱方向</li>
+          <li>受力方向一變，就要重新檢查，北絲鬮溪就是例子</li>
+        </ul>
+      </div>
     </div>
+    <p class="src">Distance／Direction 定義參考 A.D.D.R.E.S.S 原則（ZA Adventure，改編自 Bisson &amp; Barrington）</p>
   </div>
-  <div class="center" style="margin-top:10px;">
-    <svg viewBox="0 0 640 230" style="width:100%; max-width:760px;">
-      <g font-family="Noto Sans TC, sans-serif" font-size="15" fill="#cfd8e2" text-anchor="middle">
-        <!-- 30 -->
-        <circle cx="80" cy="30" r="7" fill="none" stroke="#9fb0c0" stroke-width="3"/><circle cx="160" cy="30" r="7" fill="none" stroke="#9fb0c0" stroke-width="3"/>
-        <line x1="80" y1="30" x2="120" y2="180" stroke="#81c784" stroke-width="4"/><line x1="160" y1="30" x2="120" y2="180" stroke="#81c784" stroke-width="4"/>
-        <text x="120" y="210">30° → 每點 52%</text>
-        <!-- 90 -->
-        <circle cx="250" cy="40" r="7" fill="none" stroke="#9fb0c0" stroke-width="3"/><circle cx="390" cy="40" r="7" fill="none" stroke="#9fb0c0" stroke-width="3"/>
-        <line x1="250" y1="40" x2="320" y2="110" stroke="#ffb74d" stroke-width="4"/><line x1="390" y1="40" x2="320" y2="110" stroke="#ffb74d" stroke-width="4"/>
-        <line x1="320" y1="110" x2="320" y2="180" stroke="#4fc3f7" stroke-width="3"/>
-        <text x="320" y="210">90° → 每點 71%</text>
-        <!-- 120 -->
-        <circle cx="470" cy="70" r="7" fill="none" stroke="#9fb0c0" stroke-width="3"/><circle cx="610" cy="70" r="7" fill="none" stroke="#9fb0c0" stroke-width="3"/>
-        <line x1="470" y1="70" x2="540" y2="110" stroke="#ef5350" stroke-width="4"/><line x1="610" y1="70" x2="540" y2="110" stroke="#ef5350" stroke-width="4"/>
-        <line x1="540" y1="110" x2="540" y2="180" stroke="#4fc3f7" stroke-width="3"/>
-        <text x="540" y="210">120° → 每點 100%</text>
+  <aside class="notes" data-sec="60"><p>兩個 D。第一個 D 是距離：主力點要放在岩緣外側，讓繩子自由運行、不在岩角上摩擦；另外要想一想，萬一一個點失效，主力點會掉多遠，距離越長衝擊越大。腿長也會改變夾角，兩點距離固定時，腿越短夾角越大。</p><p>第二個 D 是方向：主力點要對準預期的受力方向，而且每個點都要問「它在這個方向夠不夠強」。螺栓被外拉、樹被往上撬，都是弱方向。北絲鬮溪的螺栓，就是在外拉的方向失效。</p></aside>
+</section>
+
+<!-- ================= P7 A ================= -->
+<section data-page="7" data-section="維持注意" data-background-image="images/angle.jpg" data-background-opacity="0.32" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">06 · 角度</div><h2>A：夾角越大，每個點承受的力越大</h2><p class="sub">夾角 120° 時，每個點都承受 <b class="hl">100%</b> 的負荷，等於沒有分攤</p></div>
+    <svg viewBox="0 0 1180 330" style="width:100%;display:block">
+      <g font-family="Noto Sans TC, sans-serif" text-anchor="middle">
+        <circle cx="160" cy="40" r="10" fill="none" stroke="#b9c6d8" stroke-width="4"/><circle cx="280" cy="40" r="10" fill="none" stroke="#b9c6d8" stroke-width="4"/>
+        <line x1="160" y1="40" x2="220" y2="264" stroke="#81c784" stroke-width="7"/><line x1="280" y1="40" x2="220" y2="264" stroke="#81c784" stroke-width="7"/>
+        <text x="220" y="304" font-size="24" fill="#eef3fa" font-weight="700">30° → 每點 52%</text>
+        <circle cx="480" cy="60" r="10" fill="none" stroke="#b9c6d8" stroke-width="4"/><circle cx="700" cy="60" r="10" fill="none" stroke="#b9c6d8" stroke-width="4"/>
+        <line x1="480" y1="60" x2="590" y2="170" stroke="#ffb74d" stroke-width="7"/><line x1="700" y1="60" x2="590" y2="170" stroke="#ffb74d" stroke-width="7"/>
+        <line x1="590" y1="170" x2="590" y2="264" stroke="#4cc9f0" stroke-width="5"/>
+        <text x="590" y="304" font-size="24" fill="#eef3fa" font-weight="700">90° → 每點 71%</text>
+        <circle cx="860" cy="110" r="10" fill="none" stroke="#b9c6d8" stroke-width="4"/><circle cx="1100" cy="110" r="10" fill="none" stroke="#b9c6d8" stroke-width="4"/>
+        <line x1="860" y1="110" x2="980" y2="179" stroke="#ef5350" stroke-width="7"/><line x1="1100" y1="110" x2="980" y2="179" stroke="#ef5350" stroke-width="7"/>
+        <line x1="980" y1="179" x2="980" y2="264" stroke="#4cc9f0" stroke-width="5"/>
+        <text x="980" y="304" font-size="24" fill="#eef3fa" font-weight="700">120° → 每點 100%</text>
       </g>
     </svg>
   </div>
+  <aside class="notes" data-sec="40"><p>最後一個字母 A，角度。同樣掛 100 公斤：夾角 30 度時每個點大約 52 公斤；90 度時變成 71 公斤；到了 120 度，每個點都扛 100 公斤，等於完全沒有分攤。</p><p>所以角度不是細節，它直接決定固定點承受多少力。這部分第三單元會再算給大家看。</p></aside>
 </section>
 
-<!-- 9 原則家族 -->
-<section data-background-image="images/sredda.jpg" data-background-opacity="0.14" data-background-size="cover">
-  <span class="kicker">對照</span>
-  <h2>不同課程的縮寫，檢查的是同一件事</h2>
-  <table class="t">
-    <tr><th>核心概念</th><th>SREDDA<br><span class="small">本課</span></th><th>SRENE(A)<br><span class="small">攀登常用</span></th><th>ERNEST<br><span class="small">繩索救援</span></th><th>A.D.D.R.E.S.S</th></tr>
-    <tr><td class="l">夠強固</td><td>Strong</td><td>Solid</td><td>Solid／Strong</td><td>—（以 Score 評分）</td></tr>
-    <tr><td class="l">有備援</td><td>Redundant</td><td>Redundant</td><td>Redundant</td><td>Redundancy</td></tr>
-    <tr><td class="l">負荷分攤</td><td>Equalized</td><td>Equalized</td><td>Equalized</td><td>Equalized</td></tr>
-    <tr><td class="l">不延展／防衝擊</td><td>Distance</td><td>No Extension</td><td>Non-Extending</td><td>Shock load</td></tr>
-    <tr><td class="l">主力點位置與方向</td><td>Distance、Direction</td><td>—</td><td>—</td><td>Distance、Direction</td></tr>
-    <tr><td class="l">夾角</td><td>Angle</td><td>Angle（SRENEA）</td><td>—</td><td>Angle</td></tr>
-    <tr><td class="l">效率</td><td>—</td><td>—</td><td>Timely</td><td>—</td></tr>
-  </table>
-  <p class="src">SRENEA 見 2024 中華山岳傳攀課程表；ERNEST 見 Rigging Lab Academy；A.D.D.R.E.S.S 見 ZA Adventure（2013）</p>
-</section>
-
-<!-- 10 分力 vs 均力 概念 -->
-<section data-background-image="images/rigging.jpg" data-background-opacity="0.16" data-background-size="cover">
-  <span class="kicker">第二單元</span>
-  <h2>分力 vs 均力：主力點「固定」還是「會滑」？</h2>
-  <div class="vs">
-    <div class="col a">
-      <h3>★ 分力 <span class="small">Pre-equalized／Static</span></h3>
-      <svg viewBox="0 0 260 150" style="width:100%; height:150px;">
-        <circle cx="50" cy="20" r="8" fill="none" stroke="#9fb0c0" stroke-width="3"/><circle cx="210" cy="20" r="8" fill="none" stroke="#9fb0c0" stroke-width="3"/>
-        <line x1="50" y1="20" x2="130" y2="100" stroke="#e8643a" stroke-width="4"/><line x1="210" y1="20" x2="130" y2="100" stroke="#e8643a" stroke-width="4"/>
-        <circle cx="130" cy="100" r="9" fill="#e8643a"/><line x1="130" y1="100" x2="150" y2="145" stroke="#4fc3f7" stroke-width="3" stroke-dasharray="5 4"/>
-        <text x="160" y="140" font-size="13" fill="#9fb0c0">受力偏了，主力點不動</text>
-      </svg>
-      <ul class="blist orange">
-        <li>主力點<b>綁死</b>，各腳長度固定</li>
-        <li>一點失效：<b>幾乎不延展</b>，衝擊小</li>
-        <li>受力方向一偏，負荷就<b>集中</b>到一點</li>
-      </ul>
-    </div>
-    <div class="mid">VS</div>
-    <div class="col b">
-      <h3>★ 均力 <span class="small">Self-equalizing</span></h3>
-      <svg viewBox="0 0 260 150" style="width:100%; height:150px;">
-        <circle cx="50" cy="20" r="8" fill="none" stroke="#9fb0c0" stroke-width="3"/><circle cx="210" cy="20" r="8" fill="none" stroke="#9fb0c0" stroke-width="3"/>
-        <line x1="50" y1="20" x2="150" y2="104" stroke="#4fc3f7" stroke-width="4"/><line x1="210" y1="20" x2="150" y2="104" stroke="#4fc3f7" stroke-width="4"/>
-        <ellipse cx="150" cy="104" rx="7" ry="11" fill="none" stroke="#fff" stroke-width="3"/><line x1="150" y1="115" x2="160" y2="145" stroke="#4fc3f7" stroke-width="3" stroke-dasharray="5 4"/>
-        <text x="20" y="140" font-size="13" fill="#9fb0c0">主力點跟著受力方向滑動</text>
-      </svg>
-      <ul class="blist">
-        <li>勾環在繩上<b>滑動</b>，自動重新分攤</li>
-        <li>一點失效：會<b>延展</b> → 需加限制結</li>
-        <li>實際上有繩與勾環摩擦，<b>不會完美</b>均分</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- 11 分力架設 -->
-<section data-background-image="images/rigging.jpg" data-background-opacity="0.12" data-background-size="cover">
-  <span class="kicker">分力架設 ★</span>
-  <h2>分力：四種常見架法</h2>
-  <div class="grid4">
-    <div class="rig">
-      <svg viewBox="0 0 200 160">
-        <circle cx="40" cy="20" r="8" fill="none" stroke="#9fb0c0" stroke-width="3"/><circle cx="160" cy="20" r="8" fill="none" stroke="#9fb0c0" stroke-width="3"/>
-        <path d="M40 28 L100 110 L160 28" fill="none" stroke="#4fc3f7" stroke-width="5" stroke-linejoin="round"/>
-        <rect x="32" y="30" width="16" height="12" rx="4" fill="#e8643a"/><rect x="152" y="30" width="16" height="12" rx="4" fill="#e8643a"/>
-        <ellipse cx="100" cy="112" rx="10" ry="8" fill="#ffb74d"/>
-        <line x1="100" y1="120" x2="100" y2="156" stroke="#4fc3f7" stroke-width="5"/>
-        <text x="112" y="140" font-size="12" fill="#9fb0c0">主繩</text>
-      </svg>
-      <div class="nm">Y-hang<span>Y 字主繩</span></div>
-      <ul><li>主繩直接連結兩點，形成 Y 字</li><li>兩端用 8 字結扣點，交會處就是主力點</li><li>常見於洞穴 SRT 與溪降</li></ul>
-    </div>
-    <div class="rig">
-      <svg viewBox="0 0 200 160">
-        <circle cx="40" cy="20" r="8" fill="none" stroke="#9fb0c0" stroke-width="3"/><circle cx="160" cy="20" r="8" fill="none" stroke="#9fb0c0" stroke-width="3"/>
-        <path d="M94 104 C70 80 40 50 36 26 C44 22 50 30 104 100" fill="none" stroke="#4fc3f7" stroke-width="4.5"/>
-        <path d="M106 104 C130 80 160 50 164 26 C156 22 150 30 96 100" fill="none" stroke="#4fc3f7" stroke-width="4.5"/>
-        <ellipse cx="100" cy="106" rx="13" ry="10" fill="#e8643a"/>
-        <line x1="100" y1="116" x2="100" y2="156" stroke="#4fc3f7" stroke-width="5"/>
-        <text x="116" y="110" font-size="12" fill="#9fb0c0">一結雙耳</text>
-      </svg>
-      <div class="nm">雙耳 8 字結<span>Bunny ears</span></div>
-      <ul><li>一個繩結打出兩個繩耳</li><li>兩耳分別扣入兩個固定點</li><li>先調好兩耳長度再受力</li></ul>
-    </div>
-    <div class="rig">
-      <svg viewBox="0 0 200 160">
-        <circle cx="40" cy="20" r="8" fill="none" stroke="#9fb0c0" stroke-width="3"/><circle cx="160" cy="20" r="8" fill="none" stroke="#9fb0c0" stroke-width="3"/>
-        <path d="M30 22 Q40 40 50 22" fill="none" stroke="#ffb74d" stroke-width="4"/><path d="M150 22 Q160 40 170 22" fill="none" stroke="#ffb74d" stroke-width="4"/>
-        <line x1="40" y1="34" x2="96" y2="106" stroke="#ffb74d" stroke-width="5"/><line x1="160" y1="34" x2="104" y2="106" stroke="#ffb74d" stroke-width="5"/>
-        <ellipse cx="100" cy="114" rx="8" ry="13" fill="none" stroke="#fff" stroke-width="3"/>
-        <line x1="100" y1="127" x2="100" y2="156" stroke="#4fc3f7" stroke-width="5"/>
-        <text x="112" y="70" font-size="12" fill="#9fb0c0">扁帶</text>
-      </svg>
-      <div class="nm">雀頭結<span>Girth Hitch</span></div>
-      <ul><li>扁帶以雀頭結套住樹、岩柱或掛片</li><li>兩條扁帶在主力點匯合</li><li>快速，但雀頭結會降低扁帶強度</li></ul>
-    </div>
-    <div class="rig">
-      <svg viewBox="0 0 200 160">
-        <circle cx="40" cy="20" r="8" fill="none" stroke="#9fb0c0" stroke-width="3"/><circle cx="160" cy="20" r="8" fill="none" stroke="#9fb0c0" stroke-width="3"/>
-        <path d="M36 26 L94 92 M44 26 L98 92" stroke="#ffb74d" stroke-width="3.5"/>
-        <path d="M164 26 L106 92 M156 26 L102 92" stroke="#ffb74d" stroke-width="3.5"/>
-        <ellipse cx="100" cy="98" rx="17" ry="12" fill="#e8643a"/>
-        <ellipse cx="100" cy="124" rx="10" ry="14" fill="none" stroke="#ffb74d" stroke-width="4"/>
-        <line x1="100" y1="138" x2="100" y2="156" stroke="#4fc3f7" stroke-width="5"/>
-        <text x="122" y="102" font-size="12" fill="#9fb0c0">大單結</text>
-      </svg>
-      <div class="nm">BFK<span>Big Fat Knot</span></div>
-      <ul><li>繩環扣兩點，往受力方向拉齊</li><li>打一個大單結／8 字結做主力點</li><li>可再加一個次固定點分力</li></ul>
-    </div>
-  </div>
-  <p class="small" style="margin-top:10px;">共同點：<b class="hl">先對準受力方向再綁死</b>。方向判斷錯，分配就會失衡。</p>
-</section>
-
-<!-- 12 均力架設 -->
-<section data-background-image="images/rigging.jpg" data-background-opacity="0.12" data-background-size="cover">
-  <span class="kicker">均力架設 ★</span>
-  <h2>均力：Sliding X 與 The Quad</h2>
-  <div class="grid2">
-    <div class="rig">
-      <svg viewBox="0 0 300 170" style="height:170px;">
-        <circle cx="60" cy="20" r="8" fill="none" stroke="#9fb0c0" stroke-width="3"/><circle cx="240" cy="20" r="8" fill="none" stroke="#9fb0c0" stroke-width="3"/>
-        <path d="M60 28 L156 112" stroke="#4fc3f7" stroke-width="5"/><path d="M240 28 L144 112" stroke="#4fc3f7" stroke-width="5"/>
-        <path d="M144 112 Q150 122 156 112" fill="none" stroke="#4fc3f7" stroke-width="5"/>
-        <ellipse cx="150" cy="120" rx="9" ry="14" fill="none" stroke="#fff" stroke-width="3"/>
-        <ellipse cx="108" cy="70" rx="9" ry="7" fill="#e8643a"/><ellipse cx="192" cy="70" rx="9" ry="7" fill="#e8643a"/>
-        <line x1="150" y1="134" x2="150" y2="166" stroke="#4fc3f7" stroke-width="4"/>
-        <text x="200" y="98" font-size="13" fill="#ffb74d">限制結</text><text x="40" y="98" font-size="13" fill="#ffb74d">限制結</text>
-        <text x="164" y="130" font-size="13" fill="#9fb0c0">扭成 X 再扣</text>
-      </svg>
-      <div class="nm">Sliding X ／ Knot<span>滑動 X ＋ 限制結</span></div>
-      <ul>
-        <li>繩環扣兩點，<b>一股扭轉成 X</b>，勾環扣進扭轉處；沒扭到，一點失效時勾環會整個脫出</li>
-        <li>兩腳各打一個<b>限制結</b>（Sliding X with stop knots），把失效時的延展鎖在短距離內</li>
-        <li>適合受力方向會小幅改變的情況</li>
-      </ul>
-    </div>
-    <div class="rig">
-      <svg viewBox="0 0 300 170" style="height:170px;">
-        <circle cx="60" cy="20" r="8" fill="none" stroke="#9fb0c0" stroke-width="3"/><circle cx="240" cy="20" r="8" fill="none" stroke="#9fb0c0" stroke-width="3"/>
-        <path d="M56 28 L84 56 M64 28 L88 52" stroke="#ffb74d" stroke-width="3.5"/><path d="M244 28 L216 56 M236 28 L212 52" stroke="#ffb74d" stroke-width="3.5"/>
-        <ellipse cx="88" cy="58" rx="12" ry="9" fill="#e8643a"/><ellipse cx="212" cy="58" rx="12" ry="9" fill="#e8643a"/>
-        <path d="M92 64 L146 116 M98 60 L150 112 M208 64 L154 116 M202 60 L150 112" stroke="#ffb74d" stroke-width="3"/>
-        <ellipse cx="150" cy="122" rx="9" ry="14" fill="none" stroke="#fff" stroke-width="3"/>
-        <line x1="150" y1="136" x2="150" y2="166" stroke="#4fc3f7" stroke-width="4"/>
-        <text x="182" y="128" font-size="13" fill="#9fb0c0">扣中間繩股</text>
-      </svg>
-      <div class="nm">The Quad<span>四股均力</span></div>
-      <ul>
-        <li>繩環<b>對折</b>，靠近兩端各打一個單結，中間形成四股</li>
-        <li>主力點扣入中間繩股（常見做法是扣 4 股中的 3 股），可在小範圍內自動調整</li>
-        <li>延展受兩個單結限制，兼顧均力與低延展</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- 13 何時用 -->
-<section data-background-image="images/equal.jpg" data-background-opacity="0.14" data-background-size="cover">
-  <span class="kicker">選擇</span>
-  <h2>分力還是均力？看「受力方向會不會變」</h2>
-  <table class="t">
-    <tr><th></th><th style="color:var(--accent)">分力（Y-hang／雙耳 8／Girth／BFK）</th><th>均力（Sliding X＋Knot／Quad）</th></tr>
-    <tr><td class="l">主力點</td><td>固定不動</td><td>可滑動、自動調整</td></tr>
-    <tr><td class="l">受力方向改變</td><td class="bad">負荷集中到一點</td><td class="ok">小範圍內重新分攤</td></tr>
-    <tr><td class="l">一點失效時</td><td class="ok">幾乎不延展</td><td class="warn">會延展，要靠限制結控制</td></tr>
-    <tr><td class="l">架設重點</td><td>綁之前先對準受力方向</td><td>X 要扭、限制結不可省</td></tr>
-    <tr><td class="l">適合情境</td><td>受力方向固定：垂降站、溪降、救援主系統</td><td>受力方向會小幅移動：橫移、擺盪、確保站</td></tr>
-  </table>
-  <p class="small" style="margin-top:12px;">兩種都不是萬靈丹。均力在理想狀態下 50／50，但實際受摩擦影響；分力要靠<b class="hl">正確的方向</b>和<b class="hl">合適的夾角</b>才分得平均，這就是下一單元的重點。</p>
-</section>
-
-<!-- 14 投票 -->
-<section id="slide-poll" data-background-image="images/angle.jpg" data-background-opacity="0.16" data-background-size="cover">
-  <span class="kicker">第三單元｜先猜猜看</span>
-  <h2>兩點分力架設，夾角多少最理想？<span class="live-badge">LIVE</span></h2>
-  <div id="poll-options" style="display:flex; flex-direction:column; gap:10px; margin-top:12px;"></div>
-  <div class="small center" style="margin-top:12px;">已投票 <span id="poll-total" class="hl">0</span> 人（可再點一次改票）</div>
-</section>
-
-<!-- 15 3 6 9 12 -->
-<section data-background-image="images/angle.jpg" data-background-opacity="0.14" data-background-size="cover">
-  <span class="kicker">兩個固定點的受力</span>
-  <h2>白板速記：3·6·9·12 → 5·6·7·10</h2>
-  <div class="mnemo">
-    <div class="n">30<small>度</small></div><div class="n">60<small>度</small></div><div class="n">90<small>度</small></div><div class="n">120<small>度</small></div>
-    <div class="arrow">→</div>
-    <div class="n ok">5<small>成</small></div><div class="n ok">6<small>成</small></div><div class="n warn">7<small>成</small></div><div class="n bad">10<small>成</small></div>
-  </div>
-  <div class="grid2" style="grid-template-columns:1.2fr 1fr; align-items:start;">
+<!-- ================= P8 原則對照 ================= -->
+<section data-page="8" data-section="維持注意" data-background-image="images/sredda.jpg" data-background-opacity="0.14" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">07 · 原則對照</div><h2>不同課程的縮寫，檢查的是同一件事</h2><p class="sub">點選列可以標示對照</p></div>
     <table class="t">
-      <tr><th>兩腳夾角 θ</th><th>每個固定點受力</th><th>速記</th></tr>
-      <tr><td>0°（兩腳平行）</td><td>50%</td><td>—</td></tr>
-      <tr><td>30°</td><td>52%</td><td class="ok">≈ 5 成</td></tr>
-      <tr class="hi"><td>60°</td><td>58%</td><td class="ok">≈ 6 成</td></tr>
-      <tr><td>90°</td><td>71%</td><td class="warn">≈ 7 成</td></tr>
-      <tr><td>120°</td><td class="bad">100%</td><td class="bad">10 成</td></tr>
-      <tr><td>150°</td><td class="bad">193%</td><td class="bad">比負荷還大</td></tr>
+      <tr><th>核心概念</th><th>SREDDA<small>本課</small></th><th>SRENE(A)<small>攀登常用</small></th><th>ERNEST<small>繩索救援</small></th><th>A.D.D.R.E.S.S<small>ZA Adventure</small></th></tr>
+      <tr class="row"><td class="l">夠強固</td><td>Strong</td><td>Solid</td><td>Solid／Strong</td><td>以 Score 評分</td></tr>
+      <tr class="row"><td class="l">有備援</td><td>Redundant</td><td>Redundant</td><td>Redundant</td><td>Redundancy</td></tr>
+      <tr class="row"><td class="l">負荷分攤</td><td>Equalized</td><td>Equalized</td><td>Equalized</td><td>Equalized</td></tr>
+      <tr class="row"><td class="l">不延展／防衝擊</td><td>Distance</td><td>No Extension</td><td>Non-Extending</td><td>Shock load</td></tr>
+      <tr class="row"><td class="l">主力點位置與方向</td><td>Distance、Direction</td><td>—</td><td>—</td><td>Distance、Direction</td></tr>
+      <tr class="row"><td class="l">夾角</td><td>Angle</td><td>Angle（SRENEA）</td><td>—</td><td>Angle</td></tr>
+      <tr class="row"><td class="l">效率</td><td>—</td><td>—</td><td>Timely</td><td>—</td></tr>
     </table>
-    <div class="card">
-      <h3>算法（完美均分時）</h3>
-      <p style="font-size:26px; text-align:center; margin:10px 0;"><b>每點受力 = W ÷ ( 2 × cos(θ/2) )</b></p>
-      <p style="font-size:17px;">例：負荷 100 kg、夾角 90° → 每點約 <b class="hl">71 kg</b>；夾角 120° → 每點 <b class="bad">100 kg</b>，等於沒分攤。</p>
-      <p class="small">夾角越大，水平分力互相拉扯越多，固定點要承受的力也越大。</p>
-    </div>
+    <p class="src">SRENEA 見 2024 中華山岳傳攀課程表；ERNEST 見 Rigging Lab Academy；A.D.D.R.E.S.S 見 ZA Adventure（2013）</p>
   </div>
+  <aside class="notes" data-sec="40"><p>大家在不同課程可能聽過 SRENE、SRENEA、ERNEST、A.D.D.R.E.S.S 這些縮寫。名字不一樣，但檢查的是同一件事：夠不夠強、有沒有備援、有沒有分攤、會不會延展、方向和角度對不對。</p><p>SREDDA 的特色是把「距離」和「方向」拉出來單獨檢查，這兩項在溪降和救援現場特別重要。</p></aside>
 </section>
 
-<!-- 16 角度實驗室 -->
-<section id="slide-lab" data-background-image="images/lab.jpg" data-background-opacity="0.12" data-background-size="cover">
-  <span class="kicker">互動｜角度實驗室</span>
-  <h2>拖拉看看：夾角＋偏離，每個點受多少力？</h2>
-  <div class="lab">
-    <svg id="lab-svg" viewBox="0 0 520 390"></svg>
-    <div class="ctrl" data-prevent-swipe>
-      <div class="seg"><button id="m-static" class="on">★ 分力（固定主力點）</button><button id="m-slide">★ 均力（理想滑動）</button></div>
-      <label>兩腳夾角 θ <span id="lab-t" class="hl2">60°</span></label>
-      <input id="lab-theta" type="range" min="5" max="150" step="1" value="60" data-prevent-swipe />
-      <label>受力偏離 δ <span id="lab-d" class="hl2">0°</span></label>
-      <input id="lab-delta" type="range" min="-20" max="20" step="1" value="0" data-prevent-swipe />
-      <div class="readout">
-        <div class="r"><div class="k">左固定點 A1</div><div class="v" id="lab-f1">58%</div><div class="k" id="lab-k1">100 kg → 58 kg</div></div>
-        <div class="r"><div class="k">右固定點 A2</div><div class="v" id="lab-f2">58%</div><div class="k" id="lab-k2">100 kg → 58 kg</div></div>
+<!-- ================= P9 分力 vs 均力 ================= -->
+<section data-page="9" data-section="維持注意" data-background-image="images/rigging.jpg" data-background-opacity="0.16" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">08 · 分力與均力</div><h2>主力點是「固定」還是「會滑」？</h2></div>
+    <div class="vs">
+      <div class="card col a">
+        <h3>★ 分力<small>PRE-EQUALIZED</small></h3>
+        <svg viewBox="0 0 300 160">
+          <circle cx="60" cy="20" r="9" fill="none" stroke="#b9c6d8" stroke-width="3"/><circle cx="240" cy="20" r="9" fill="none" stroke="#b9c6d8" stroke-width="3"/>
+          <line x1="60" y1="20" x2="150" y2="104" stroke="#ff7a2f" stroke-width="5"/><line x1="240" y1="20" x2="150" y2="104" stroke="#ff7a2f" stroke-width="5"/>
+          <circle cx="150" cy="104" r="10" fill="#ff7a2f"/><line x1="150" y1="104" x2="176" y2="156" stroke="#4cc9f0" stroke-width="3" stroke-dasharray="6 5"/>
+          <text x="186" y="148" font-size="14" fill="#7d8ba3">受力偏了，主力點不動</text>
+        </svg>
+        <ul class="list o"><li>主力點<b>綁死</b>，各腳長度固定</li><li>一點失效：<b>幾乎不延展</b></li><li>受力方向一偏，負荷就<b>集中</b>到一點</li></ul>
       </div>
-      <div class="zone" id="lab-zone"></div>
-      <p class="small" style="margin-top:8px;">分力：F₁ = sin(θ/2＋δ) ÷ sin θ。負荷往右偏時，左邊的點受力增加。均力模式為理想值，未計摩擦。</p>
+      <div class="mid">VS</div>
+      <div class="card col b">
+        <h3>★ 均力<small>SELF-EQUALIZING</small></h3>
+        <svg viewBox="0 0 300 160">
+          <circle cx="60" cy="20" r="9" fill="none" stroke="#b9c6d8" stroke-width="3"/><circle cx="240" cy="20" r="9" fill="none" stroke="#b9c6d8" stroke-width="3"/>
+          <line x1="60" y1="20" x2="172" y2="108" stroke="#4cc9f0" stroke-width="5"/><line x1="240" y1="20" x2="172" y2="108" stroke="#4cc9f0" stroke-width="5"/>
+          <ellipse cx="172" cy="110" rx="8" ry="12" fill="none" stroke="#fff" stroke-width="3"/><line x1="172" y1="122" x2="184" y2="156" stroke="#4cc9f0" stroke-width="3" stroke-dasharray="6 5"/>
+          <text x="20" y="150" font-size="14" fill="#7d8ba3">主力點跟著受力方向滑動</text>
+        </svg>
+        <ul class="list"><li>勾環在繩上<b>滑動</b>，自動重新分攤</li><li>一點失效：會<b>延展</b>，要加限制結</li><li>實際有繩與勾環摩擦，<b>不會完美</b>均分</li></ul>
+      </div>
     </div>
   </div>
+  <aside class="notes" data-sec="50"><p>進入第二單元。分力和均力最大的差別，就是主力點是「固定」還是「會滑」。</p><p>分力的主力點綁死，一點失效時幾乎不延展，但受力方向一偏，負荷就集中到一個點。均力的勾環可以在繩上滑，受力方向小幅改變時會自動重新分攤，但一點失效會延展，所以要加限制結；而且實際上有摩擦，不會完美的 50 比 50。</p></aside>
 </section>
 
-<!-- 17 偏離 5 度圖表 -->
-<section id="slide-chart" data-background-image="images/lab.jpg" data-background-opacity="0.12" data-background-size="cover">
-  <span class="kicker">偏離點的受力</span>
-  <h2>只要偏 5°：受力最重的那一點會變成多少？</h2>
-  <div class="chart-box" style="height:440px; position:relative;"><canvas id="chart-canvas"></canvas></div>
-  <p class="src">數據：Grant Prattley〈Two-Point Anchor Angles: The Case for Building in Error〉Over The Edge Rescue（2025）；本頁數值已依 F = sin(θ/2±5°) ÷ sin θ 驗算</p>
-</section>
-
-<!-- 18 黃金區間 -->
-<section data-background-image="images/angle.jpg" data-background-opacity="0.2" data-background-size="cover">
-  <span class="kicker">結論</span>
-  <h2>分力夾角：45°～60° 是甜蜜點，30°～75° 是底線</h2>
-  <div class="zbar">
-    <div style="flex:30; background:#ef5350;">＜30° 太窄</div>
-    <div style="flex:15; background:#ffb74d;">30–45</div>
-    <div style="flex:15; background:#81c784;">45–60 ✔</div>
-    <div style="flex:15; background:#ffb74d;">60–75</div>
-    <div style="flex:45; background:#ef5350;">＞75° 太寬</div>
+<!-- ================= P10 分力四種 ================= -->
+<section data-page="10" data-section="維持注意" data-background-image="images/rigging.jpg" data-background-opacity="0.12" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">09 · 分力架設 ★</div><h2>分力：四種常見架法</h2><p class="sub">共同點：<b class="hl">先對準受力方向再綁死</b>。點卡片看架設要點</p></div>
+    <div class="rigs">
+      <div class="card rig"><span class="tap">點擊 → 要點</span>
+        <svg viewBox="0 0 200 160"><circle cx="40" cy="20" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><circle cx="160" cy="20" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><path d="M40 28 L100 110 L160 28" fill="none" stroke="#4cc9f0" stroke-width="5" stroke-linejoin="round"/><rect x="32" y="30" width="16" height="12" rx="4" fill="#ff7a2f"/><rect x="152" y="30" width="16" height="12" rx="4" fill="#ff7a2f"/><ellipse cx="100" cy="112" rx="10" ry="8" fill="#ffb74d"/><line x1="100" y1="120" x2="100" y2="156" stroke="#4cc9f0" stroke-width="5"/></svg>
+        <div class="no">01</div><div class="nm">Y-hang<small>Y 字主繩</small></div><p class="d">主繩直接連結兩點，形成 Y 字</p>
+        <div class="sol"><ul><li>兩端用 8 字結扣點</li><li>交會處就是主力點</li><li>常見於洞穴 SRT 與溪降</li></ul></div></div>
+      <div class="card rig"><span class="tap">點擊 → 要點</span>
+        <svg viewBox="0 0 200 160"><circle cx="40" cy="20" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><circle cx="160" cy="20" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><path d="M94 104 C70 80 40 50 36 26 C44 22 50 30 104 100" fill="none" stroke="#4cc9f0" stroke-width="4.5"/><path d="M106 104 C130 80 160 50 164 26 C156 22 150 30 96 100" fill="none" stroke="#4cc9f0" stroke-width="4.5"/><ellipse cx="100" cy="106" rx="13" ry="10" fill="#ff7a2f"/><line x1="100" y1="116" x2="100" y2="156" stroke="#4cc9f0" stroke-width="5"/></svg>
+        <div class="no">02</div><div class="nm">雙耳 8 字結<small>Bunny ears</small></div><p class="d">一個繩結打出兩個繩耳</p>
+        <div class="sol"><ul><li>兩耳分別扣入兩個固定點</li><li>先調好兩耳長度再受力</li><li>快速做出 Y-hang</li></ul></div></div>
+      <div class="card rig"><span class="tap">點擊 → 要點</span>
+        <svg viewBox="0 0 200 160"><circle cx="40" cy="20" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><circle cx="160" cy="20" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><path d="M30 22 Q40 40 50 22" fill="none" stroke="#ffb74d" stroke-width="4"/><path d="M150 22 Q160 40 170 22" fill="none" stroke="#ffb74d" stroke-width="4"/><line x1="40" y1="34" x2="96" y2="106" stroke="#ffb74d" stroke-width="5"/><line x1="160" y1="34" x2="104" y2="106" stroke="#ffb74d" stroke-width="5"/><ellipse cx="100" cy="114" rx="8" ry="13" fill="none" stroke="#fff" stroke-width="3"/><line x1="100" y1="127" x2="100" y2="156" stroke="#4cc9f0" stroke-width="5"/></svg>
+        <div class="no">03</div><div class="nm">雀頭結<small>Girth Hitch</small></div><p class="d">扁帶套住樹、岩柱或掛片</p>
+        <div class="sol"><ul><li>兩條扁帶在主力點匯合</li><li>架設快速</li><li>雀頭結會降低扁帶強度</li></ul></div></div>
+      <div class="card rig"><span class="tap">點擊 → 要點</span>
+        <svg viewBox="0 0 200 160"><circle cx="40" cy="20" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><circle cx="160" cy="20" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><path d="M36 26 L94 92 M44 26 L98 92" stroke="#ffb74d" stroke-width="3.5"/><path d="M164 26 L106 92 M156 26 L102 92" stroke="#ffb74d" stroke-width="3.5"/><ellipse cx="100" cy="98" rx="17" ry="12" fill="#ff7a2f"/><ellipse cx="100" cy="124" rx="10" ry="14" fill="none" stroke="#ffb74d" stroke-width="4"/><line x1="100" y1="138" x2="100" y2="156" stroke="#4cc9f0" stroke-width="5"/></svg>
+        <div class="no">04</div><div class="nm">BFK<small>Big Fat Knot</small></div><p class="d">繩環扣兩點，打一個大結做主力點</p>
+        <div class="sol"><ul><li>往受力方向把繩股拉齊</li><li>打大單結或 8 字結</li><li>可再加一個次固定點分力</li></ul></div></div>
+    </div>
   </div>
-  <div class="zticks"><span style="left:0%">0°</span><span style="left:25%">30°</span><span style="left:37.5%">45°</span><span style="left:50%">60°</span><span style="left:62.5%">75°</span><span style="left:75%">90°</span><span style="left:100%; transform:translateX(-100%)">120°</span></div>
-  <div class="grid3" style="margin-top:14px;">
-    <div class="card" style="border-top:4px solid var(--success);"><h3 class="ok">45°～60°</h3><p style="font-size:17px;">偏 5° 時最重的點只到 <b>65～66%</b>，有容錯空間</p></div>
-    <div class="card" style="border-top:4px solid var(--danger);"><h3 class="bad">太窄（＜30°）</h3><p style="font-size:17px;">完美時看似 50%，偏 5° 卻跳到 <b>15°→84%</b>、<b>5°→100%</b></p></div>
-    <div class="card" style="border-top:4px solid var(--danger);"><h3 class="bad">太寬（＞75°）</h3><p style="font-size:17px;">90° 完美時就 71%，偏 5° 變 <b>77%</b>；120° 已達 <b>100%～105%</b></p></div>
-  </div>
-  <p class="small" style="margin-top:10px;">白板「分力 30～60° ⇒ off 5° ⇒ 68～84%」：30° 偏 5° 為 <b>68%</b>；84% 出現在夾角收窄到 <b>15°</b> 時。所以<b class="hl">不要把 30° 當起點</b>，從 45°～60° 開始架。</p>
+  <aside class="notes" data-sec="60"><p>分力常見四種架法。Y-hang 是用主繩直接連結兩個點形成 Y 字，常見於洞穴 SRT 和溪降；雙耳 8 字結是一個結打出兩個繩耳，可以很快做出 Y-hang；雀頭結是用扁帶套住樹、岩柱或掛片，再在主力點匯合，快但會降低扁帶強度；BFK 是繩環扣兩點、往受力方向拉齊，打一個大結當主力點，還可以再加一個次固定點。</p><p>四種的共同點：都要先對準受力方向再綁死，方向判斷錯，分配就會失衡。（點卡片展開要點）</p></aside>
 </section>
 
-<!-- 19 器材強度 -->
-<section data-background-image="images/cord.jpg" data-background-opacity="0.18" data-background-size="cover">
-  <span class="kicker">補充｜材料強度</span>
-  <h2>輔助繩強度：直徑差 1 mm，強度差很多</h2>
-  <div class="grid2" style="grid-template-columns:1.1fr 1fr; align-items:start;">
+<!-- ================= P11 均力兩種 ================= -->
+<section data-page="11" data-section="維持注意" data-background-image="images/rigging.jpg" data-background-opacity="0.12" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">10 · 均力架設 ★</div><h2>均力：Sliding X 與 The Quad</h2><p class="sub">點卡片看架設要點</p></div>
+    <div class="rigs two">
+      <div class="card rig"><span class="tap">點擊 → 要點</span>
+        <svg viewBox="0 0 300 180"><circle cx="60" cy="20" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><circle cx="240" cy="20" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><path d="M60 28 L156 112" stroke="#4cc9f0" stroke-width="5"/><path d="M240 28 L144 112" stroke="#4cc9f0" stroke-width="5"/><path d="M144 112 Q150 122 156 112" fill="none" stroke="#4cc9f0" stroke-width="5"/><ellipse cx="150" cy="122" rx="9" ry="14" fill="none" stroke="#fff" stroke-width="3"/><ellipse cx="108" cy="70" rx="9" ry="7" fill="#ff7a2f"/><ellipse cx="192" cy="70" rx="9" ry="7" fill="#ff7a2f"/><line x1="150" y1="136" x2="150" y2="176" stroke="#4cc9f0" stroke-width="4"/><text x="204" y="96" font-size="13" fill="#ffb74d">限制結</text><text x="40" y="96" font-size="13" fill="#ffb74d">限制結</text><text x="166" y="134" font-size="13" fill="#7d8ba3">扭成 X 再扣</text></svg>
+        <div class="no">01</div><div class="nm">Sliding X ／ Knot<small>滑動 X＋限制結</small></div><p class="d">繩環扣兩點，一股扭成 X，勾環扣進扭轉處</p>
+        <div class="sol"><ul><li><b>一定要扭 X</b>：沒扭到，一點失效時勾環會整個脫出</li><li>兩腳各打一個<b>限制結</b>，把失效時的延展鎖在短距離內</li><li>適合受力方向會小幅改變的情況</li></ul></div></div>
+      <div class="card rig"><span class="tap">點擊 → 要點</span>
+        <svg viewBox="0 0 300 180"><circle cx="60" cy="20" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><circle cx="240" cy="20" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><path d="M56 28 L84 56 M64 28 L88 52" stroke="#ffb74d" stroke-width="3.5"/><path d="M244 28 L216 56 M236 28 L212 52" stroke="#ffb74d" stroke-width="3.5"/><ellipse cx="88" cy="58" rx="12" ry="9" fill="#ff7a2f"/><ellipse cx="212" cy="58" rx="12" ry="9" fill="#ff7a2f"/><path d="M92 64 L146 116 M98 60 L150 112 M208 64 L154 116 M202 60 L150 112" stroke="#ffb74d" stroke-width="3"/><ellipse cx="150" cy="124" rx="9" ry="14" fill="none" stroke="#fff" stroke-width="3"/><line x1="150" y1="138" x2="150" y2="176" stroke="#4cc9f0" stroke-width="4"/><text x="170" y="134" font-size="13" fill="#7d8ba3">扣中間繩股</text></svg>
+        <div class="no">02</div><div class="nm">The Quad<small>四股均力</small></div><p class="d">繩環對折，兩端各打一個單結，中間形成四股</p>
+        <div class="sol"><ul><li>主力點扣入中間繩股（常見做法是扣 4 股中的 3 股）</li><li>可在小範圍內自動調整</li><li>延展受兩個單結限制，兼顧均力與低延展</li></ul></div></div>
+    </div>
+  </div>
+  <aside class="notes" data-sec="55"><p>均力常用兩種。Sliding X：繩環扣兩點，其中一股要扭成 X，勾環扣進扭轉的地方。這個 X 一定要扭，沒扭到的話，一個點失效，勾環會整個從繩環脫出。兩腳再各打一個限制結，把延展鎖在很短的距離。</p><p>The Quad：繩環對折，兩端各打一個單結，中間形成四股，主力點扣中間的繩股。它可以在小範圍內自動調整，延展又被兩個單結限制住，兼顧均力和低延展。</p></aside>
+</section>
+
+<!-- ================= P12 何時用 ================= -->
+<section data-page="12" data-section="維持注意" data-background-image="images/equal.jpg" data-background-opacity="0.14" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">11 · 怎麼選</div><h2>看「受力方向會不會變」</h2><p class="sub">點選列可以標示對照</p></div>
     <table class="t">
-      <tr><th>直徑</th><th>EN 564 最低強度</th><th>課堂速記</th></tr>
-      <tr><td>4 mm</td><td>3.2 kN</td><td>—</td></tr>
-      <tr><td>5 mm</td><td>5.0 kN</td><td>5</td></tr>
-      <tr><td>6 mm</td><td>7.2 kN</td><td>7</td></tr>
-      <tr><td>7 mm</td><td>9.8 kN</td><td>9</td></tr>
-      <tr class="hi"><td>8 mm</td><td>12.8 kN</td><td>12</td></tr>
+      <tr><th style="width:20%"></th><th style="color:var(--accent)">分力<small>Y-hang · 雙耳 8 · Girth · BFK</small></th><th>均力<small>Sliding X＋Knot · Quad</small></th></tr>
+      <tr class="row"><td class="l">主力點</td><td>固定不動</td><td>可滑動、自動調整</td></tr>
+      <tr class="row"><td class="l">受力方向改變</td><td class="bad">負荷集中到一點</td><td class="ok">小範圍內重新分攤</td></tr>
+      <tr class="row"><td class="l">一點失效時</td><td class="ok">幾乎不延展</td><td class="warn">會延展，要靠限制結控制</td></tr>
+      <tr class="row"><td class="l">架設重點</td><td>綁之前先對準受力方向</td><td>X 要扭、限制結不可省</td></tr>
+      <tr class="row"><td class="l">適合情境</td><td>受力方向固定：垂降站、溪降、救援主系統</td><td>受力方向小幅移動：橫移、擺盪、確保站</td></tr>
     </table>
-    <div class="card">
-      <h3>怎麼記、怎麼用</h3>
-      <ul class="blist">
-        <li>近似：強度 ≈ <b>0.2 × 直徑²</b>（kN）</li>
-        <li>1 kN ≈ <b>102 kgf</b>，這些是<b>單股</b>的最低靜態強度</li>
-        <li>繩結、雀頭結、銳利岩角都會<b>降低</b>實際強度</li>
-        <li>多點合力：先把較弱的點合力，再與第三點分力，最後以<b>最小強度</b>估算</li>
-      </ul>
-    </div>
+    <p class="body" style="margin-top:16px">兩種都不是萬靈丹。分力要靠<b class="hl">正確的方向</b>和<b class="hl">合適的夾角</b>才分得平均，下一單元用數字說明。</p>
   </div>
-  <p class="src">資料：EN 564 輔助繩標準（Edelrid 標準說明）；課堂速記「5·6·7·8 mm → 5·7·9·12 kN」出自 2025 傳攀課筆記</p>
+  <aside class="notes" data-sec="45"><p>那要怎麼選？關鍵在受力方向會不會變。受力方向固定，例如垂降站、溪降、救援主系統，分力很穩，失效時也幾乎不延展；受力方向會小幅移動，例如橫移、擺盪、確保站，均力比較能跟著調整，但一定要扭 X、加限制結。</p><p>分力要分得平均，靠的是方向和夾角，我們進入第三單元。</p></aside>
 </section>
 
-<!-- 20 收束 -->
-<section data-background-image="images/ending.jpg" data-background-opacity="0.45" data-background-size="cover">
-  <div class="center">
-    <span class="kicker">收束</span>
-    <h1 style="font-size:52px; color:var(--accent2);">架完之後，從 S 檢查到 A</h1>
+<!-- ================= 投票：先猜再看 ================= -->
+<section id="poll" data-page="Q" data-section="維持注意" data-background-image="images/angle.jpg" data-background-opacity="0.16" data-background-size="cover">
+  <div class="inner poll-grid">
+    <div>
+      <div class="kicker">即時投票 · 先猜再看 <span class="live-badge">LIVE</span></div>
+      <p class="poll-q">兩點分力架設，<br>夾角多少最理想？</p>
+      <div class="poll-opts" id="poll-options">
+        <button class="card popt" data-id="a"><span class="k">A</span><span class="lb">越小越好（接近 0°）</span><span class="bar"><i></i></span><span class="pc">0%</span></button>
+        <button class="card popt" data-id="b"><span class="k">B</span><span class="lb">約 30°</span><span class="bar"><i></i></span><span class="pc">0%</span></button>
+        <button class="card popt" data-id="c"><span class="k">C</span><span class="lb">45°～60°</span><span class="bar"><i></i></span><span class="pc">0%</span></button>
+        <button class="card popt" data-id="d"><span class="k">D</span><span class="lb">約 90°</span><span class="bar"><i></i></span><span class="pc">0%</span></button>
+        <button class="card popt" data-id="e"><span class="k">E</span><span class="lb">約 120°</span><span class="bar"><i></i></span><span class="pc">0%</span></button>
+      </div>
+      <div class="poll-meta"><span>已投票：<b id="poll-total" class="hl2">0</b> 人（可點選改票）</span><button class="btn" id="pollReveal">揭曉答案</button></div>
+      <div class="ixStatus" id="pollStatus"></div>
+    </div>
+    <div class="card qr-card"><div class="qr" id="qr-poll"></div><h4>手機掃描即可投票</h4><div class="url" id="qr-url"></div></div>
   </div>
-  <div class="sred-grid" style="margin-top:10px;">
-    <div class="sred"><div class="L">S</div><div class="d">每個點、每個元件都夠強嗎？弱方向呢？</div></div>
-    <div class="sred"><div class="L">R</div><div class="d">任何一個元件失效，系統還站得住嗎？</div></div>
-    <div class="sred"><div class="L">E</div><div class="d">選分力還是均力？受力方向會不會變？</div></div>
-    <div class="sred"><div class="L">D</div><div class="d">主力點在岩緣外側嗎？失效時會延展多遠？</div></div>
-    <div class="sred"><div class="L">D</div><div class="d">主力點對準受力方向了嗎？</div></div>
-    <div class="sred"><div class="L">A</div><div class="d">夾角落在 45°～60° 嗎？</div></div>
+  <aside class="notes" data-sec="50"><p>在看數字之前，先請大家猜一猜：兩點分力架設，夾角多少最理想？請用手機掃 QR code 投票。（等 15～20 秒）</p><p>好，看結果……（按「揭曉答案」）答案是 C，45 到 60 度。很多人會選「越小越好」，接下來兩頁告訴大家為什麼越小反而不一定好。</p></aside>
+</section>
+
+<!-- ================= P13 3·6·9·12 ================= -->
+<section data-page="13" data-section="維持注意" data-background-image="images/angle.jpg" data-background-opacity="0.14" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">12 · 兩個固定點的受力</div><h2>白板速記：3·6·9·12 → 5·6·7·10</h2></div>
+    <div class="mnemo">
+      <div class="n">30<small>度</small></div><div class="n">60<small>度</small></div><div class="n">90<small>度</small></div><div class="n">120<small>度</small></div>
+      <div class="arrow">→</div>
+      <div class="n ok">5<small>成</small></div><div class="n ok">6<small>成</small></div><div class="n warn">7<small>成</small></div><div class="n bad">10<small>成</small></div>
+    </div>
+    <div class="p15-grid">
+      <table class="t">
+        <tr><th>兩腳夾角 θ</th><th>每個固定點受力</th><th>速記</th></tr>
+        <tr class="row"><td>0°（兩腳平行）</td><td>50%</td><td>—</td></tr>
+        <tr class="row"><td>30°</td><td>52%</td><td class="ok">≈ 5 成</td></tr>
+        <tr class="row"><td>60°</td><td>58%</td><td class="ok">≈ 6 成</td></tr>
+        <tr class="row"><td>90°</td><td>71%</td><td class="warn">≈ 7 成</td></tr>
+        <tr class="row"><td>120°</td><td class="bad">100%</td><td class="bad">10 成</td></tr>
+        <tr class="row"><td>150°</td><td class="bad">193%</td><td class="bad">比負荷還大</td></tr>
+      </table>
+      <div class="card formula">
+        <h3>算法（完美均分時）</h3>
+        <div class="f">每點受力 = W ÷ ( 2 × cos(θ/2) )</div>
+        <p class="body">例：負荷 100 kg、夾角 90° → 每點約 <b class="hl">71 kg</b>；夾角 120° → 每點 <b class="bad">100 kg</b>，等於沒有分攤。</p>
+        <p class="note" style="margin-top:10px">夾角越大，兩腳的水平分力互相拉扯越多，固定點要承受的力也越大。</p>
+      </div>
+    </div>
   </div>
-  <p class="center small" style="margin-top:14px;">還有問題？點左側 <b class="hl">🙋 提問牆</b> 匿名發問</p>
+  <aside class="notes" data-sec="60"><p>這是白板上的速記：3、6、9、12，對應 5、6、7、10。意思是夾角 30、60、90、120 度時，每個點大約承受負荷的 5 成、6 成、7 成、10 成。精確值是 52%、58%、71%、100%，到 150 度甚至變成 193%，比負荷本身還大。</p><p>算法是負荷除以「2 乘以半個夾角的 cos」。例如 100 公斤、夾角 90 度，每個點大約 71 公斤。</p></aside>
+</section>
+
+<!-- ================= P14 角度實驗室 ================= -->
+<section id="slide-lab" data-page="14" data-section="維持注意" data-background-image="images/lab.jpg" data-background-opacity="0.12" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">13 · 角度實驗室</div><h2>拖拉看看：夾角＋偏離，每點受多少力？</h2></div>
+    <div class="lab">
+      <svg id="lab-svg" viewBox="0 0 520 380"></svg>
+      <div class="ctrl" data-prevent-swipe>
+        <div class="seg"><button class="btn on" id="m-static">★ 分力（固定主力點）</button><button class="btn" id="m-slide">★ 均力（理想滑動）</button></div>
+        <label>兩腳夾角 θ <span id="lab-t" class="hl2">60°</span></label>
+        <input id="lab-theta" type="range" min="5" max="150" step="1" value="60" data-prevent-swipe />
+        <label>受力偏離 δ <span id="lab-d" class="hl2">0°</span></label>
+        <input id="lab-delta" type="range" min="-20" max="20" step="1" value="0" data-prevent-swipe />
+        <div class="readout">
+          <div class="card r"><div class="k">左固定點 A1</div><div class="v" id="lab-f1">58%</div><div class="k" id="lab-k1"></div></div>
+          <div class="card r"><div class="k">右固定點 A2</div><div class="v" id="lab-f2">58%</div><div class="k" id="lab-k2"></div></div>
+        </div>
+        <div class="zone" id="lab-zone"></div>
+        <p class="note" style="margin-top:8px">分力：F₁ = sin(θ/2＋δ) ÷ sin θ。負荷往右偏時，左邊的點受力增加。均力為理想值，未計摩擦。</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes" data-sec="75"><p>我們實際拉拉看。上面的滑桿是兩腳夾角，下面是受力偏離的角度。先把夾角放在 60 度，兩邊都是 58%。現在把受力往右偏 5 度，左邊變 66%、右邊 49%，差距還好。</p><p>再把夾角縮到 15 度、一樣偏 5 度：左邊變成 84%，右邊只剩 17%。夾角越窄，一點點偏離就讓負荷幾乎集中到單點。切到均力模式，理想狀態下主力點會跟著滑動，兩邊維持相同，但實際有摩擦。</p></aside>
+</section>
+
+<!-- ================= P15 偏離 5° 圖表 ================= -->
+<section id="slide-chart" data-page="15" data-section="維持注意" data-background-image="images/lab.jpg" data-background-opacity="0.12" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">14 · 偏離點的受力</div><h2>只要偏 5°：受力最重的那一點變成多少？</h2></div>
+    <div class="card chart-box"><canvas id="chart-canvas"></canvas></div>
+    <p class="src">數據：Grant Prattley〈Two-Point Anchor Angles: The Case for Building in Error〉Over The Edge Rescue（2025）；數值已依 F = sin(θ/2±5°) ÷ sin θ 驗算</p>
+  </div>
+  <aside class="notes" data-sec="60"><p>這張圖把所有夾角一次畫出來。藍線是完美均分，橘線是偏 5 度時受力較重的那個點，綠虛線是較輕的點。</p><p>大家看左邊：夾角很窄的時候，藍線看起來很漂亮，接近 50%，但只要偏 5 度，橘線就衝上去，15 度是 84%，5 度直接 100%。右邊夾角太寬也一樣往上爬。中間綠色區域 45 到 60 度，是偏離時最穩定的區間。</p></aside>
+</section>
+
+<!-- ================= P16 甜蜜點 ================= -->
+<section data-page="16" data-section="喚起行動" data-background-image="images/angle.jpg" data-background-opacity="0.2" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">15 · 結論</div><h2>45°～60° 是甜蜜點，30°～75° 是底線</h2></div>
+    <div class="zbar">
+      <div style="flex:30;background:#ef5350">＜30° 太窄</div><div style="flex:15;background:#ffb74d">30–45</div><div style="flex:15;background:#81c784">45–60 ✔</div><div style="flex:15;background:#ffb74d">60–75</div><div style="flex:45;background:#ef5350">＞75° 太寬</div>
+    </div>
+    <div class="zticks"><span style="left:0%;transform:none">0°</span><span style="left:25%">30°</span><span style="left:37.5%">45°</span><span style="left:50%">60°</span><span style="left:62.5%">75°</span><span style="left:75%">90°</span><span style="left:100%;transform:translateX(-100%)">120°</span></div>
+    <div class="three">
+      <div class="card" style="border-top:3px solid var(--ok)"><h4 class="ok">45°～60°</h4><div class="v ok">65–66%</div><p>偏 5° 時最重的點只到這裡，有容錯空間</p></div>
+      <div class="card" style="border-top:3px solid var(--bad)"><h4 class="bad">太窄 ＜30°</h4><div class="v bad">84–100%</div><p>完美時看似 50%，偏 5°：15° → 84%、5° → 100%</p></div>
+      <div class="card" style="border-top:3px solid var(--bad)"><h4 class="bad">太寬 ＞75°</h4><div class="v bad">77–105%</div><p>90° 完美時就 71%，偏 5° 變 77%；120° 達 100～105%</p></div>
+    </div>
+    <p class="body" style="margin-top:16px">白板「分力 30～60° ⇒ off 5° ⇒ 68～84%」：30° 偏 5° 是 <b>68%</b>，84% 出現在夾角收窄到 <b>15°</b>。所以<b class="hl">不要把 30° 當起點</b>，從 45°～60° 開始架。</p>
+  </div>
+  <aside class="notes" data-sec="55"><p>結論：分力夾角以 45 到 60 度為甜蜜點，偏 5 度時最重的點也只到 65、66%。30 度和 75 度是底線，大約 68 到 70%。低於 30 度，一偏就衝到 84% 甚至 100%；高於 75 度，就算完美也已經 7 成以上。</p><p>白板上寫的「30 到 60 度、偏 5 度、68 到 84%」，68% 是 30 度的值，84% 是夾角縮到 15 度時的值。所以不要把 30 度當起點，一開始就架在 45 到 60 度。</p></aside>
+</section>
+
+<!-- ================= P17 輔助繩 ================= -->
+<section id="slide-cord" data-page="17" data-section="喚起行動" data-background-image="images/cord.jpg" data-background-opacity="0.18" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">16 · 材料強度</div><h2>輔助繩：直徑差 1 mm，強度差很多</h2><p class="sub">EN 564 最低靜態強度（單股）</p></div>
+    <div class="grid2" style="grid-template-columns:1.15fr 1fr">
+      <div class="card" style="padding:18px 20px">
+        <div class="cords">
+          <div class="cord"><span class="dm">4 mm</span><div class="track"><div class="fill" data-w="3.2"></div></div><span class="kn">3.2 <small>kN</small></span></div>
+          <div class="cord"><span class="dm">5 mm</span><div class="track"><div class="fill" data-w="5.0"></div></div><span class="kn">5.0 <small>kN</small></span></div>
+          <div class="cord"><span class="dm">6 mm</span><div class="track"><div class="fill" data-w="7.2"></div></div><span class="kn">7.2 <small>kN</small></span></div>
+          <div class="cord"><span class="dm">7 mm</span><div class="track"><div class="fill" data-w="9.8"></div></div><span class="kn">9.8 <small>kN</small></span></div>
+          <div class="cord"><span class="dm">8 mm</span><div class="track"><div class="fill" data-w="12.8" style="background:var(--accent)"></div></div><span class="kn">12.8 <small>kN</small></span></div>
+        </div>
+        <p class="note" style="margin-top:12px">課堂速記：5·6·7·8 mm → 5·7·9·12 kN</p>
+      </div>
+      <div class="card" style="padding:18px 20px">
+        <h3 style="margin-bottom:8px">怎麼記、怎麼用</h3>
+        <ul class="list">
+          <li>近似：強度 ≈ <b>0.2 × 直徑²</b>（kN）</li>
+          <li>1 kN ≈ <b>102 kgf</b>；表上是<b>單股</b>的最低值</li>
+          <li>繩結、雀頭結、銳利岩角都會<b>降低</b>實際強度</li>
+          <li>多點合力：先把較弱的點合力，再與第三點分力，最後以<b>最小強度</b>估算</li>
+        </ul>
+      </div>
+    </div>
+    <p class="src">資料：EN 564 輔助繩標準（Edelrid 標準說明）；課堂速記出自 2025 傳攀課筆記</p>
+  </div>
+  <aside class="notes" data-sec="45"><p>補充一下材料強度。依 EN 564，輔助繩的最低強度：5 mm 是 5 kN、6 mm 是 7.2、7 mm 是 9.8、8 mm 是 12.8 kN，大約是直徑平方乘以 0.2。直徑差 1 mm，強度差很多。</p><p>要注意這是單股的最低值，打結、雀頭結、銳利岩角都會讓實際強度下降。多點合力時，記得用最弱那一點去估算整組系統。</p></aside>
+</section>
+
+<!-- ================= P18 檢核清單 ================= -->
+<section data-page="18" data-section="喚起行動" data-background-image="images/ending.jpg" data-background-opacity="0.3" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">17 · 現場檢核</div><h2>架完之後，從 S 檢查到 A 再受力</h2><p class="sub">逐項點選，全部打勾才能受力</p></div>
+    <div class="checks">
+      <div class="card chk"><div class="L">S</div><div><h4>每個點、每個元件都夠強？</h4><p>弱方向也評估過了</p></div><div class="box"></div></div>
+      <div class="card chk"><div class="L">R</div><div><h4>任一元件失效，系統還站得住？</h4><p>至少兩個獨立固定點</p></div><div class="box"></div></div>
+      <div class="card chk"><div class="L">E</div><div><h4>選對分力或均力？</h4><p>受力方向會不會變</p></div><div class="box"></div></div>
+      <div class="card chk"><div class="L">D</div><div><h4>主力點在岩緣外側？</h4><p>失效時延展距離夠短</p></div><div class="box"></div></div>
+      <div class="card chk"><div class="L">D</div><div><h4>主力點對準受力方向？</h4><p>垂降、拖拉、下放的出繩方向</p></div><div class="box"></div></div>
+      <div class="card chk"><div class="L">A</div><div><h4>夾角落在 45°～60°？</h4><p>不低於 30°、不超過 75°</p></div><div class="box"></div></div>
+    </div>
+    <div class="chk-result" id="chkResult">已檢查 0 / 6：還不能受力</div>
+  </div>
+  <aside class="notes" data-sec="45"><p>最後，請大家把今天的內容帶回現場：每次架完固定點，從 S 檢查到 A，六項全部確認，才讓它受力。（逐項點選示範）</p><p>強固、備援、分攤、距離、方向、角度。六項都打勾，才可以受力。</p></aside>
+</section>
+
+<!-- ================= 結尾 ================= -->
+<section data-page="END" data-section="喚起行動" data-background-image="images/cover.jpg" data-background-opacity="0.45" data-background-size="cover">
+  <div class="inner end">
+    <div class="kicker" style="text-align:center">謝謝聆聽 · 提問時間</div>
+    <div class="thx">謝謝大家</div>
+    <div class="thx2">歡迎從左側提問牆匿名提問</div>
+    <img src="images/more-logo-white.png" alt="MoRE">
+  </div>
+  <aside class="notes" data-sec="0"><p>謝謝大家。接下來開放提問，從左邊提問牆讚數最高的問題開始回答。</p></aside>
 </section>
 
 </div>
@@ -666,330 +770,341 @@ body.mobile #qa-handle > span:nth-child(2), body.mobile #qa-handle .qh-dot{ disp
 <!-- 全域提問牆 -->
 <div id="qa-overlay"></div>
 <aside id="qa-sidebar" data-prevent-swipe>
-  <button id="qa-handle" aria-label="開關提問牆"><span style="font-size:19px;">🙋</span><span style="writing-mode:vertical-rl; letter-spacing:3px; font-weight:700; font-size:14px;">提問牆</span><span class="qh-dot"></span></button>
+  <button id="qa-handle" aria-label="開關提問牆"><span style="font-size:18px">🙋</span><span style="writing-mode:vertical-rl;letter-spacing:3px;font-weight:700;font-size:15px">提問牆</span><span class="qh-dot"></span></button>
   <div class="qa-inner">
-    <div style="font-size:19px; font-weight:700; color:var(--accent2); margin-bottom:16px;">🙋 匿名提問牆 <span class="live-badge">LIVE</span></div>
-    <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:16px;">
-      <input id="qa-input" class="ui-input" type="text" placeholder="輸入問題，按 Enter…" maxlength="80" />
+    <div style="font-size:19px;font-weight:700;color:var(--accent2);margin-bottom:14px">匿名提問牆 <span class="live-badge">LIVE</span></div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+      <input id="qa-input" class="ui-input" type="text" placeholder="輸入問題，按 Enter 送出…" maxlength="120" />
       <button id="qa-btn" class="ui-btn">送出提問</button>
     </div>
-    <div id="qa-list" style="flex:1; overflow-y:auto; padding-right:4px;"></div>
+    <div id="qa-list" style="flex:1;overflow-y:auto;padding-right:4px"></div>
   </div>
 </aside>
-<button id="admin-reset">🗑 重置本場資料</button>
+
+<div id="notes"><div class="meta"><span id="nMeta"></span><span class="tm" id="nTimer">00:00</span></div><div class="txt" id="nTxt"></div></div>
 
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
 <script>
-function deckSize(){
+/* ============ 公開網址與 QR code ============ */
+const PUBLIC_URL = 'https://phu00572.github.io/anchor-building/';
+const BASE = /github\.io$/.test(location.hostname) ? location.origin + location.pathname : PUBLIC_URL;
+function makeQR(id, size, hash) {
+  const el = document.getElementById(id); if (!el || typeof QRCode === 'undefined') return;
+  el.innerHTML = ''; new QRCode(el, { text: BASE + hash, width: size, height: size, colorDark: '#0d1117', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+}
+makeQR('qr-cover', 92, '#/wordcloud'); makeQR('qr-poll', 200, '#/poll');
+document.getElementById('qr-url').textContent = (BASE + '#/poll').replace('https://', '');
+
+/* ============ Reveal 初始化 ============ */
+const $ = s => document.querySelector(s);
+const _qs = new URLSearchParams(location.search);
+const CLEAN = _qs.has('clean');
+const SHOT = _qs.has('shot') || CLEAN;
+if (CLEAN) document.documentElement.classList.add('clean');
+if (SHOT) document.documentElement.classList.add('shot');
+let timerStart = 0;
+const TOTAL_SEC = [...document.querySelectorAll('aside.notes')].reduce((a, n) => a + (+n.dataset.sec || 0), 0);
+const fmt = s => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
+$('#nTimer').textContent = '00:00 / ' + fmt(TOTAL_SEC);
+function toggleNotes() { $('#notes').classList.toggle('show'); if (!timerStart) timerStart = Date.now(); }
+
+function deckSize() {
   const portrait = window.matchMedia('(orientation: portrait)').matches;
   const w = window.innerWidth, h = window.innerHeight;
-  if(portrait && w < 760){
+  if (portrait && w < 760) {
     const vh = Math.max(860, Math.round(460 * h / Math.max(1, w)));
-    return { width:460, height:vh, margin:0.01, mobile:true, center:false, touch:false };
+    return { width: 460, height: vh, margin: 0.01, mobile: true, center: false, touch: false };
   }
-  return { width:1280, height:760, margin:0.04, mobile:false, center:true, touch:true };
+  return { width: 1280, height: 760, margin: 0.04, mobile: false, center: true, touch: true };
 }
-function applyResponsive(){
+function applyResponsive() {
   const n = deckSize();
   document.body.classList.toggle('mobile', n.mobile);
-  Reveal.configure({ width:n.width, height:n.height, margin:n.margin, center:n.center, touch:n.touch, view:null });
+  Reveal.configure({ width: n.width, height: n.height, margin: n.margin, center: n.center, touch: n.touch, view: null });
   Reveal.layout();
-  setTimeout(()=>{ const id = Reveal.getCurrentSlide && Reveal.getCurrentSlide()?.id;
-    if(id==='slide-wordcloud') window.drawWordCloud && window.drawWordCloud();
-    if(id==='slide-chart') window.initChart && window.initChart();
-    if(id==='slide-lab') window.drawLab && window.drawLab(); }, 250);
+  setTimeout(() => { const id = Reveal.getCurrentSlide()?.id;
+    if (id === 'wordcloud') window.drawWordCloud && window.drawWordCloud();
+    if (id === 'slide-chart') initChart();
+    if (id === 'slide-lab') drawLab(); }, 250);
 }
 const ds = deckSize();
 document.body.classList.toggle('mobile', ds.mobile);
 Reveal.initialize({
-  hash:true, transition:'slide', backgroundTransition:'fade',
-  center:ds.center, touch:ds.touch, progress:true, controls:true, slideNumber:'c/t',
-  width:ds.width, height:ds.height, margin:ds.margin, minScale:0.2, maxScale:1.6,
-  view:null, scrollActivationWidth:null, plugins:[]
+  hash: true, transition: 'fade', backgroundTransition: 'fade',
+  center: ds.center, touch: ds.touch, progress: true, controls: true, slideNumber: false,
+  width: ds.width, height: ds.height, margin: ds.margin, minScale: 0.2, maxScale: 1.6,
+  view: null, scrollActivationWidth: null,
+  keyboard: { 78: toggleNotes, 84: () => { timerStart = Date.now(); } },
+  plugins: [RevealNotes]
 });
-Reveal.on('ready', applyResponsive);
+Reveal.on('ready', e => { applyResponsive(); onEnter(e.currentSlide); });
 window.addEventListener('load', applyResponsive);
-let _rzT; window.addEventListener('resize', ()=>{ clearTimeout(_rzT); _rzT=setTimeout(applyResponsive,180); });
-window.addEventListener('orientationchange', ()=>setTimeout(applyResponsive,250));
-Reveal.on('slidechanged', e=>{
-  if(e.currentSlide) e.currentSlide.scrollTop=0;
-  const id = e.currentSlide?.id;
-  if(id==='slide-chart') setTimeout(()=>window.initChart(),150);
-  if(id==='slide-lab') setTimeout(()=>window.drawLab(),50);
-});
+let _rzT; window.addEventListener('resize', () => { clearTimeout(_rzT); _rzT = setTimeout(applyResponsive, 180); });
+window.addEventListener('orientationchange', () => setTimeout(applyResponsive, 250));
+Reveal.on('slidechanged', e => { if (e.currentSlide) e.currentSlide.scrollTop = 0; onEnter(e.currentSlide); });
 
-/* ===== 角度實驗室 ===== */
-(function(){
-  const svg = document.getElementById('lab-svg');
-  const tIn = document.getElementById('lab-theta'), dIn = document.getElementById('lab-delta');
-  let mode = 'static';
-  const rad = d => d*Math.PI/180;
-  const col = f => f<=0.6 ? '#81c784' : f<=0.75 ? '#ffb74d' : '#ef5350';
-  function forces(t, d){
-    if(mode==='slide'){ const f = 1/(2*Math.cos(rad(t/2))); return [f,f,false]; }
-    let f1 = Math.sin(rad(t/2 + d))/Math.sin(rad(t)), f2 = Math.sin(rad(t/2 - d))/Math.sin(rad(t));
-    let slack = false;
-    if(f2 < 0){ f1 = 1; f2 = 0; slack = 'R'; }
-    if(f1 < 0){ f2 = 1; f1 = 0; slack = 'L'; }
-    return [f1, f2, slack];
-  }
-  window.drawLab = function(){
-    const t = +tIn.value, d = +dIn.value;
-    const [f1, f2, slack] = forces(t, d);
-    const M = {x:260, y:240}, L = 200;
-    const a1 = {x:M.x - L*Math.sin(rad(t/2)), y:M.y - L*Math.cos(rad(t/2))};
-    const a2 = {x:M.x + L*Math.sin(rad(t/2)), y:M.y - L*Math.cos(rad(t/2))};
-    const dd = mode==='slide' ? 0 : d;
-    const ld = {x:M.x + 120*Math.sin(rad(dd)), y:M.y + 120*Math.cos(rad(dd))};
-    const ar = 54;
-    const p1 = {x:M.x - ar*Math.sin(rad(t/2)), y:M.y - ar*Math.cos(rad(t/2))};
-    const p2 = {x:M.x + ar*Math.sin(rad(t/2)), y:M.y - ar*Math.cos(rad(t/2))};
-    const w1 = 3 + f1*9, w2 = 3 + f2*9;
-    const lbl = (p, f, anchor) => `<text x="${p.x}" y="${p.y}" text-anchor="${anchor}" font-size="22" font-weight="900" fill="${col(f)}">${Math.round(f*100)}%</text>`;
-    const mid1 = {x:(a1.x+M.x)/2 - 14, y:(a1.y+M.y)/2}, mid2 = {x:(a2.x+M.x)/2 + 14, y:(a2.y+M.y)/2};
-    svg.innerHTML = `
-      <line x1="${M.x}" y1="20" x2="${M.x}" y2="380" stroke="rgba(255,255,255,.12)" stroke-dasharray="4 6"/>
-      <path d="M${p1.x} ${p1.y} A${ar} ${ar} 0 0 1 ${p2.x} ${p2.y}" fill="none" stroke="#4fc3f7" stroke-width="2"/>
-      <text x="${M.x}" y="${M.y-ar-8}" text-anchor="middle" font-size="16" fill="#4fc3f7" font-weight="700">θ = ${t}°</text>
-      <line x1="${a1.x}" y1="${a1.y}" x2="${M.x}" y2="${M.y}" stroke="${col(f1)}" stroke-width="${w1}" stroke-linecap="round" ${slack==='L'?'stroke-dasharray="6 6" opacity=".5"':''}/>
-      <line x1="${a2.x}" y1="${a2.y}" x2="${M.x}" y2="${M.y}" stroke="${col(f2)}" stroke-width="${w2}" stroke-linecap="round" ${slack==='R'?'stroke-dasharray="6 6" opacity=".5"':''}/>
-      <circle cx="${a1.x}" cy="${a1.y}" r="10" fill="#0d1117" stroke="#cfd8e2" stroke-width="3"/>
-      <circle cx="${a2.x}" cy="${a2.y}" r="10" fill="#0d1117" stroke="#cfd8e2" stroke-width="3"/>
-      <text x="${a1.x}" y="${a1.y-16}" text-anchor="middle" font-size="15" fill="#cfd8e2">A1</text>
-      <text x="${a2.x}" y="${a2.y-16}" text-anchor="middle" font-size="15" fill="#cfd8e2">A2</text>
-      ${lbl(mid1, f1, 'end')}${lbl(mid2, f2, 'start')}
-      <line x1="${M.x}" y1="${M.y}" x2="${ld.x}" y2="${ld.y}" stroke="#4fc3f7" stroke-width="5"/>
-      <polygon points="${ld.x-9},${ld.y-6} ${ld.x+9},${ld.y-6} ${ld.x},${ld.y+12}" fill="#4fc3f7" transform="rotate(${-dd} ${ld.x} ${ld.y})"/>
-      <circle cx="${M.x}" cy="${M.y}" r="9" fill="${mode==='slide'?'none':'#e8643a'}" stroke="${mode==='slide'?'#fff':'#e8643a'}" stroke-width="3"/>
-      <text x="${ld.x+14}" y="${ld.y}" font-size="15" fill="#9fb0c0">負荷 W${dd?`（偏 ${Math.abs(dd)}°）`:''}</text>`;
-    document.getElementById('lab-t').textContent = t+'°';
-    document.getElementById('lab-d').textContent = (d>0?'往右 ':d<0?'往左 ':'')+Math.abs(d)+'°';
-    const set = (id, f) => { const el=document.getElementById(id); el.textContent=Math.round(f*100)+'%'; el.style.color=col(f); };
-    set('lab-f1', f1); set('lab-f2', f2);
-    document.getElementById('lab-k1').textContent = '100 kg → '+Math.round(f1*100)+' kg';
-    document.getElementById('lab-k2').textContent = '100 kg → '+Math.round(f2*100)+' kg';
-    const z = document.getElementById('lab-zone');
-    let msg, c;
-    if(slack){ msg='⚠ 偏離角超過半個夾角，有一腳已經鬆弛，另一點扛下 100% 負荷'; c='#ef5350'; }
-    else if(t>=45 && t<=60){ msg='✔ 甜蜜點 45°～60°：有容錯空間'; c='#81c784'; }
-    else if(t>=30 && t<=75){ msg='△ 可接受 30°～75°：偏離時受力約 7 成'; c='#ffb74d'; }
-    else if(t<30){ msg='✖ 夾角太窄：一點偏離，受力就集中到單點'; c='#ef5350'; }
-    else { msg='✖ 夾角太寬：就算完美均分，每點受力也很大'; c='#ef5350'; }
-    if(mode==='slide') msg += '｜均力：主力點隨受力方向滑動（理想值）';
-    z.textContent = msg; z.style.background = c+'26'; z.style.border = '1px solid '+c; z.style.color = c;
-  };
-  tIn.addEventListener('input', drawLab); dIn.addEventListener('input', drawLab);
-  document.getElementById('m-static').onclick = ()=>{ mode='static'; document.getElementById('m-static').classList.add('on'); document.getElementById('m-slide').classList.remove('on'); drawLab(); };
-  document.getElementById('m-slide').onclick = ()=>{ mode='slide'; document.getElementById('m-slide').classList.add('on'); document.getElementById('m-static').classList.remove('on'); drawLab(); };
-  drawLab();
-})();
+/* ============ 切頁：章節標籤、頁碼、講稿、lazy init ============ */
+const contentTotal = [...document.querySelectorAll('.reveal .slides > section')].filter(s => /^\d+$/.test(s.dataset.page)).length;
+function onEnter(s) {
+  if (!s) return;
+  $('#section-tag').textContent = '— ' + (s.dataset.section || '') + ' —';
+  const pg = s.dataset.page || '';
+  $('#pageInfo').textContent = /^\d+$/.test(pg) ? `P.${pg.padStart(2, '0')} / ${contentTotal}` : pg === 'Q' ? 'LIVE' : 'END';
+  const n = s.querySelector('aside.notes'), sec = n ? +n.dataset.sec : 0;
+  $('#nMeta').textContent = (/^\d+$/.test(pg) ? 'P.' + pg.padStart(2, '0') : pg === 'Q' ? '互動頁' : pg) + (sec ? ` · 建議 ${sec} 秒` : '');
+  $('#nTxt').innerHTML = n ? n.innerHTML : '';
+  const id = s.id;
+  if (id === 'wordcloud') setTimeout(() => window.drawWordCloud && window.drawWordCloud(), 200);
+  if (id === 'slide-chart') setTimeout(initChart, 150);
+  if (id === 'slide-lab') setTimeout(drawLab, 50);
+  if (id === 'slide-cord') animateCords();
+}
+setInterval(() => {
+  if (!timerStart) return;
+  const d = Math.floor((Date.now() - timerStart) / 1000), el = $('#nTimer');
+  el.textContent = `${fmt(d)} / ${fmt(TOTAL_SEC)}`;
+  el.classList.toggle('over', d > TOTAL_SEC);
+}, 500);
 
-/* ===== Chart.js：偏離 5° ===== */
-let _chart = null;
-window.initChart = function(){
-  if(typeof Chart==='undefined') return;
-  const ctx = document.getElementById('chart-canvas'); if(!ctx) return;
-  const box = ctx.parentElement.getBoundingClientRect();
-  if(box.width < 20){ setTimeout(window.initChart, 250); return; }
-  if(_chart){ _chart.resize(); return; }
-  const X = [5,15,30,45,60,75,90,105,120];
-  const perfect = [0.50,0.50,0.52,0.54,0.58,0.63,0.71,0.82,1.00];
-  const heavy   = [1.00,0.84,0.68,0.65,0.66,0.70,0.77,0.87,1.05];
-  const light   = [0.00,0.17,0.35,0.43,0.49,0.56,0.64,0.76,0.95];
-  const pts = arr => arr.map((y,i)=>({x:X[i], y:Math.round(y*100)}));
-  const zones = { id:'zones', beforeDraw(c){
-    const {ctx, chartArea:a, scales:{x}} = c; if(!a) return;
-    const band = (from,to,color)=>{ const x0=x.getPixelForValue(from), x1=x.getPixelForValue(to); ctx.fillStyle=color; ctx.fillRect(x0,a.top,x1-x0,a.bottom-a.top); };
-    ctx.save();
-    band(5,30,'rgba(239,83,80,0.13)'); band(30,45,'rgba(255,183,77,0.13)'); band(45,60,'rgba(129,199,132,0.22)');
-    band(60,75,'rgba(255,183,77,0.13)'); band(75,120,'rgba(239,83,80,0.13)');
-    ctx.restore();
-  }};
-  _chart = new Chart(ctx, {
-    type:'line',
-    data:{ datasets:[
-      { label:'完美均分（每點）', data:pts(perfect), borderColor:'#4fc3f7', backgroundColor:'#4fc3f7', borderWidth:3, pointRadius:5, tension:.25 },
-      { label:'偏 5°：受力較重的點', data:pts(heavy), borderColor:'#e8643a', backgroundColor:'#e8643a', borderWidth:3, pointRadius:5, tension:.25 },
-      { label:'偏 5°：受力較輕的點', data:pts(light), borderColor:'#81c784', backgroundColor:'#81c784', borderWidth:3, pointRadius:5, tension:.25, borderDash:[6,5] }
-    ]},
-    options:{ responsive:true, maintainAspectRatio:false, interaction:{ mode:'nearest', axis:'x', intersect:false },
-      plugins:{ legend:{ labels:{ color:'#d7e0e8', font:{ size:15, family:'Noto Sans TC' } } },
-        tooltip:{ callbacks:{ title:i=>'夾角 '+i[0].parsed.x+'°', label:i=>' '+i.dataset.label+'：'+i.parsed.y+'%' } } },
-      scales:{
-        x:{ type:'linear', min:5, max:120, title:{ display:true, text:'兩腳夾角（度）', color:'#9fb0c0', font:{ size:15 } }, ticks:{ color:'#cfd8e2', stepSize:15, callback:v=>v+'°' }, grid:{ color:'rgba(255,255,255,0.06)' } },
-        y:{ min:0, max:110, title:{ display:true, text:'固定點承受的負荷比例', color:'#9fb0c0', font:{ size:15 } }, ticks:{ color:'#cfd8e2', callback:v=>v+'%' }, grid:{ color:'rgba(255,255,255,0.08)' } }
-      } },
-    plugins:[zones]
+/* ============ 頁面互動 ============ */
+document.querySelectorAll('.rv, .rig, .sred').forEach(c => c.addEventListener('click', () => c.classList.toggle('open')));
+document.querySelectorAll('table.t').forEach(tb => tb.querySelectorAll('tr.row').forEach(r => r.addEventListener('click', () => {
+  tb.querySelectorAll('tr.row').forEach(x => x.classList.toggle('on', x === r && !x.classList.contains('on')));
+})));
+function animateCords() {
+  document.querySelectorAll('.cord .fill').forEach(f => {
+    const w = parseFloat(f.dataset.w) / 12.8 * 100;
+    if (SHOT) { f.style.width = w + '%'; return; }
+    f.style.width = 0; setTimeout(() => f.style.width = w + '%', 150);
   });
-};
+}
+const chks = [...document.querySelectorAll('.chk')];
+function updChk() {
+  const n = chks.filter(c => c.classList.contains('on')).length, r = $('#chkResult');
+  r.textContent = n === 6 ? '✔ 6 / 6 全部確認：可以受力' : `已檢查 ${n} / 6：還不能受力`;
+  r.classList.toggle('done', n === 6);
+}
+chks.forEach(c => c.addEventListener('click', () => { c.classList.toggle('on'); c.querySelector('.box').textContent = c.classList.contains('on') ? '✓' : ''; updChk(); }));
 
-/* 手機：滑桿區防誤觸換頁 */
-document.querySelectorAll('[data-prevent-swipe]').forEach(el=>{
-  ['touchstart','touchmove','touchend'].forEach(ev=>el.addEventListener(ev, e=>e.stopPropagation(), {passive:false}));
-});
+/* ============ 角度實驗室 ============ */
+const tIn = $('#lab-theta'), dIn = $('#lab-delta');
+let labMode = 'static';
+const rad = d => d * Math.PI / 180;
+const col = f => f <= 0.6 ? '#81c784' : f <= 0.75 ? '#ffb74d' : '#ef5350';
+function forces(t, d) {
+  if (labMode === 'slide') { const f = 1 / (2 * Math.cos(rad(t / 2))); return [f, f, false]; }
+  let f1 = Math.sin(rad(t / 2 + d)) / Math.sin(rad(t)), f2 = Math.sin(rad(t / 2 - d)) / Math.sin(rad(t)), slack = false;
+  if (f2 < 0) { f1 = 1; f2 = 0; slack = 'R'; }
+  if (f1 < 0) { f2 = 1; f1 = 0; slack = 'L'; }
+  return [f1, f2, slack];
+}
+function drawLab() {
+  const svg = $('#lab-svg'), t = +tIn.value, d = +dIn.value;
+  const [f1, f2, slack] = forces(t, d);
+  const M = { x: 260, y: 236 }, L = 196;
+  const a1 = { x: M.x - L * Math.sin(rad(t / 2)), y: M.y - L * Math.cos(rad(t / 2)) };
+  const a2 = { x: M.x + L * Math.sin(rad(t / 2)), y: M.y - L * Math.cos(rad(t / 2)) };
+  const dd = labMode === 'slide' ? 0 : d;
+  const ld = { x: M.x + 110 * Math.sin(rad(dd)), y: M.y + 110 * Math.cos(rad(dd)) };
+  const ar = 54, p1 = { x: M.x - ar * Math.sin(rad(t / 2)), y: M.y - ar * Math.cos(rad(t / 2)) }, p2 = { x: M.x + ar * Math.sin(rad(t / 2)), y: M.y - ar * Math.cos(rad(t / 2)) };
+  const lbl = (p, f, anchor) => `<text x="${p.x}" y="${p.y}" text-anchor="${anchor}" font-size="24" font-weight="700" font-family="JetBrains Mono" fill="${col(f)}">${Math.round(f * 100)}%</text>`;
+  const m1 = { x: (a1.x + M.x) / 2 - 14, y: (a1.y + M.y) / 2 }, m2 = { x: (a2.x + M.x) / 2 + 14, y: (a2.y + M.y) / 2 };
+  svg.innerHTML = `
+    <line x1="${M.x}" y1="16" x2="${M.x}" y2="370" stroke="rgba(255,255,255,.1)" stroke-dasharray="4 6"/>
+    <path d="M${p1.x} ${p1.y} A${ar} ${ar} 0 0 1 ${p2.x} ${p2.y}" fill="none" stroke="#4cc9f0" stroke-width="2"/>
+    <text x="${M.x}" y="${M.y - ar - 8}" text-anchor="middle" font-size="16" fill="#4cc9f0" font-weight="700">θ = ${t}°</text>
+    <line x1="${a1.x}" y1="${a1.y}" x2="${M.x}" y2="${M.y}" stroke="${col(f1)}" stroke-width="${3 + f1 * 9}" stroke-linecap="round" ${slack === 'L' ? 'stroke-dasharray="6 6" opacity=".5"' : ''}/>
+    <line x1="${a2.x}" y1="${a2.y}" x2="${M.x}" y2="${M.y}" stroke="${col(f2)}" stroke-width="${3 + f2 * 9}" stroke-linecap="round" ${slack === 'R' ? 'stroke-dasharray="6 6" opacity=".5"' : ''}/>
+    <circle cx="${a1.x}" cy="${a1.y}" r="10" fill="#0d1117" stroke="#b9c6d8" stroke-width="3"/><circle cx="${a2.x}" cy="${a2.y}" r="10" fill="#0d1117" stroke="#b9c6d8" stroke-width="3"/>
+    <text x="${a1.x}" y="${a1.y - 16}" text-anchor="middle" font-size="15" fill="#b9c6d8">A1</text><text x="${a2.x}" y="${a2.y - 16}" text-anchor="middle" font-size="15" fill="#b9c6d8">A2</text>
+    ${lbl(m1, f1, 'end')}${lbl(m2, f2, 'start')}
+    <line x1="${M.x}" y1="${M.y}" x2="${ld.x}" y2="${ld.y}" stroke="#4cc9f0" stroke-width="5"/>
+    <polygon points="${ld.x - 9},${ld.y - 6} ${ld.x + 9},${ld.y - 6} ${ld.x},${ld.y + 12}" fill="#4cc9f0" transform="rotate(${-dd} ${ld.x} ${ld.y})"/>
+    <circle cx="${M.x}" cy="${M.y}" r="9" fill="${labMode === 'slide' ? 'none' : '#ff7a2f'}" stroke="${labMode === 'slide' ? '#fff' : '#ff7a2f'}" stroke-width="3"/>
+    <text x="${ld.x + 14}" y="${ld.y}" font-size="15" fill="#7d8ba3">負荷 W${dd ? `（偏 ${Math.abs(dd)}°）` : ''}</text>`;
+  $('#lab-t').textContent = t + '°';
+  $('#lab-d').textContent = (d > 0 ? '往右 ' : d < 0 ? '往左 ' : '') + Math.abs(d) + '°';
+  const set = (id, f) => { const el = $(id); el.textContent = Math.round(f * 100) + '%'; el.style.color = col(f); };
+  set('#lab-f1', f1); set('#lab-f2', f2);
+  $('#lab-k1').textContent = '100 kg → ' + Math.round(f1 * 100) + ' kg';
+  $('#lab-k2').textContent = '100 kg → ' + Math.round(f2 * 100) + ' kg';
+  const z = $('#lab-zone'); let msg, c;
+  if (slack) { msg = '⚠ 偏離角超過半個夾角：一腳已鬆弛，另一點扛下 100%'; c = '#ef5350'; }
+  else if (t >= 45 && t <= 60) { msg = '✔ 甜蜜點 45°～60°：有容錯空間'; c = '#81c784'; }
+  else if (t >= 30 && t <= 75) { msg = '△ 可接受 30°～75°：偏離時受力約 7 成'; c = '#ffb74d'; }
+  else if (t < 30) { msg = '✖ 夾角太窄：一點偏離，受力就集中到單點'; c = '#ef5350'; }
+  else { msg = '✖ 夾角太寬：就算完美均分，每點受力也很大'; c = '#ef5350'; }
+  if (labMode === 'slide') msg += '｜均力：主力點隨受力方向滑動（理想值）';
+  z.textContent = msg; z.style.background = c + '22'; z.style.border = '1px solid ' + c; z.style.color = c;
+}
+tIn.addEventListener('input', drawLab); dIn.addEventListener('input', drawLab);
+$('#m-static').onclick = () => { labMode = 'static'; $('#m-static').classList.add('on'); $('#m-slide').classList.remove('on'); drawLab(); };
+$('#m-slide').onclick = () => { labMode = 'slide'; $('#m-slide').classList.add('on'); $('#m-static').classList.remove('on'); drawLab(); };
+drawLab();
+
+/* ============ Chart.js：偏離 5° ============ */
+let _chart = null;
+function initChart() {
+  if (typeof Chart === 'undefined') return;
+  const ctx = document.getElementById('chart-canvas'); if (!ctx) return;
+  if (ctx.parentElement.getBoundingClientRect().width < 20) { setTimeout(initChart, 250); return; }
+  if (_chart) { _chart.resize(); return; }
+  Chart.defaults.color = '#b9c6d8'; Chart.defaults.font.family = "'Noto Sans TC',sans-serif"; Chart.defaults.font.size = 14;
+  const X = [5, 15, 30, 45, 60, 75, 90, 105, 120];
+  const perfect = [0.50, 0.50, 0.52, 0.54, 0.58, 0.63, 0.71, 0.82, 1.00];
+  const heavy = [1.00, 0.84, 0.68, 0.65, 0.66, 0.70, 0.77, 0.87, 1.05];
+  const light = [0.00, 0.17, 0.35, 0.43, 0.49, 0.56, 0.64, 0.76, 0.95];
+  const pts = a => a.map((y, i) => ({ x: X[i], y: Math.round(y * 100) }));
+  const zones = { id: 'zones', beforeDraw(c) {
+    const { ctx, chartArea: a, scales: { x } } = c; if (!a) return;
+    const band = (f, t, col) => { const x0 = x.getPixelForValue(f), x1 = x.getPixelForValue(t); ctx.fillStyle = col; ctx.fillRect(x0, a.top, x1 - x0, a.bottom - a.top); };
+    ctx.save(); band(5, 30, 'rgba(239,83,80,.12)'); band(30, 45, 'rgba(255,183,77,.12)'); band(45, 60, 'rgba(129,199,132,.22)'); band(60, 75, 'rgba(255,183,77,.12)'); band(75, 120, 'rgba(239,83,80,.12)'); ctx.restore();
+  } };
+  _chart = new Chart(ctx, {
+    type: 'line',
+    data: { datasets: [
+      { label: '完美均分（每點）', data: pts(perfect), borderColor: '#4cc9f0', backgroundColor: '#4cc9f0', borderWidth: 3, pointRadius: 5, tension: .25 },
+      { label: '偏 5°：受力較重的點', data: pts(heavy), borderColor: '#ff7a2f', backgroundColor: '#ff7a2f', borderWidth: 3, pointRadius: 5, tension: .25 },
+      { label: '偏 5°：受力較輕的點', data: pts(light), borderColor: '#81c784', backgroundColor: '#81c784', borderWidth: 3, pointRadius: 5, tension: .25, borderDash: [6, 5] } ] },
+    options: { responsive: true, maintainAspectRatio: false, animation: SHOT ? false : { duration: 1200 },
+      interaction: { mode: 'nearest', axis: 'x', intersect: false },
+      plugins: { legend: { position: 'top', align: 'end', labels: { boxWidth: 12, usePointStyle: true } },
+        tooltip: { padding: 10, callbacks: { title: i => '夾角 ' + i[0].parsed.x + '°', label: i => ' ' + i.dataset.label + '：' + i.parsed.y + '%' } } },
+      scales: { x: { type: 'linear', min: 5, max: 120, title: { display: true, text: '兩腳夾角（度）' }, ticks: { stepSize: 15, callback: v => v + '°' }, grid: { color: 'rgba(255,255,255,.06)' } },
+        y: { min: 0, max: 110, title: { display: true, text: '固定點承受的負荷比例' }, ticks: { callback: v => v + '%' }, grid: { color: 'rgba(255,255,255,.07)' } } } },
+    plugins: [zones]
+  });
+}
+
+/* ============ 手機防誤觸 ============ */
+document.querySelectorAll('[data-prevent-swipe]').forEach(el => ['touchstart', 'touchmove', 'touchend'].forEach(ev => el.addEventListener(ev, e => e.stopPropagation(), { passive: false })));
 </script>
 
+<!-- ============ Firebase：文字雲 + 投票 + 全域提問牆（整份簡報只初始化一次） ============ -->
 <script type="module">
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js';
-import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, orderBy, doc, setDoc, updateDoc, getDocs, deleteDoc, increment } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js';
-import { getAuth, signInAnonymously } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js';
-import { initializeAppCheck, ReCaptchaV3Provider } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-app-check.js';
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js';
+  import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, orderBy, doc, setDoc, updateDoc, getDocs, deleteDoc, increment } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js';
+  import { getAuth, signInAnonymously } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js';
+  import { initializeAppCheck, ReCaptchaV3Provider } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-app-check.js';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBPaIDGb3RaYhxYrXVE_6YndLUi2jLv1R4",
-  authDomain: "html-slide-db.firebaseapp.com",
-  projectId: "html-slide-db",
-  storageBucket: "html-slide-db.firebasestorage.app",
-  messagingSenderId: "1045858073731",
-  appId: "1:1045858073731:web:8d70945fa081f49929afb6"
-};
-const app = initializeApp(firebaseConfig);
-initializeAppCheck(app, { provider: new ReCaptchaV3Provider('6LevoHstAAAAALRLwnA0DSLiXAK8wER_LEM-eP9b'), isTokenAutoRefreshEnabled: true });
-const fdb = getFirestore(app);
-const auth = getAuth(app);
-try { await signInAnonymously(auth); } catch(e){ console.error('匿名登入失敗', e); }
-const SLUG = 'anchor2026';
-function loadStore(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
-function saveStore(k,v){ try { localStorage.setItem(k,v); } catch(e){} }
-function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-const COLORS = ['#4fc3f7','#e8643a','#ffb74d','#81c784','#ce93d8','#80deea','#f48fb1'];
+  const firebaseConfig = {
+    apiKey: "AIzaSyBPaIDGb3RaYhxYrXVE_6YndLUi2jLv1R4",
+    authDomain: "html-slide-db.firebaseapp.com",
+    projectId: "html-slide-db",
+    storageBucket: "html-slide-db.firebasestorage.app",
+    messagingSenderId: "1045858073731",
+    appId: "1:1045858073731:web:8d70945fa081f49929afb6"
+  };
+  const app = initializeApp(firebaseConfig);
+  initializeAppCheck(app, { provider: new ReCaptchaV3Provider('6LevoHstAAAAALRLwnA0DSLiXAK8wER_LEM-eP9b'), isTokenAutoRefreshEnabled: true });
+  const fdb = getFirestore(app);
+  const auth = getAuth(app);
+  try { await signInAnonymously(auth); } catch (e) { console.error('匿名登入失敗', e); }
+  const SLUG = 'anchor2026';
+  const loadStore = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  const saveStore = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+  const escapeHtml = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const offline = id => e => { console.error(e); const el = document.getElementById(id); if (el) el.textContent = '⚠ 互動連線失敗（本機預覽時屬正常，請用線上網址）'; };
+  const COLORS = ['#4cc9f0', '#ff7a2f', '#ffb74d', '#81c784', '#ce93d8', '#80deea', '#f48fb1'];
 
-/* --- 文字雲 --- */
-const wordsRef = collection(fdb, SLUG + '_wordcloud');
-let wcData = [];
-window.wcSubmit = async function(){
-  const input = document.getElementById('wc-input');
-  const word = input.value.trim(); if(!word) return;
-  const btn = document.getElementById('wc-btn'); btn.disabled = true;
-  try { await addDoc(wordsRef, { word, created_at: serverTimestamp() }); input.value=''; }
-  catch(e){ console.error(e); } finally { btn.disabled = false; }
-};
-document.getElementById('wc-input').addEventListener('keypress', e=>{ if(e.key==='Enter') window.wcSubmit(); });
-document.getElementById('wc-btn').addEventListener('click', window.wcSubmit);
-onSnapshot(query(wordsRef, orderBy('created_at','asc')), snap=>{
-  const words = []; snap.forEach(d=>words.push(d.data().word));
-  const counts = {}; words.forEach(w=>counts[w]=(counts[w]||0)+1);
-  wcData = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-  document.getElementById('wc-total').textContent = words.length;
-  document.getElementById('wc-unique').textContent = wcData.length;
-  document.getElementById('wc-list').innerHTML = wcData.slice(0,12).map(([w,c])=>
-    `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.06);"><span>${escapeHtml(w)}</span><span style="color:var(--accent);font-weight:700;">${c}</span></div>`
-  ).join('') || '<div style="color:#5a6775;padding:8px 0;">尚無資料</div>';
-  document.getElementById('wc-empty').style.display = wcData.length>0 ? 'none' : '';
-  drawWordCloud();
-}, e=>console.error(e));
-function drawWordCloud(){
-  const canvas = document.getElementById('wc-canvas');
-  if(!canvas || typeof WordCloud==='undefined') return;
-  const rect = canvas.getBoundingClientRect(); if(rect.width<10 || rect.height<10) return;
-  canvas.width = rect.width; canvas.height = rect.height;
-  if(wcData.length===0) return;
-  const maxCount = wcData[0][1];
-  WordCloud(canvas, { list: wcData.map(([w,c])=>[w, Math.max(18, Math.round((c/maxCount)*72))]),
-    gridSize:6, weightFactor:1, fontFamily:'"Noto Sans TC","Microsoft JhengHei",sans-serif',
-    color:()=>COLORS[Math.floor(Math.random()*COLORS.length)], backgroundColor:'transparent', rotateRatio:0.3, shuffle:true });
-}
-window.drawWordCloud = drawWordCloud;
-
-/* --- 投票 --- */
-const POLL_OPTIONS = [
-  { id:'a', label:'越小越好（接近 0°）' },
-  { id:'b', label:'約 30°' },
-  { id:'c', label:'45°～60°' },
-  { id:'d', label:'約 90°' },
-  { id:'e', label:'約 120°' },
-];
-const pollRef = doc(fdb, SLUG + '_poll', 'results');
-const userId = (auth.currentUser && auth.currentUser.uid) || (()=>{ const k=SLUG+'_uid'; let id=loadStore(k); if(!id){ id='u_'+Math.random().toString(36).slice(2,9); saveStore(k,id); } return id; })();
-let myVote = null;
-const pollBox = document.getElementById('poll-options');
-POLL_OPTIONS.forEach(opt=>{
-  const btn = document.createElement('button');
-  btn.innerHTML = `<div style="display:flex;align-items:center;gap:12px;">
-    <span id="pk-${opt.id}" style="flex:0 0 26px;height:26px;border-radius:50%;border:2px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;font-size:14px;"></span>
-    <span style="flex:1;text-align:left;">${opt.label}</span>
-    <span style="flex:0 0 34%;height:10px;background:rgba(255,255,255,0.1);border-radius:5px;overflow:hidden;"><span id="pb-${opt.id}" style="display:block;height:100%;width:0;background:var(--accent2);border-radius:5px;transition:width .4s;"></span></span>
-    <span id="pp-${opt.id}" style="flex:0 0 48px;text-align:right;color:#9fb0c0;">0%</span></div>`;
-  btn.style.cssText = 'width:100%;padding:12px 18px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;color:#fff;font-size:20px;cursor:pointer;font-family:inherit;';
-  btn.onclick = ()=>vote(opt.id);
-  pollBox.appendChild(btn);
-});
-async function vote(optId){
-  myVote = optId;
-  try { await setDoc(pollRef, { updated_at: serverTimestamp(), votes: { [userId]: optId } }, { merge:true }); } catch(e){ console.error(e); }
-}
-onSnapshot(pollRef, snap=>{
-  const votes = (snap.data()||{}).votes || {};
-  myVote = votes[userId] || null;
-  const counts = {}; POLL_OPTIONS.forEach(o=>counts[o.id]=0);
-  Object.values(votes).forEach(v=>{ if(counts[v]!==undefined) counts[v]++; });
-  const total = Object.values(counts).reduce((a,b)=>a+b,0);
-  document.getElementById('poll-total').textContent = total;
-  POLL_OPTIONS.forEach(opt=>{
-    const pct = total>0 ? Math.round(counts[opt.id]/total*100) : 0;
-    document.getElementById('pb-'+opt.id).style.width = pct+'%';
-    document.getElementById('pp-'+opt.id).textContent = pct+'%';
-    const k = document.getElementById('pk-'+opt.id);
-    if(myVote===opt.id){ k.textContent='✓'; k.style.background='var(--accent2)'; k.style.borderColor='var(--accent2)'; k.style.color='#0d1117'; }
-    else { k.textContent=''; k.style.background='transparent'; k.style.borderColor='rgba(255,255,255,0.3)'; }
-  });
-}, e=>console.error(e));
-
-/* --- 提問牆 --- */
-const qaRef = collection(fdb, SLUG + '_qa');
-window.qaSubmit = async function(){
-  const input = document.getElementById('qa-input');
-  const text = input.value.trim(); if(!text) return;
-  const btn = document.getElementById('qa-btn'); btn.disabled = true;
-  try { await addDoc(qaRef, { text, likes:0, created_at: serverTimestamp() }); input.value=''; }
-  catch(e){ console.error(e); } finally { btn.disabled = false; }
-};
-document.getElementById('qa-input').addEventListener('keypress', e=>{ if(e.key==='Enter') window.qaSubmit(); });
-document.getElementById('qa-btn').addEventListener('click', window.qaSubmit);
-const likedKey = SLUG + '_liked';
-const liked = new Set(JSON.parse(loadStore(likedKey) || '[]'));
-window.qaLike = async function(id){
-  if(liked.has(id)) return;
-  liked.add(id); saveStore(likedKey, JSON.stringify([...liked]));
-  try { await updateDoc(doc(fdb, SLUG+'_qa', id), { likes: increment(1) }); }
-  catch(e){ console.error(e); liked.delete(id); saveStore(likedKey, JSON.stringify([...liked])); }
-};
-onSnapshot(query(qaRef, orderBy('created_at','desc')), snap=>{
-  const items = []; snap.forEach(d=>items.push({ id:d.id, ...d.data() }));
-  items.sort((a,b)=>(b.likes||0)-(a.likes||0));
-  document.getElementById('qa-list').innerHTML = items.length ? items.map(q=>
-    `<div class="qa-item"><span class="qa-text">${escapeHtml(q.text)}</span>
-     <button class="qa-like" ${liked.has(q.id)?'disabled style="opacity:.55;cursor:default;"':''} onclick="qaLike('${q.id}')">👍 ${q.likes||0}</button></div>`
-  ).join('') : '<div style="color:#5a6775;text-align:center;padding:20px;font-size:14px;">還沒有問題，當第一個發問的人 🙋</div>';
-}, e=>console.error(e));
-const qaSidebar = document.getElementById('qa-sidebar');
-const qaOverlay = document.getElementById('qa-overlay');
-window.toggleQA = function(force){
-  const open = (force!==undefined) ? force : !qaSidebar.classList.contains('open');
-  qaSidebar.classList.toggle('open', open); qaOverlay.classList.toggle('show', open);
-  if(open) setTimeout(()=>document.getElementById('qa-input')?.focus(), 300);
-};
-document.getElementById('qa-handle').addEventListener('click', ()=>window.toggleQA());
-qaOverlay.addEventListener('click', ()=>window.toggleQA(false));
-
-/* --- 切頁重繪 --- */
-Reveal.on('slidechanged', e=>{ if(e.currentSlide?.id==='slide-wordcloud') setTimeout(drawWordCloud,150); });
-if(Reveal.getCurrentSlide()?.id==='slide-wordcloud') setTimeout(drawWordCloud,300);
-
-/* --- 老師專用：課後重置（網址加 ?reset=1） --- */
-window.resetAnchor = async function(){
-  let total = 0;
-  for(const c of [SLUG+'_wordcloud', SLUG+'_qa']){
-    const snap = await getDocs(collection(fdb, c));
-    for(const d of snap.docs){ await deleteDoc(d.ref); total++; }
+  /* ---------- 文字雲 ---------- */
+  const wordsRef = collection(fdb, SLUG + '_wordcloud');
+  let wcData = [];
+  window.wcSubmit = async function () {
+    const input = document.getElementById('wc-input'), word = input.value.trim(); if (!word) return;
+    const btn = document.getElementById('wc-btn'); btn.disabled = true;
+    try { await addDoc(wordsRef, { word, created_at: serverTimestamp() }); input.value = ''; } catch (e) { offline('wcStatus')(e); } finally { btn.disabled = false; }
+  };
+  document.getElementById('wc-input').addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter' && !e.isComposing) window.wcSubmit(); });
+  document.getElementById('wc-btn').addEventListener('click', window.wcSubmit);
+  onSnapshot(query(wordsRef, orderBy('created_at', 'asc')), snap => {
+    const words = []; snap.forEach(d => words.push(d.data().word));
+    const counts = {}; words.forEach(w => counts[w] = (counts[w] || 0) + 1);
+    wcData = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    document.getElementById('wc-total').textContent = words.length;
+    document.getElementById('wc-unique').textContent = wcData.length;
+    document.getElementById('wc-list').innerHTML = wcData.slice(0, 10).map(([w, c]) => `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06)"><span>${escapeHtml(w)}</span><b class="hl">${c}</b></div>`).join('') || '<div style="color:var(--ink-4);padding:6px 0">尚無資料</div>';
+    document.getElementById('wc-empty').style.display = wcData.length ? 'none' : '';
+    document.getElementById('wcStatus').textContent = '';
+    drawWordCloud();
+  }, offline('wcStatus'));
+  function drawWordCloud() {
+    const canvas = document.getElementById('wc-canvas'); if (!canvas || typeof WordCloud === 'undefined') return;
+    const r = canvas.getBoundingClientRect(); if (r.width < 10 || r.height < 10) return;
+    canvas.width = r.width; canvas.height = r.height;
+    if (!wcData.length) return;
+    const max = wcData[0][1];
+    WordCloud(canvas, { list: wcData.map(([w, c]) => [w, Math.max(18, Math.round(c / max * 72))]), gridSize: 6, weightFactor: 1,
+      fontFamily: '"Noto Sans TC",sans-serif', color: () => COLORS[Math.floor(Math.random() * COLORS.length)], backgroundColor: 'transparent', rotateRatio: 0.3, shuffle: true });
   }
-  try { await deleteDoc(doc(fdb, SLUG+'_poll', 'results')); } catch(e){}
-  alert('已清空本場互動資料（文字雲／提問牆 '+total+' 筆＋投票）。');
-};
-if(new URLSearchParams(location.search).get('reset')==='1'){
-  const b = document.getElementById('admin-reset'); b.style.display='block';
-  b.onclick = ()=>{ if(confirm('【老師專用】確定清空本簡報所有互動資料？')) window.resetAnchor(); };
-}
+  window.drawWordCloud = drawWordCloud;
+
+  /* ---------- 投票（巢狀 map + merge；身分用匿名 uid） ---------- */
+  const pollRef = doc(fdb, SLUG + '_poll', 'results');
+  const userId = (auth.currentUser && auth.currentUser.uid) || (() => { let id = loadStore(SLUG + '_uid'); if (!id) { id = 'u_' + Math.random().toString(36).slice(2, 9); saveStore(SLUG + '_uid', id); } return id; })();
+  const opts = [...document.querySelectorAll('.popt')];
+  opts.forEach(b => b.addEventListener('click', async () => {
+    opts.forEach(x => x.classList.toggle('mine', x === b));
+    try { await setDoc(pollRef, { updated_at: serverTimestamp(), votes: { [userId]: b.dataset.id } }, { merge: true }); } catch (e) { offline('pollStatus')(e); }
+  }));
+  onSnapshot(pollRef, snap => {
+    const votes = (snap.data() || {}).votes || {};
+    const mine = votes[userId] || null; opts.forEach(x => x.classList.toggle('mine', x.dataset.id === mine));
+    const counts = {}; opts.forEach(o => counts[o.dataset.id] = 0);
+    Object.values(votes).forEach(v => { if (counts[v] !== undefined) counts[v]++; });
+    const total = Object.values(counts).reduce((a, b) => a + b, 0);
+    document.getElementById('poll-total').textContent = total;
+    opts.forEach(o => { const pct = total ? Math.round(counts[o.dataset.id] / total * 100) : 0; o.querySelector('.bar i').style.width = pct + '%'; o.querySelector('.pc').textContent = pct + '%'; });
+    document.getElementById('pollStatus').textContent = '';
+  }, offline('pollStatus'));
+  document.getElementById('pollReveal').addEventListener('click', e => {
+    const on = !document.querySelector('.popt.answer');
+    document.querySelector('.popt[data-id="c"]').classList.toggle('answer', on);
+    e.target.textContent = on ? '正解：C　45°～60°' : '揭曉答案';
+  });
+
+  /* ---------- 匿名提問牆 ---------- */
+  const qaRef = collection(fdb, SLUG + '_qa');
+  window.qaSubmit = async function () {
+    const input = document.getElementById('qa-input'), text = input.value.trim(); if (!text) return;
+    const btn = document.getElementById('qa-btn'); btn.disabled = true;
+    try { await addDoc(qaRef, { text, likes: 0, created_at: serverTimestamp() }); input.value = ''; } catch (e) { console.error(e); alert('送出失敗，請確認網路連線。'); } finally { btn.disabled = false; }
+  };
+  document.getElementById('qa-input').addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter' && !e.isComposing) window.qaSubmit(); });
+  document.getElementById('qa-btn').addEventListener('click', window.qaSubmit);
+  const likedKey = SLUG + '_liked', liked = new Set(JSON.parse(loadStore(likedKey) || '[]'));
+  window.qaLike = async id => {
+    if (liked.has(id)) return; liked.add(id); saveStore(likedKey, JSON.stringify([...liked]));
+    try { await updateDoc(doc(fdb, SLUG + '_qa', id), { likes: increment(1) }); } catch (e) { console.error(e); liked.delete(id); saveStore(likedKey, JSON.stringify([...liked])); }
+  };
+  onSnapshot(query(qaRef, orderBy('created_at', 'desc')), snap => {
+    const items = []; snap.forEach(d => items.push({ id: d.id, ...d.data() }));
+    items.sort((a, b) => (b.likes || 0) - (a.likes || 0));
+    document.getElementById('qa-list').innerHTML = items.length ? items.map(q =>
+      `<div class="qa-item"><span class="qa-text">${escapeHtml(q.text)}</span><button class="qa-like" ${liked.has(q.id) ? 'disabled style="opacity:.55;cursor:default"' : ''} onclick="qaLike('${q.id}')">👍 ${q.likes || 0}</button></div>`).join('')
+      : '<div style="color:#667;text-align:center;padding:20px;font-size:16px">還沒有問題，當第一個發問的人 🙋</div>';
+  }, e => console.error(e));
+  const qaSidebar = document.getElementById('qa-sidebar'), qaOverlay = document.getElementById('qa-overlay');
+  window.toggleQA = function (force) {
+    const open = force !== undefined ? force : !qaSidebar.classList.contains('open');
+    qaSidebar.classList.toggle('open', open); qaOverlay.classList.toggle('show', open);
+    if (open) setTimeout(() => document.getElementById('qa-input')?.focus(), 300);
+  };
+  document.getElementById('qa-handle').addEventListener('click', () => window.toggleQA());
+  qaOverlay.addEventListener('click', () => window.toggleQA(false));
+
+  /* ---------- 講者課後清除：網址加 ?reset=1 ---------- */
+  window.clearInteractions = async function (silent) {
+    let total = 0;
+    for (const c of [SLUG + '_wordcloud', SLUG + '_qa']) { const snap = await getDocs(collection(fdb, c)); for (const d of snap.docs) { await deleteDoc(d.ref); total++; } }
+    try { await deleteDoc(pollRef); } catch (e) {}
+    if (!silent) alert('已清空文字雲、投票與提問牆，共刪除 ' + total + ' 筆。');
+    return total;
+  };
+  if (new URLSearchParams(location.search).get('reset') === '1') {
+    setTimeout(() => { if (confirm('【講者專用】確定清空本簡報的文字雲、投票與提問牆資料？')) window.clearInteractions(); }, 800);
+  }
 </script>
 </body>
 </html>
