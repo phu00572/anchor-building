@@ -236,6 +236,23 @@ html.clean .photo-btn.pending{display:none}
 #slide-cord .cord:hover{background:rgba(255,255,255,.05)}
 #slide-cord .cord.on{background:rgba(76,201,240,.14)}
 
+
+/* ---------- 腿長與受力 ---------- */
+.legs-grid{display:grid;grid-template-columns:300px 1fr;gap:28px;align-items:start}
+.leg-fig{margin:0;padding:10px;cursor:zoom-in;text-align:center}
+.leg-fig img{height:405px;width:auto;border-radius:10px;display:block;margin:0 auto !important}
+.leg-fig figcaption{font-size:15.5px;white-space:nowrap;color:var(--ink-2);margin-top:8px;line-height:1.4}
+.legs-q{font-size:24px;margin-bottom:12px}
+.legs-seg{display:flex;gap:10px;margin-bottom:16px}
+.legs-seg button{flex:1;font:700 22px 'JetBrains Mono',monospace;padding:8px 0;border-radius:10px;border:1px solid var(--ink-4);background:rgba(255,255,255,.04);color:var(--ink-2);cursor:pointer;transition:all .2s}
+.legs-seg button.on{background:var(--accent2);border-color:var(--accent2);color:#0d1117}
+.legs-bars .cord{grid-template-columns:80px 1fr 90px}
+.legs-bars .cord .track{height:20px;border-radius:10px}
+body.mobile .legs-grid{grid-template-columns:1fr;gap:14px}
+body.mobile .leg-fig img{height:340px}
+body.mobile .legs-q{font-size:19px}
+body.mobile .legs-seg button{font-size:18px}
+
 /* ---------- 輔助繩 ---------- */
 .cords{display:flex;flex-direction:column;gap:10px}
 .cord{display:grid;grid-template-columns:70px 1fr 90px;align-items:center;gap:14px}
@@ -742,10 +759,38 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
   <aside class="notes" data-sec="55"><p>結論：分力夾角以 45 到 60 度為甜蜜點，偏 5 度時最重的點也只到 65、66%。30 度和 75 度是底線，大約 68 到 70%。低於 30 度，一偏就衝到 84% 甚至 100%；高於 75 度，就算完美也已經 7 成以上。</p><p>所以架設時，不要把 30 度當起點，一開始就架在 45 到 60 度。這個區間就算受力方向偏了 5 度，最重的那一點也只到 65、66%，留有容錯空間；夾角再收窄，15 度會到 84%，5 度直接 100%。</p></aside>
 </section>
 
-<!-- ================= P17 偏離點（COD）強度值 ================= -->
-<section id="slide-cord" data-page="17" data-section="喚起行動" data-background-image="images/cord.jpg" data-background-opacity="0.18" data-background-size="cover">
+<!-- ================= P17 腿長與受力 ================= -->
+<section id="slide-legs" data-page="17" data-section="喚起行動" data-background-image="images/rigging.jpg" data-background-opacity="0.14" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">16 · 偏離點的強度值</div><h2>偏離點或 COD：繩子彎得越急，受力越大</h2><p class="sub">COD＝Change of Direction（改變方向）。左欄是偏離點兩側繩子的<b class="hl">夾角</b>，負荷＝100%</p></div>
+    <div class="head"><div class="kicker">16 · 腿長 Length of Anchor Legs</div><h2>腿長不等：越短的腳，扛越多的力</h2><p class="sub">分力的主力點綁死後，各腳被拉長<b class="hl">同樣的距離</b>；短腳伸長的比例較大，所以受力較多</p></div>
+    <div class="legs-grid">
+      <figure class="card leg-fig" data-photo="legs" data-title="腿長與受力：三腳理論例（kevin-heinrich.com）" title="點一下放大">
+        <img src="images/photos/legs.jpg" alt="三條不同長度的腳：1ft 承受 55%、2ft 27%、3ft 18%">
+        <figcaption>理論例 1ft <b class="bad">55%</b>・2ft <b class="warn">27%</b>・3ft <b class="ok">18%</b></figcaption>
+      </figure>
+      <div class="card" style="padding:18px 22px">
+        <h4 class="legs-q">兩腳時：長腳是短腳的幾倍長？</h4>
+        <div class="legs-seg" id="legsSeg"><button data-r="1">1×</button><button data-r="1.5">1.5×</button><button data-r="2" class="on">2×</button><button data-r="3">3×</button></div>
+        <div class="cords legs-bars" data-max="100">
+          <div class="cord"><span class="dm">短腳</span><div class="track"><div class="fill" id="legS" style="background:var(--bad)"></div></div><span class="kn" id="legSv">67<small>%</small></span></div>
+          <div class="cord"><span class="dm">長腳</span><div class="track"><div class="fill" id="legL" style="background:var(--ok)"></div></div><span class="kn" id="legLv">33<small>%</small></span></div>
+        </div>
+        <ul class="list" style="margin-top:12px">
+          <li>受力和腳長<b>成反比</b>：長腳 2 倍長，短腳扛 2 倍的力</li>
+          <li>腳長差很多時，長腳用<b>靜力材料</b>（Dyneema 扁帶）延長，讓兩腳的彈性段接近等長</li>
+          <li>分力結要<b>拉緊</b>：沒拉緊的結等於多一段鬆弛，影響比腿長更大</li>
+        </ul>
+      </div>
+    </div>
+    <p class="src">資料來源：Kevin Heinrich〈The Best Climbing Anchor: A Look at Anchor Research〉；Chasse（2016）〈Revisiting the Quad for Load Distribution and Stance Management〉；Beverly et al.（2005）〈Multi-point Pre-Equalized Anchoring Systems〉。百分比為理論值：同材質、各腳接近平行、不計結的鬆弛</p>
+  </div>
+  <aside class="notes" data-sec="50"><p>再看一個常被忽略的因素：腿長。分力的主力點綁死以後，受力時每一隻腳都被拉長同樣的距離。可是短腳本身比較短，同樣伸長幾公分，它被拉長的比例比較大，所以承受的力也比較多。受力和腳長成反比。左邊這張圖是理論例子：三隻腳分別 1 呎、2 呎、3 呎，最短的那隻扛 55%，2 呎 27%，最長的只有 18%。</p><p>右邊切換看看兩隻腳的情況：一樣長，各 50%；長腳是短腳的 2 倍，短腳就扛 67%；3 倍時變成 75%。所以腳長差很多的時候，可以用 Dyneema 這類靜力扁帶去延長長腳，讓兩隻腳會伸長的那一段接近等長。另外，研究也提醒：分力結沒有拉緊，等於那隻腳多了一段鬆弛，影響比腿長還大。打完結一定要整理、拉緊。</p></aside>
+</section>
+
+<!-- ================= P18 偏離點（COD）強度值 ================= -->
+<section id="slide-cord" data-page="18" data-section="喚起行動" data-background-image="images/cord.jpg" data-background-opacity="0.18" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">17 · 偏離點的強度值</div><h2>偏離點或 COD：繩子彎得越急，受力越大</h2><p class="sub">COD＝Change of Direction（改變方向）。左欄是偏離點兩側繩子的<b class="hl">夾角</b>，負荷＝100%</p></div>
     <div class="grid2" style="grid-template-columns:1.1fr 1fr">
       <div class="card" style="padding:18px 20px">
         <div class="cords" data-max="200">
@@ -773,10 +818,10 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
   <aside class="notes" data-sec="45"><p>偏離點，也就是 COD，Change of Direction，是讓繩子改變方向的那個點。它承受的力不是負荷本身，而是兩側繩子張力的合力。合力等於 2 倍負荷乘以夾角一半的 cos 值。</p><p>大家看左邊，點任何一列，右邊的圖會跟著改變：繩子直線通過，180 度，偏離點不受力；夾角 120 度，偏離點剛好承受 100% 的負荷；90 度大約 141%；完全折返，例如頂端滑輪，就是 200%。所以架偏離點時，要用合力去評估它夠不夠強，繩子彎得越急，偏離點就要越強。</p></aside>
 </section>
 
-<!-- ================= P18 檢核清單 ================= -->
-<section data-page="18" data-section="喚起行動" data-background-image="images/ending.jpg" data-background-opacity="0.3" data-background-size="cover">
+<!-- ================= P19 檢核清單 ================= -->
+<section data-page="19" data-section="喚起行動" data-background-image="images/ending.jpg" data-background-opacity="0.3" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">17 · 現場檢核</div><h2>架完之後，從 S 檢查到 A 再受力</h2><p class="sub">逐項點選，全部打勾才能受力</p></div>
+    <div class="head"><div class="kicker">18 · 現場檢核</div><h2>架完之後，從 S 檢查到 A 再受力</h2><p class="sub">逐項點選，全部打勾才能受力</p></div>
     <div class="checks">
       <div class="card chk"><div class="L">S</div><div><h4>每個點、每個元件都夠強？</h4><p>弱方向也評估過了</p></div><div class="box"></div></div>
       <div class="card chk"><div class="L">R</div><div><h4>任一元件失效，系統還站得住？</h4><p>至少兩個獨立固定點</p></div><div class="box"></div></div>
@@ -910,7 +955,7 @@ document.querySelectorAll('table.t').forEach(tb => tb.querySelectorAll('tr.row')
   tb.querySelectorAll('tr.row').forEach(x => x.classList.toggle('on', x === r && !x.classList.contains('on')));
 })));
 function animateCords() {
-  document.querySelectorAll('.cord .fill').forEach(f => {
+  document.querySelectorAll('.cord .fill[data-w]').forEach(f => {
     const w = parseFloat(f.dataset.w) / (parseFloat(f.closest('.cords').dataset.max) || 12.8) * 100;
     if (SHOT) { f.style.width = w + '%'; return; }
     f.style.width = 0; setTimeout(() => f.style.width = w + '%', 150);
@@ -954,6 +999,18 @@ window.addEventListener('keydown', e => {
   e.stopPropagation(); e.preventDefault();
   if (e.key === 'Escape') lbClose(); else if (e.key === 'ArrowLeft') lbStep(-1); else if (e.key === 'ArrowRight') lbStep(1);
 }, true);
+
+/* ============ 腿長與受力 ============ */
+function setLegs(r) {
+  const sh = Math.round(r / (1 + r) * 100), lo = 100 - sh;
+  $('#legS').style.width = sh + '%'; $('#legL').style.width = lo + '%';
+  $('#legSv').innerHTML = sh + '<small>%</small>'; $('#legLv').innerHTML = lo + '<small>%</small>';
+  $('#legS').style.background = sh > 60 ? 'var(--bad)' : sh > 50 ? 'var(--warn)' : 'var(--ok)';
+  document.querySelectorAll('#legsSeg button').forEach(b => b.classList.toggle('on', +b.dataset.r === r));
+}
+document.querySelectorAll('#legsSeg button').forEach(b => b.addEventListener('click', () => setLegs(+b.dataset.r)));
+document.querySelectorAll('.leg-fig').forEach(f => f.addEventListener('click', () => lbOpen(f)));
+setLegs(2);
 
 /* ============ 偏離點示意圖 ============ */
 function drawCOD(a) {
