@@ -41,7 +41,7 @@ html,body{background:var(--bg)}
 .hl{color:var(--accent)} .hl2{color:var(--accent2)} .ok{color:var(--ok)} .warn{color:var(--warn)} .bad{color:var(--bad)}
 .inner{width:1180px;margin:0 auto;position:relative}
 .head{margin-bottom:18px}
-.kicker{font:500 var(--t4) 'JetBrains Mono','Noto Sans TC',monospace;letter-spacing:.2em;color:var(--accent);margin-bottom:8px}
+.kicker{font:700 23px 'JetBrains Mono','Noto Sans TC',monospace;letter-spacing:.16em;color:var(--accent);margin-bottom:10px}
 .reveal h2{font-size:var(--t1)}
 .reveal h3{font-size:var(--t2);font-weight:700}
 .sub{font-size:23px;color:var(--ink-2);margin-top:6px}
@@ -52,7 +52,7 @@ html,body{background:var(--bg)}
 .btn{font:500 17px 'Noto Sans TC',sans-serif;color:var(--ink-2);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer;transition:all .2s}
 .btn:hover{color:var(--ink);border-color:var(--ink-3)}
 .btn.on{color:#111;background:var(--accent);border-color:var(--accent);font-weight:700}
-.list{list-style:none;padding:0 !important;margin:0}
+.list,.reveal ul.list{list-style:none;padding:0 !important;margin:0}
 .list li{position:relative;padding:6px 0 6px 22px;font-size:23px;line-height:1.55;color:var(--ink-2)}
 .list li::before{content:'';position:absolute;left:3px;top:19px;width:7px;height:7px;border-radius:50%;background:var(--accent2)}
 .list li b{color:var(--ink)}
@@ -67,7 +67,7 @@ html,body{background:var(--bg)}
 #hint b{color:var(--ink-3)}
 
 /* ---------- 封面 ---------- */
-.cover h1{font-size:84px;line-height:1.18;text-shadow:0 2px 18px rgba(0,0,0,.6)}
+.cover h1{font-size:64px;line-height:1.18;text-shadow:0 2px 18px rgba(0,0,0,.6)}
 .cover .lead{font-size:30px;color:var(--ink-2);margin-top:14px;max-width:760px}
 .cover .tags{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
 .cover .tags span{font-size:19px;padding:6px 14px;border-radius:999px;border:1px solid rgba(76,201,240,.45);color:var(--accent2);background:rgba(76,201,240,.08);font-weight:700}
@@ -129,7 +129,7 @@ html,body{background:var(--bg)}
 .sred{position:relative;padding:16px 18px;text-align:left;cursor:pointer;transition:all .3s;border-top:3px solid var(--accent2);display:grid;grid-template-columns:64px 1fr;gap:4px 14px;align-items:center}
 .reveal .sred img{width:60px;height:60px;object-fit:contain;grid-row:span 2;filter:drop-shadow(0 0 10px rgba(76,201,240,.45))}
 .sred .L{font:700 13.5px 'JetBrains Mono',monospace;color:var(--ink-3);letter-spacing:.12em}
-.sred h4{font-size:26px} .sred h4 small{font:500 15px 'JetBrains Mono',monospace;color:var(--accent2);margin-left:8px}
+.sred h4{font-size:26px} .sred h4 .en{font:700 23px 'Noto Sans TC',sans-serif;color:var(--accent2);margin-left:8px;letter-spacing:.01em}
 .sred .d{grid-column:1/3;font-size:19.5px;color:var(--ink-2);line-height:1.5;margin-top:6px}
 .sred .x{grid-column:1/3;font-size:18px;color:var(--accent2);line-height:1.5;max-height:0;opacity:0;overflow:hidden;transition:all .4s}
 .sred.open{border-top-color:var(--accent)} .sred.open .x{max-height:100px;opacity:1;margin-top:6px;padding-top:6px;border-top:1px dashed var(--ink-4)}
@@ -218,7 +218,7 @@ table.t tr.hi td{background:rgba(129,199,132,.12)}
 .cord .track{height:14px;border-radius:7px;background:rgba(255,255,255,.06);overflow:hidden}
 .cord .fill{height:100%;width:0;border-radius:7px;background:var(--accent2);transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
 .cord .kn{font:700 21px 'JetBrains Mono',monospace;text-align:right;color:var(--ink)}
-.cord .kn small{font-size:12px;color:var(--ink-3)}
+.cord .kn small{font-size:16px;color:var(--ink-3);margin-left:2px}
 
 /* ---------- 檢核清單 ---------- */
 .checks{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -273,7 +273,7 @@ body.mobile .reveal .controls .controls-arrow{width:52px;height:52px}
 body.mobile .inner{width:100%}
 body.mobile .grid2,body.mobile .poll-grid,body.mobile .wc-grid,body.mobile .case-grid,body.mobile .pr-grid,body.mobile .p15-grid,body.mobile .lab,body.mobile .three,body.mobile .checks,body.mobile .rigs.two{grid-template-columns:1fr;gap:14px}
 body.mobile .sred-grid,body.mobile .rigs{grid-template-columns:1fr 1fr;gap:10px}
-body.mobile .sred{grid-template-columns:1fr} body.mobile .sred img{grid-row:auto}
+body.mobile .kicker{font-size:16px} body.mobile .sred h4 .en{display:block;margin:2px 0 0;font-size:17px} body.mobile .sred{grid-template-columns:1fr} body.mobile .sred img{grid-row:auto}
 body.mobile .vs{grid-template-columns:1fr} body.mobile .vs .mid{padding:6px 0;font-size:20px}
 body.mobile .popt{grid-template-columns:30px 1fr 50px}
 body.mobile .popt .bar{grid-column:2/4;grid-row:2}
@@ -318,7 +318,7 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
     <div class="tags"><span>SREDDA 原則</span><span>分力 × 均力</span><span>夾角與偏離受力</span></div>
     <div class="who"><div class="bar"></div><div>
       <div class="name">尤翰彬 <span style="font-size:18px;color:var(--ink-2);font-weight:500">執行長</span></div>
-      <div class="org">台灣山域搜救技能交流（MoRE）</div>
+      <div class="org">山域搜救技能交流（MoRE）</div>
     </div></div>
     <div class="card join"><div class="qr" id="qr-cover"></div><div><p><b>掃描加入互動</b><br>文字雲・投票・匿名提問</p></div></div>
   </div>
@@ -381,12 +381,12 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
   <div class="inner">
     <div class="head"><div class="kicker">02 · SREDDA 架設原則</div><h2>架完一組固定點，用六個字母逐一檢查</h2><p class="sub">點卡片看每個字母的檢查重點</p></div>
     <div class="sred-grid">
-      <div class="card sred"><img src="images/icon_strong.png" alt=""><div class="L">S · 01</div><h4>強固<small>Strong</small></h4><p class="d">每個點都能承受最大預期負荷</p><p class="x">樹要健康、岩要完整、螺栓要可信；連弱方向一起評估。</p></div>
-      <div class="card sred"><img src="images/icon_redundant.png" alt=""><div class="L">R · 02</div><h4>備援<small>Redundant</small></h4><p class="d">任一元件失效，系統仍成立</p><p class="x">至少兩個獨立固定點；繩、扁帶、勾環也不能有單點失效。</p></div>
-      <div class="card sred"><img src="images/icon_equal.png" alt=""><div class="L">E · 03</div><h4>分攤<small>Equalized</small></h4><p class="d">把負荷分配到各固定點</p><p class="x">兩種做法：分力（預先分配）與均力（自動調整）。</p></div>
-      <div class="card sred"><img src="images/icon_distance.png" alt=""><div class="L">D · 04</div><h4>距離<small>Distance</small></h4><p class="d">主力點位置與延展距離</p><p class="x">主力點放岩緣外側；一點失效時，掉落距離越短越好。</p></div>
-      <div class="card sred"><img src="images/icon_direction.png" alt=""><div class="L">D · 05</div><h4>方向<small>Direction</small></h4><p class="d">對準預期的受力方向</p><p class="x">方向一變就要重新評估；螺栓外拉、樹被往上撬都是弱方向。</p></div>
-      <div class="card sred"><img src="images/icon_angle.png" alt=""><div class="L">A · 06</div><h4>角度<small>Angle</small></h4><p class="d">兩腳夾角決定每點受力</p><p class="x">分力夾角 45°～60° 最理想，下限 30°、上限 75°。</p></div>
+      <div class="card sred"><img src="images/icon_strong.png" alt=""><div class="L">S · 01</div><h4>強固<span class="en">Strong(S)</span></h4><p class="d">每個點都能承受最大預期負荷</p><p class="x">樹要健康、岩要完整、螺栓要可信；連弱方向一起評估。</p></div>
+      <div class="card sred"><img src="images/icon_redundant.png" alt=""><div class="L">R · 02</div><h4>備援<span class="en">Redundant(R)</span></h4><p class="d">任一元件失效，系統仍成立</p><p class="x">至少兩個獨立固定點；繩、扁帶、勾環也不能有單點失效。</p></div>
+      <div class="card sred"><img src="images/icon_equal.png" alt=""><div class="L">E · 03</div><h4>分攤<span class="en">Equalized(E)</span></h4><p class="d">把負荷分配到各固定點</p><p class="x">兩種做法：分力（預先分配）與均力（自動調整）。</p></div>
+      <div class="card sred"><img src="images/icon_distance.png" alt=""><div class="L">D · 04</div><h4>距離<span class="en">Distance(D)</span></h4><p class="d">主力點位置與延展距離</p><p class="x">主力點放岩緣外側；一點失效時，掉落距離越短越好。</p></div>
+      <div class="card sred"><img src="images/icon_direction.png" alt=""><div class="L">D · 05</div><h4>方向<span class="en">Direction(D)</span></h4><p class="d">對準預期的受力方向</p><p class="x">方向一變就要重新評估；螺栓外拉、樹被往上撬都是弱方向。</p></div>
+      <div class="card sred"><img src="images/icon_angle.png" alt=""><div class="L">A · 06</div><h4>角度<span class="en">Angle(A)</span></h4><p class="d">兩腳夾角決定每點受力</p><p class="x">分力夾角 45°～60° 最理想，下限 30°、上限 75°。</p></div>
     </div>
   </div>
   <aside class="notes" data-sec="50"><p>今天的架設原則叫 SREDDA，六個字母：Strong 強固、Redundant 備援、Equalized 分攤、Distance 距離、Direction 方向、Angle 角度。</p><p>它的用法很簡單：架完一組固定點，從 S 到 A 逐一檢查一遍。接下來幾頁，我們把每個字母拆開來看。</p></aside>
@@ -595,7 +595,7 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
   <div class="inner">
     <div class="head"><div class="kicker">11 · 怎麼選</div><h2>看「受力方向會不會變」</h2><p class="sub">點選列可以標示對照</p></div>
     <table class="t">
-      <tr><th style="width:20%"></th><th style="color:var(--accent)">分力<small>Y-hang · 雙耳 8 · Girth · BFK</small></th><th>均力<small>Sliding X＋Knot · Quad</small></th></tr>
+      <tr><th style="width:20%"></th><th style="color:var(--accent)">分力<small>Y-hang · 雙耳 8 · Girth · BFK</small></th><th>均力<small>Sliding X＋Knot · The Quad</small></th></tr>
       <tr class="row"><td class="l">主力點</td><td>固定不動</td><td>可滑動、自動調整</td></tr>
       <tr class="row"><td class="l">受力方向改變</td><td class="bad">負荷集中到一點</td><td class="ok">小範圍內重新分攤</td></tr>
       <tr class="row"><td class="l">一點失效時</td><td class="ok">幾乎不延展</td><td class="warn">會延展，要靠限制結控制</td></tr>
@@ -685,7 +685,7 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
 <!-- ================= P15 偏離 5° 圖表 ================= -->
 <section id="slide-chart" data-page="15" data-section="維持注意" data-background-image="images/lab.jpg" data-background-opacity="0.12" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">14 · 偏離點的受力</div><h2>只要偏 5°：受力最重的那一點變成多少？</h2></div>
+    <div class="head"><div class="kicker">14 · 偏離 5° 的受力</div><h2>只要偏 5°：受力最重的那一點變成多少？</h2></div>
     <div class="card chart-box"><canvas id="chart-canvas"></canvas></div>
     <p class="src">數據：Grant Prattley〈Two-Point Anchor Angles: The Case for Building in Error〉Over The Edge Rescue（2025）；數值已依 F = sin(θ/2±5°) ÷ sin θ 驗算</p>
   </div>
@@ -710,34 +710,36 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
   <aside class="notes" data-sec="55"><p>結論：分力夾角以 45 到 60 度為甜蜜點，偏 5 度時最重的點也只到 65、66%。30 度和 75 度是底線，大約 68 到 70%。低於 30 度，一偏就衝到 84% 甚至 100%；高於 75 度，就算完美也已經 7 成以上。</p><p>白板上寫的「30 到 60 度、偏 5 度、68 到 84%」，68% 是 30 度的值，84% 是夾角縮到 15 度時的值。所以不要把 30 度當起點，一開始就架在 45 到 60 度。</p></aside>
 </section>
 
-<!-- ================= P17 輔助繩 ================= -->
+<!-- ================= P17 偏離點（COD）強度值 ================= -->
 <section id="slide-cord" data-page="17" data-section="喚起行動" data-background-image="images/cord.jpg" data-background-opacity="0.18" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">16 · 材料強度</div><h2>輔助繩：直徑差 1 mm，強度差很多</h2><p class="sub">EN 564 最低靜態強度（單股）</p></div>
-    <div class="grid2" style="grid-template-columns:1.15fr 1fr">
+    <div class="head"><div class="kicker">16 · 偏離點的強度值</div><h2>偏離點或 COD：繩子彎得越急，受力越大</h2><p class="sub">COD＝Change of Direction（改變方向）。左欄是偏離點兩側繩子的<b class="hl">夾角</b>，負荷＝100%</p></div>
+    <div class="grid2" style="grid-template-columns:1.1fr 1fr">
       <div class="card" style="padding:18px 20px">
-        <div class="cords">
-          <div class="cord"><span class="dm">4 mm</span><div class="track"><div class="fill" data-w="3.2"></div></div><span class="kn">3.2 <small>kN</small></span></div>
-          <div class="cord"><span class="dm">5 mm</span><div class="track"><div class="fill" data-w="5.0"></div></div><span class="kn">5.0 <small>kN</small></span></div>
-          <div class="cord"><span class="dm">6 mm</span><div class="track"><div class="fill" data-w="7.2"></div></div><span class="kn">7.2 <small>kN</small></span></div>
-          <div class="cord"><span class="dm">7 mm</span><div class="track"><div class="fill" data-w="9.8"></div></div><span class="kn">9.8 <small>kN</small></span></div>
-          <div class="cord"><span class="dm">8 mm</span><div class="track"><div class="fill" data-w="12.8" style="background:var(--accent)"></div></div><span class="kn">12.8 <small>kN</small></span></div>
+        <div class="cords" data-max="200">
+          <div class="cord"><span class="dm">180°</span><div class="track"><div class="fill" data-w="0" style="background:var(--ok)"></div></div><span class="kn">0<small>%</small></span></div>
+          <div class="cord"><span class="dm">150°</span><div class="track"><div class="fill" data-w="52" style="background:var(--ok)"></div></div><span class="kn">52<small>%</small></span></div>
+          <div class="cord"><span class="dm">120°</span><div class="track"><div class="fill" data-w="100" style="background:var(--accent2)"></div></div><span class="kn">100<small>%</small></span></div>
+          <div class="cord"><span class="dm">90°</span><div class="track"><div class="fill" data-w="141" style="background:var(--warn)"></div></div><span class="kn">141<small>%</small></span></div>
+          <div class="cord"><span class="dm">60°</span><div class="track"><div class="fill" data-w="173" style="background:var(--bad)"></div></div><span class="kn">173<small>%</small></span></div>
+          <div class="cord"><span class="dm">30°</span><div class="track"><div class="fill" data-w="193" style="background:var(--bad)"></div></div><span class="kn">193<small>%</small></span></div>
+          <div class="cord"><span class="dm">0°</span><div class="track"><div class="fill" data-w="200" style="background:var(--bad)"></div></div><span class="kn">200<small>%</small></span></div>
         </div>
-        <p class="note" style="margin-top:12px">課堂速記：5·6·7·8 mm → 5·7·9·12 kN</p>
+        <p class="note" style="margin-top:10px">180° 是繩子直線通過、偏離點不受力；0° 是繩子完全折返</p>
       </div>
       <div class="card" style="padding:18px 20px">
-        <h3 style="margin-bottom:8px">怎麼記、怎麼用</h3>
+        <h3 style="margin-bottom:8px">怎麼算、怎麼用</h3>
         <ul class="list">
-          <li>近似：強度 ≈ <b>0.2 × 直徑²</b>（kN）</li>
-          <li>1 kN ≈ <b>102 kgf</b>；表上是<b>單股</b>的最低值</li>
-          <li>繩結、雀頭結、銳利岩角都會<b>降低</b>實際強度</li>
-          <li>多點合力：先把較弱的點合力，再與第三點分力，最後以<b>最小強度</b>估算</li>
+          <li>合力 ＝ <b>2 × 負荷 × cos(夾角 ÷ 2)</b></li>
+          <li>夾角 <b>120°</b> 時，偏離點承受 <b>100%</b> 負荷</li>
+          <li>夾角小於 120°，偏離點受力<b>超過負荷</b>：90° 約 1.4 倍、完全折返 2 倍</li>
+          <li>偏離點要用<b>合力</b>評估強度，不是用負荷</li>
         </ul>
       </div>
     </div>
-    <p class="src">資料：EN 564 輔助繩標準（Edelrid 標準說明）；課堂速記出自 2025 傳攀課筆記</p>
+    <p class="src">數值以向量合成計算：F = 2T·cos(α/2)；假設偏離點兩側繩子張力相同、不計滑輪摩擦</p>
   </div>
-  <aside class="notes" data-sec="45"><p>補充一下材料強度。依 EN 564，輔助繩的最低強度：5 mm 是 5 kN、6 mm 是 7.2、7 mm 是 9.8、8 mm 是 12.8 kN，大約是直徑平方乘以 0.2。直徑差 1 mm，強度差很多。</p><p>要注意這是單股的最低值，打結、雀頭結、銳利岩角都會讓實際強度下降。多點合力時，記得用最弱那一點去估算整組系統。</p></aside>
+  <aside class="notes" data-sec="45"><p>偏離點，也就是 COD，Change of Direction，是讓繩子改變方向的那個點。它承受的力不是負荷本身，而是兩側繩子張力的合力。合力等於 2 倍負荷乘以夾角一半的 cos 值。</p><p>大家看左邊：繩子直線通過，180 度，偏離點不受力；夾角 120 度，偏離點剛好承受 100% 的負荷；90 度大約 141%；完全折返，例如頂端滑輪，就是 200%。所以架偏離點時，要用合力去評估它夠不夠強，繩子彎得越急，偏離點就要越強。</p></aside>
 </section>
 
 <!-- ================= P18 檢核清單 ================= -->
@@ -878,7 +880,7 @@ document.querySelectorAll('table.t').forEach(tb => tb.querySelectorAll('tr.row')
 })));
 function animateCords() {
   document.querySelectorAll('.cord .fill').forEach(f => {
-    const w = parseFloat(f.dataset.w) / 12.8 * 100;
+    const w = parseFloat(f.dataset.w) / (parseFloat(f.closest('.cords').dataset.max) || 12.8) * 100;
     if (SHOT) { f.style.width = w + '%'; return; }
     f.style.width = 0; setTimeout(() => f.style.width = w + '%', 150);
   });
@@ -953,8 +955,8 @@ function initChart() {
   if (typeof Chart === 'undefined') return;
   const ctx = document.getElementById('chart-canvas'); if (!ctx) return;
   if (ctx.parentElement.getBoundingClientRect().width < 20) { setTimeout(initChart, 250); return; }
-  if (_chart) { _chart.resize(); return; }
-  Chart.defaults.color = '#b9c6d8'; Chart.defaults.font.family = "'Noto Sans TC',sans-serif"; Chart.defaults.font.size = 14;
+  if (_chart) { fitChart(); return; }
+  Chart.defaults.color = '#b9c6d8'; Chart.defaults.font.family = "'Noto Sans TC',sans-serif"; Chart.defaults.font.size = 17;
   const X = [5, 15, 30, 45, 60, 75, 90, 105, 120];
   const perfect = [0.50, 0.50, 0.52, 0.54, 0.58, 0.63, 0.71, 0.82, 1.00];
   const heavy = [1.00, 0.84, 0.68, 0.65, 0.66, 0.70, 0.77, 0.87, 1.05];
@@ -971,15 +973,25 @@ function initChart() {
       { label: '完美均分（每點）', data: pts(perfect), borderColor: '#4cc9f0', backgroundColor: '#4cc9f0', borderWidth: 3, pointRadius: 5, tension: .25 },
       { label: '偏 5°：受力較重的點', data: pts(heavy), borderColor: '#ff7a2f', backgroundColor: '#ff7a2f', borderWidth: 3, pointRadius: 5, tension: .25 },
       { label: '偏 5°：受力較輕的點', data: pts(light), borderColor: '#81c784', backgroundColor: '#81c784', borderWidth: 3, pointRadius: 5, tension: .25, borderDash: [6, 5] } ] },
-    options: { responsive: true, maintainAspectRatio: false, animation: SHOT ? false : { duration: 1200 },
+    options: { responsive: false, maintainAspectRatio: false, devicePixelRatio: Math.max(2, window.devicePixelRatio || 1), animation: SHOT ? false : { duration: 1200 },
       interaction: { mode: 'nearest', axis: 'x', intersect: false },
-      plugins: { legend: { position: 'top', align: 'end', labels: { boxWidth: 12, usePointStyle: true } },
+      plugins: { legend: { position: 'top', align: 'end', labels: { boxWidth: 14, usePointStyle: true, font: { size: 18 } } },
         tooltip: { padding: 10, callbacks: { title: i => '夾角 ' + i[0].parsed.x + '°', label: i => ' ' + i.dataset.label + '：' + i.parsed.y + '%' } } },
       scales: { x: { type: 'linear', min: 5, max: 120, title: { display: true, text: '兩腳夾角（度）' }, ticks: { stepSize: 15, callback: v => v + '°' }, grid: { color: 'rgba(255,255,255,.06)' } },
         y: { min: 0, max: 110, title: { display: true, text: '固定點承受的負荷比例' }, ticks: { callback: v => v + '%' }, grid: { color: 'rgba(255,255,255,.07)' } } } },
     plugins: [zones]
   });
+  fitChart();
 }
+/* Reveal 會用 transform 縮放投影片，Chart.js 量到的是縮放後尺寸；改用版面實際寬高 */
+function fitChart() {
+  if (!_chart) return;
+  const box = document.getElementById('chart-canvas').parentElement, cs = getComputedStyle(box);
+  const w = box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+  const h = box.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+  if (w > 20 && h > 20) _chart.resize(w, h);
+}
+Reveal.on('resize', () => setTimeout(fitChart, 60));
 
 /* ============ 手機防誤觸 ============ */
 document.querySelectorAll('[data-prevent-swipe]').forEach(el => ['touchstart', 'touchmove', 'touchend'].forEach(ev => el.addEventListener(ev, e => e.stopPropagation(), { passive: false })));

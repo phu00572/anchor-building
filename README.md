@@ -3,7 +3,7 @@
 Reveal.js 互動簡報，沿用「台灣山難事故及高風險環境發生案例與救援方法」研討會簡報的做法（純中文版）：18 頁內容＋文字雲＋投票＋結尾，全場建議 17 分 40 秒。
 
 - **線上網址**：https://phu00572.github.io/anchor-building/
-- **章節**：引起動機（封面、文字雲、北絲鬮溪案例）→ 維持注意（SREDDA、分力均力、夾角受力）→ 喚起行動（甜蜜點、材料強度、現場檢核）
+- **章節**：引起動機（封面、文字雲、北絲鬮溪案例）→ 維持注意（SREDDA、分力均力、夾角受力）→ 喚起行動（甜蜜點、偏離點／COD 強度值、現場檢核）
 
 ## 鍵盤快捷鍵
 
@@ -38,5 +38,5 @@ Reveal.js 互動簡報，沿用「台灣山難事故及高風險環境發生案�
 
 - 夾角與偏離 5° 受力：Grant Prattley〈Two-Point Anchor Angles: The Case for Building in Error〉Over The Edge Rescue（2025）
 - A.D.D.R.E.S.S：ZA Adventure（2013）；ERNEST：Rigging Lab Academy；SRENEA：2024 中華山岳傳攀課程表
-- 輔助繩強度：EN 564
+- 偏離點（COD）受力：向量合成 F = 2T·cos(α/2)（兩側張力相同、不計摩擦）
 - 北絲鬮溪事故：臺東縣消防局新聞稿與同行隊友事故紀錄（2025-05）
