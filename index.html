@@ -419,7 +419,7 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
   <div class="inner cover">
     <div class="kicker">山域搜救繩索技術</div>
     <h1>固定點架設</h1>
-    <p class="lead">先有原則，再談繩結；<br>夾角，決定每一個點承受多少力。</p>
+    <p class="lead">先有原則，再談繩結；<br>夾角和腿長，決定每一個點承受多少力。</p>
     <div class="tags"><span>SREDDA 原則</span><span>分力 × 均力</span><span>夾角與偏離受力</span><span>腿長與偏離點</span></div>
     <div class="who"><div class="bar"></div><div>
       <div class="name">尤翰彬 <span style="font-size:18px;color:var(--ink-2);font-weight:500">執行長</span></div>
@@ -945,19 +945,21 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
     <div class="legs-grid">
       <figure class="card zoom-fig" id="calcFig" data-photo="legs-jp" data-title="腿長受力計算例（日文教材 圖 3、圖 4）" title="點一下放大">
         <img id="calcImg" src="images/photos/legs-jp.jpg" alt="日文教材圖例：腳長與受力">
-        <svg id="calcSvg" viewBox="0 0 280 405" style="display:none;width:100%;height:405px" aria-label="較遠的點先用 Dyneema 扁帶往下延伸，兩腳尼龍段等長">
+        <svg id="calcSvg" viewBox="0 0 280 405" style="display:none;width:100%;height:405px" aria-label="遠點先用 Dyneema 扁帶往下延伸，兩個扣點在同一直線、左右並排，兩條尼龍腳等長且接近平行">
           <g font-family="Noto Sans TC,sans-serif" font-size="15">
-            <circle cx="64" cy="170" r="10" fill="none" stroke="#b9c6d8" stroke-width="4"/><text x="40" y="150" fill="#eef3fa" font-weight="700">近點</text>
-            <circle cx="216" cy="40" r="10" fill="none" stroke="#b9c6d8" stroke-width="4"/><text x="196" y="24" fill="#eef3fa" font-weight="700">遠點</text>
-            <line x1="216" y1="50" x2="216" y2="162" stroke="#ce93d8" stroke-width="9" stroke-linecap="round"/>
-            <text x="130" y="100" fill="#ce93d8" font-weight="700">Dyneema</text><text x="138" y="120" fill="#ce93d8">往下延伸</text>
-            <ellipse cx="216" cy="172" rx="7" ry="11" fill="none" stroke="#fff" stroke-width="3"/>
-            <line x1="68" y1="178" x2="140" y2="296" stroke="#ffb74d" stroke-width="6"/><line x1="212" y1="182" x2="140" y2="296" stroke="#ffb74d" stroke-width="6"/>
-            <text x="34" y="250" fill="#ffb74d" font-weight="700">尼龍腳</text><text x="196" y="250" fill="#ffb74d" font-weight="700">尼龍腳</text>
-            <text x="140" y="214" fill="#81c784" font-weight="700" text-anchor="middle">等長</text>
-            <circle cx="140" cy="300" r="11" fill="#ff7a2f"/>
-            <line x1="140" y1="312" x2="140" y2="372" stroke="#4cc9f0" stroke-width="5"/><path d="M130 366 L140 384 L150 366z" fill="#4cc9f0"/>
-            <text x="152" y="352" fill="#4cc9f0">負荷</text>
+            <circle cx="165" cy="40" r="10" fill="none" stroke="#b9c6d8" stroke-width="4"/><text x="182" y="45" fill="#eef3fa" font-weight="700">遠點</text>
+            <line x1="165" y1="50" x2="165" y2="160" stroke="#ce93d8" stroke-width="9" stroke-linecap="round"/>
+            <text x="64" y="92" fill="#ce93d8" font-weight="700">Dyneema</text><text x="68" y="112" fill="#ce93d8">往下延伸</text>
+            <line x1="40" y1="174" x2="240" y2="174" stroke="#81c784" stroke-width="2" stroke-dasharray="6 5"/>
+            <text x="196" y="198" fill="#81c784" font-weight="700">同一直線</text>
+            <circle cx="115" cy="170" r="10" fill="none" stroke="#b9c6d8" stroke-width="4"/><text x="68" y="160" fill="#eef3fa" font-weight="700">近點</text>
+            <ellipse cx="165" cy="170" rx="7" ry="11" fill="none" stroke="#fff" stroke-width="3"/>
+            <line x1="116" y1="180" x2="140" y2="322" stroke="#ffb74d" stroke-width="6"/><line x1="164" y1="181" x2="140" y2="322" stroke="#ffb74d" stroke-width="6"/>
+            <text x="56" y="262" fill="#ffb74d" font-weight="700">尼龍腳</text><text x="166" y="262" fill="#ffb74d" font-weight="700">尼龍腳</text>
+            <circle cx="140" cy="326" r="11" fill="#ff7a2f"/>
+            <line x1="140" y1="338" x2="140" y2="372" stroke="#4cc9f0" stroke-width="5"/><path d="M130 366 L140 384 L150 366z" fill="#4cc9f0"/>
+            <text x="154" y="364" fill="#4cc9f0">負荷</text>
+            <text x="140" y="402" fill="#81c784" font-weight="700" text-anchor="middle">兩腳等長、接近平行</text>
           </g>
         </svg>
         <figcaption id="calcCap">圖 3：50 cm／10 cm，負荷 700 kgf</figcaption>
