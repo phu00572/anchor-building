@@ -163,6 +163,15 @@ table.t tr.hi td{background:rgba(129,199,132,.12)}
 /* ---------- 架設卡（點擊展開要點） ---------- */
 .rigs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .rigs.two{grid-template-columns:1fr 1fr;gap:22px}
+.rigs.six{grid-template-columns:repeat(3,1fr);gap:12px}
+.rigs.six .rig{display:grid;grid-template-columns:118px 1fr;column-gap:12px;align-items:start;padding:12px 14px}
+.rigs.six .rig svg{grid-row:1/4;width:118px;height:110px;margin-top:20px}
+.rigs.six .rig .no{margin-top:0}
+.rigs.six .rig .nm{font-size:21px}
+.rigs.six .rig .nm small{display:block;margin:2px 0 0;font-size:12px}
+.rigs.six .rig .d{font-size:17px;line-height:1.45}
+.rigs.six .rig .sol{grid-column:1/3;font-size:16.5px}
+body.mobile .rigs.six{grid-template-columns:1fr}
 .rig{position:relative;padding:12px 14px 14px;cursor:pointer;transition:transform .3s,border-color .3s}
 .rig:hover{transform:translateY(-4px);border-color:var(--ink-4)}
 .rig svg{width:100%;height:150px;display:block}
@@ -427,7 +436,7 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
     </div></div>
     <div class="card join"><div class="qr" id="qr-cover"></div><div><p><b>掃描加入互動</b><br>文字雲・投票・匿名提問</p></div></div>
   </div>
-  <aside class="notes" data-sec="30"><p>大家好，今天這堂課的主題是固定點架設。先請大家用手機掃右下角的 QR code，等一下有文字雲和投票，有問題也可以隨時從左邊的提問牆匿名提問。</p><p>今天分三段：第一段是架設原則 SREDDA；第二段是分力與均力的架設方法；第三段是固定點的受力：夾角和受力偏離會讓每個點承受多少力，腿長不等時誰扛得多，以及偏離點要承受多大的合力。</p></aside>
+  <aside class="notes" data-sec="30"><p>大家好，今天這堂課的主題是固定點架設。先請大家用手機掃右下角的 QR code，等一下有文字雲和投票，有問題也可以隨時從左邊的提問牆匿名提問。</p><p>今天分三段：第一段是架設原則 SREDDA；第二段是架設方法：單一強壯固定點，以及分力與均力；第三段是固定點的受力：夾角和受力偏離會讓每個點承受多少力，腿長不等時誰扛得多，以及偏離點要承受多大的合力。</p></aside>
 </section>
 
 <!-- ================= 破冰文字雲 ================= -->
@@ -647,10 +656,44 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
   <aside class="notes" data-sec="40"><p>大家在不同課程可能聽過 SRENE、SRENEA、ERNEST、A.D.D.R.E.S.S 這些縮寫。名字不一樣，但檢查的是同一件事：夠不夠強、有沒有備援、有沒有分攤、會不會延展、方向和角度對不對。</p><p>SREDDA 的特色是把「距離」和「方向」拉出來單獨檢查，這兩項在溪降和救援現場特別重要。</p></aside>
 </section>
 
-<!-- ================= P9 分力 vs 均力 ================= -->
-<section data-page="10" data-section="維持注意" data-background-image="images/rigging.jpg" data-background-opacity="0.16" data-background-size="cover">
+<!-- ================= P10 單一強壯固定點 ================= -->
+<section id="slide-single" data-page="10" data-section="維持注意" data-background-image="images/rigging.jpg" data-background-opacity="0.14" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">09 · 分力與均力</div><h2>主力點是「固定」還是「會滑」？</h2></div>
+    <div class="head"><div class="kicker">09 · 單一強壯固定點</div><h2>一個點就夠強：六種常見架法</h2><p class="sub">大樹夠粗夠健康、巨岩夠穩，可以只用一個點；備援改由<b class="hl">雙股繩圈、雙繩與自我確保</b>提供。點卡片看要點</p></div>
+    <div class="rigs six">
+      <div class="card rig"><span class="tap">點擊 → 要點</span>
+        <svg viewBox="0 0 200 130"><rect x="86" y="0" width="28" height="60" rx="5" fill="#6d4c41"/><path d="M94 6v46M106 10v44" stroke="#8d6e63" stroke-width="2"/><path d="M85 34 Q100 46 115 34" fill="none" stroke="#ffb74d" stroke-width="5"/><line x1="86" y1="38" x2="97" y2="88" stroke="#ffb74d" stroke-width="4"/><line x1="114" y1="38" x2="103" y2="88" stroke="#ffb74d" stroke-width="4"/><ellipse cx="100" cy="96" rx="7" ry="10" fill="none" stroke="#fff" stroke-width="3"/><line x1="100" y1="106" x2="100" y2="128" stroke="#4cc9f0" stroke-width="4"/><text x="118" y="70" font-size="17" fill="#ffb74d" font-family="Noto Sans TC,sans-serif">兩股受力</text></svg>
+        <div class="no">01</div><div class="nm">繩圈雙環<small>Basket</small></div><p class="d">繩圈繞過樹幹或岩柱，兩端繩耳一起扣進勾環</p>
+        <div class="sol"><ul><li>兩股同時受力，強度最高</li><li>兩股夾角要小，夾角越大每股受力越大</li><li>繩圈可能沿樹幹滑動，選不會滑的位置</li></ul></div></div>
+      <div class="card rig"><span class="tap">點擊 → 要點</span>
+        <svg viewBox="0 0 200 130"><rect x="86" y="0" width="28" height="60" rx="5" fill="#6d4c41"/><path d="M94 6v46M106 10v44" stroke="#8d6e63" stroke-width="2"/><path d="M85 34 Q100 46 115 34" fill="none" stroke="#ffb74d" stroke-width="5"/><ellipse cx="120" cy="38" rx="6" ry="8" fill="none" stroke="#ffb74d" stroke-width="4"/><line x1="118" y1="46" x2="98" y2="88" stroke="#ffb74d" stroke-width="4"/><line x1="124" y1="46" x2="103" y2="88" stroke="#ffb74d" stroke-width="4"/><ellipse cx="100" cy="96" rx="7" ry="10" fill="none" stroke="#fff" stroke-width="3"/><line x1="100" y1="106" x2="100" y2="128" stroke="#4cc9f0" stroke-width="4"/><text x="130" y="30" font-size="17" fill="#ffb74d" font-family="Noto Sans TC,sans-serif">自己套住</text></svg>
+        <div class="no">02</div><div class="nm">繩圈雀頭結<small>Girth Hitch</small></div><p class="d">繩圈在樹幹上自己套住自己，單一繩耳扣勾環</p>
+        <div class="sol"><ul><li>架設快、不容易沿樹幹滑動</li><li>雀頭結會降低繩圈強度，比雙環弱</li><li>不要勒成銳角，讓結自然收緊</li></ul></div></div>
+      <div class="card rig"><span class="tap">點擊 → 要點</span>
+        <svg viewBox="0 0 200 130"><rect x="86" y="0" width="28" height="70" rx="5" fill="#6d4c41"/><path d="M85 22 Q100 30 115 22" fill="none" stroke="#4cc9f0" stroke-width="4"/><path d="M85 34 Q100 42 115 34" fill="none" stroke="#4cc9f0" stroke-width="4"/><path d="M85 46 Q100 54 115 46" fill="none" stroke="#4cc9f0" stroke-width="4"/><line x1="115" y1="48" x2="116" y2="128" stroke="#4cc9f0" stroke-width="4"/><path d="M85 48 Q76 70 96 84" fill="none" stroke="#4cc9f0" stroke-width="4"/><circle cx="98" cy="86" r="6" fill="#ff7a2f"/><ellipse cx="110" cy="92" rx="6" ry="9" fill="none" stroke="#fff" stroke-width="3"/><text x="128" y="82" font-size="17" fill="#4cc9f0" font-family="Noto Sans TC,sans-serif">結不受力</text><text x="8" y="36" font-size="17" fill="#4cc9f0" font-family="Noto Sans TC,sans-serif">繞3～4圈</text></svg>
+        <div class="no">03</div><div class="nm">基部固定<small>Tensionless</small></div><p class="d">主繩直接繞樹幹基部 3～4 圈，繩尾 8 字圈扣回主繩</p>
+        <div class="sol"><ul><li>靠繞圈的摩擦承受，結不受力，保留主繩強度</li><li>不用繩圈，省器材</li><li>樹要夠粗壯、樹皮不易磨損</li></ul></div></div>
+      <div class="card rig"><span class="tap">點擊 → 要點</span>
+        <svg viewBox="0 0 200 130"><rect x="86" y="0" width="28" height="60" rx="5" fill="#6d4c41"/><path d="M94 6v46M106 10v44" stroke="#8d6e63" stroke-width="2"/><path d="M85 34 Q100 46 115 34" fill="none" stroke="#ffb74d" stroke-width="5"/><line x1="86" y1="38" x2="97" y2="68" stroke="#ffb74d" stroke-width="4"/><line x1="114" y1="38" x2="103" y2="68" stroke="#ffb74d" stroke-width="4"/><ellipse cx="100" cy="72" rx="9" ry="7" fill="#ff7a2f"/><path d="M95 78 Q100 92 105 78" fill="none" stroke="#ffb74d" stroke-width="4"/><ellipse cx="100" cy="96" rx="7" ry="10" fill="none" stroke="#fff" stroke-width="3"/><line x1="100" y1="106" x2="100" y2="128" stroke="#4cc9f0" stroke-width="4"/><path d="M106 100 Q130 112 152 110" fill="none" stroke="#81c784" stroke-width="4"/><circle cx="158" cy="110" r="6" fill="#81c784"/><text x="118" y="129" font-size="17" fill="#81c784" font-family="Noto Sans TC,sans-serif">自我確保</text><text x="122" y="70" font-size="17" fill="#ff7a2f" font-family="Noto Sans TC,sans-serif">8 字結</text></svg>
+        <div class="no">04</div><div class="nm">繩圈 8 字結＋自我確保<small>Figure 8</small></div><p class="d">繩圈繞過固定點，打 8 字結做出主力點</p>
+        <div class="sol"><ul><li>8 字結把兩股分開：一股斷了，另一股還撐著</li><li>主力點用鎖勾環</li><li>人員先用自我確保繩扣上主力點，再開始作業</li></ul></div></div>
+      <div class="card rig"><span class="tap">點擊 → 要點</span>
+        <svg viewBox="0 0 200 130"><circle cx="100" cy="14" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><rect x="92" y="2" width="16" height="6" rx="2" fill="#b9c6d8"/><ellipse cx="100" cy="42" rx="9" ry="14" fill="none" stroke="#fff" stroke-width="3"/><path d="M90 36 L112 42 M90 46 L112 52" stroke="#4cc9f0" stroke-width="4"/><line x1="96" y1="56" x2="92" y2="128" stroke="#4cc9f0" stroke-width="4"/><path d="M110 54 Q118 62 116 74" fill="none" stroke="#4cc9f0" stroke-width="4"/><path d="M108 30 Q140 52 152 92" fill="none" stroke="#81c784" stroke-width="4"/><circle cx="154" cy="98" r="6" fill="#81c784"/><text x="122" y="122" font-size="17" fill="#81c784" font-family="Noto Sans TC,sans-serif">自我確保</text><text x="20" y="46" font-size="17" fill="#4cc9f0" font-family="Noto Sans TC,sans-serif">雙套結</text></svg>
+        <div class="no">05</div><div class="nm">雙套結＋自我確保<small>Clove Hitch</small></div><p class="d">主繩用雙套結掛在固定點的鎖勾環上</p>
+        <div class="sol"><ul><li>長度隨時可調，好架也好拆</li><li>繩尾留足夠長度，受力前再收緊</li><li>調整時人用自我確保繩扣著，不離開系統</li></ul></div></div>
+      <div class="card rig"><span class="tap">點擊 → 要點</span>
+        <svg viewBox="0 0 200 130"><circle cx="100" cy="14" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><rect x="92" y="2" width="16" height="6" rx="2" fill="#b9c6d8"/><ellipse cx="100" cy="42" rx="10" ry="15" fill="none" stroke="#fff" stroke-width="3"/><path d="M90 40 Q100 30 110 40 Q100 50 90 40" fill="none" stroke="#4cc9f0" stroke-width="4"/><line x1="92" y1="56" x2="84" y2="128" stroke="#4cc9f0" stroke-width="4"/><path d="M108 56 Q118 70 128 76" fill="none" stroke="#4cc9f0" stroke-width="4"/><ellipse cx="134" cy="80" rx="9" ry="7" fill="#ff7a2f"/><circle cx="142" cy="96" r="5" fill="#b9c6d8"/><text x="20" y="110" font-size="17" fill="#4cc9f0" font-family="Noto Sans TC,sans-serif">負荷</text><text x="150" y="84" font-size="17" fill="#ff7a2f" font-family="Noto Sans TC,sans-serif">Mule</text><text x="150" y="102" font-size="17" fill="#b9c6d8" font-family="Noto Sans TC,sans-serif">O</text><text x="22" y="40" font-size="17" fill="#4cc9f0" font-family="Noto Sans TC,sans-serif">Munter</text></svg>
+        <div class="no">06</div><div class="nm">MMO 可釋放<small>Munter-Mule-Overhand</small></div><p class="d">義大利半扣＋騾子結＋單結，鎖住的半扣可以再打開</p>
+        <div class="sol"><ul><li>受力中也能解開，改用義大利半扣把人下放</li><li>溪降、救援常用：下方人員卡住時可以放下來</li><li>用 HMS 鎖勾環；解開時抓住結的「脖子」控制</li></ul></div></div>
+    </div>
+  </div>
+  <aside class="notes" data-sec="75"><p>進入第二單元：怎麼架。先從最單純的開始，只有一個點，但它夠強，例如一棵又粗又健康的大樹，或一顆穩固的巨岩。這時候不必硬找第二個點，備援改由元件提供：繩圈的兩股、雙繩，還有人員的自我確保。第一種，繩圈雙環：繩圈繞過樹幹，兩端繩耳一起扣進勾環，兩股同時受力，強度最高，但兩股的夾角要小。第二種，雀頭結：快、不容易沿樹幹滑，但會降低繩圈強度。第三種，基部固定：主繩直接繞樹幹基部三到四圈，繩尾打 8 字圈扣回主繩，靠摩擦承受，結不受力，保留主繩強度。</p><p>第四種，繩圈打 8 字結做出主力點，兩股被結分開，一股壞了另一股還在。第五種，主繩用雙套結掛在鎖勾環上，長度可以隨時調。這兩種都要配自我確保繩，人在調整的時候不離開系統。第六種，MMO：義大利半扣、騾子結、單結，平常鎖住，需要時可以在受力中解開，改用義大利半扣把人放下去，溪降和救援很常用。解開的時候，要抓住結的脖子控制。</p></aside>
+</section>
+
+<!-- ================= P9 分力 vs 均力 ================= -->
+<section data-page="11" data-section="維持注意" data-background-image="images/rigging.jpg" data-background-opacity="0.16" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">10 · 分力與均力</div><h2>主力點是「固定」還是「會滑」？</h2></div>
     <div class="vs">
       <div class="card col a">
         <h3>★ 分力<small>PRE-EQUALIZED</small></h3>
@@ -675,13 +718,13 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
       </div>
     </div>
   </div>
-  <aside class="notes" data-sec="50"><p>進入第二單元。分力和均力最大的差別，就是主力點是「固定」還是「會滑」。</p><p>分力的主力點綁死，一點失效時幾乎不延展，但受力方向一偏，負荷就集中到一個點。均力的勾環可以在繩上滑，受力方向小幅改變時會自動重新分攤，但一點失效會延展，所以要加限制結；而且實際上有摩擦，不會完美的 50 比 50。</p></aside>
+  <aside class="notes" data-sec="50"><p>接下來是兩個以上的點。分力和均力最大的差別，就是主力點是「固定」還是「會滑」。</p><p>分力的主力點綁死，一點失效時幾乎不延展，但受力方向一偏，負荷就集中到一個點。均力的勾環可以在繩上滑，受力方向小幅改變時會自動重新分攤，但一點失效會延展，所以要加限制結；而且實際上有摩擦，不會完美的 50 比 50。</p></aside>
 </section>
 
 <!-- ================= P10 分力四種 ================= -->
-<section data-page="11" data-section="維持注意" data-background-image="images/rigging.jpg" data-background-opacity="0.12" data-background-size="cover">
+<section data-page="12" data-section="維持注意" data-background-image="images/rigging.jpg" data-background-opacity="0.12" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">10 · 分力架設 ★</div><h2>分力：四種常見架法</h2><p class="sub">共同點：<b class="hl">先對準受力方向再綁死</b>。點卡片看架設要點</p></div>
+    <div class="head"><div class="kicker">11 · 分力架設 ★</div><h2>分力：四種常見架法</h2><p class="sub">共同點：<b class="hl">先對準受力方向再綁死</b>。點卡片看架設要點</p></div>
     <div class="rigs">
       <div class="card rig"><span class="tap">點擊 → 要點</span>
         <svg viewBox="0 0 200 160"><circle cx="40" cy="20" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><circle cx="160" cy="20" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><path d="M40 28 L100 110 L160 28" fill="none" stroke="#4cc9f0" stroke-width="5" stroke-linejoin="round"/><rect x="32" y="30" width="16" height="12" rx="4" fill="#ff7a2f"/><rect x="152" y="30" width="16" height="12" rx="4" fill="#ff7a2f"/><ellipse cx="100" cy="112" rx="10" ry="8" fill="#ffb74d"/><line x1="100" y1="120" x2="100" y2="156" stroke="#4cc9f0" stroke-width="5"/></svg>
@@ -709,9 +752,9 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
 </section>
 
 <!-- ================= P11 均力兩種 ================= -->
-<section data-page="12" data-section="維持注意" data-background-image="images/rigging.jpg" data-background-opacity="0.12" data-background-size="cover">
+<section data-page="13" data-section="維持注意" data-background-image="images/rigging.jpg" data-background-opacity="0.12" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">11 · 均力架設 ★</div><h2>均力：Sliding X 與 The Quad</h2><p class="sub">點卡片看架設要點</p></div>
+    <div class="head"><div class="kicker">12 · 均力架設 ★</div><h2>均力：Sliding X 與 The Quad</h2><p class="sub">點卡片看架設要點</p></div>
     <div class="rigs two">
       <div class="card rig"><span class="tap">點擊 → 要點</span>
         <svg viewBox="0 0 300 180"><circle cx="60" cy="20" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><circle cx="240" cy="20" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><path d="M60 28 L156 112" stroke="#4cc9f0" stroke-width="5"/><path d="M240 28 L144 112" stroke="#4cc9f0" stroke-width="5"/><path d="M144 112 Q150 122 156 112" fill="none" stroke="#4cc9f0" stroke-width="5"/><ellipse cx="150" cy="122" rx="9" ry="14" fill="none" stroke="#fff" stroke-width="3"/><ellipse cx="108" cy="70" rx="9" ry="7" fill="#ff7a2f"/><ellipse cx="192" cy="70" rx="9" ry="7" fill="#ff7a2f"/><line x1="150" y1="136" x2="150" y2="176" stroke="#4cc9f0" stroke-width="4"/><text x="204" y="96" font-size="13" fill="#ffb74d">限制結</text><text x="40" y="96" font-size="13" fill="#ffb74d">限制結</text><text x="166" y="134" font-size="13" fill="#7d8ba3">扭成 X 再扣</text></svg>
@@ -729,9 +772,9 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
 </section>
 
 <!-- ================= 三個點的分配 ================= -->
-<section id="slide-three" data-page="13" data-section="維持注意" data-background-image="images/rigging.jpg" data-background-opacity="0.12" data-background-size="cover">
+<section id="slide-three" data-page="14" data-section="維持注意" data-background-image="images/rigging.jpg" data-background-opacity="0.12" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">12 · 三個點的分配</div><h2>三個點，不一定各扛 33%</h2><p class="sub">兩個點先串成一組，再和第三點合併，分配就變成 <b class="hl">25／25／50</b></p></div>
+    <div class="head"><div class="kicker">13 · 三個點的分配</div><h2>三個點，不一定各扛 33%</h2><p class="sub">兩個點先串成一組，再和第三點合併，分配就變成 <b class="hl">25／25／50</b></p></div>
     <div class="fig-grid">
       <figure class="card zoom-fig" id="threeFig" data-photo="three" data-title="3 個分力點承受不同的受力" title="點一下放大">
         <img id="threeImg" src="images/photos/three.jpg" alt="左邊兩點先串成一組各 25%，右邊單點 50%">
@@ -758,9 +801,9 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
 </section>
 
 <!-- ================= P12 何時用 ================= -->
-<section data-page="14" data-section="維持注意" data-background-image="images/equal.jpg" data-background-opacity="0.14" data-background-size="cover">
+<section data-page="15" data-section="維持注意" data-background-image="images/equal.jpg" data-background-opacity="0.14" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">13 · 怎麼選</div><h2>看「受力方向會不會變」</h2><p class="sub">點選列可以標示對照</p></div>
+    <div class="head"><div class="kicker">14 · 怎麼選</div><h2>看「受力方向會不會變」</h2><p class="sub">點選列可以標示對照</p></div>
     <table class="t">
       <tr><th style="width:20%"></th><th style="color:var(--accent)">分力<small>Y-hang · 雙耳 8 · Girth · BFK</small></th><th>均力<small>Sliding X＋Knot · The Quad</small></th></tr>
       <tr class="row"><td class="l">主力點</td><td>固定不動</td><td>可滑動、自動調整</td></tr>
@@ -828,9 +871,9 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
 </section>
 
 <!-- ================= P13 3·6·9·12 ================= -->
-<section data-page="15" data-section="維持注意" data-background-image="images/angle.jpg" data-background-opacity="0.14" data-background-size="cover">
+<section data-page="16" data-section="維持注意" data-background-image="images/angle.jpg" data-background-opacity="0.14" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">14 · 兩個固定點的受力</div><h2>白板速記：3·6·9·12 → 5·6·7·10</h2></div>
+    <div class="head"><div class="kicker">15 · 兩個固定點的受力</div><h2>白板速記：3·6·9·12 → 5·6·7·10</h2></div>
     <div class="mnemo">
       <div class="n">30<small>度</small></div><div class="n">60<small>度</small></div><div class="n">90<small>度</small></div><div class="n">120<small>度</small></div>
       <div class="arrow">→</div>
@@ -858,9 +901,9 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
 </section>
 
 <!-- ================= P14 角度實驗室 ================= -->
-<section id="slide-lab" data-page="16" data-section="維持注意" data-background-image="images/lab.jpg" data-background-opacity="0.12" data-background-size="cover">
+<section id="slide-lab" data-page="17" data-section="維持注意" data-background-image="images/lab.jpg" data-background-opacity="0.12" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">15 · 角度實驗室</div><h2>拖拉看看：夾角＋偏離，每點受多少力？</h2></div>
+    <div class="head"><div class="kicker">16 · 角度實驗室</div><h2>拖拉看看：夾角＋偏離，每點受多少力？</h2></div>
     <div class="lab">
       <svg id="lab-svg" viewBox="0 0 520 380"></svg>
       <div class="ctrl" data-prevent-swipe>
@@ -882,9 +925,9 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
 </section>
 
 <!-- ================= P15 偏離 5° 圖表 ================= -->
-<section id="slide-chart" data-page="17" data-section="維持注意" data-background-image="images/lab.jpg" data-background-opacity="0.12" data-background-size="cover">
+<section id="slide-chart" data-page="18" data-section="維持注意" data-background-image="images/lab.jpg" data-background-opacity="0.12" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">16 · 偏離 5° 的受力</div><h2>只要偏 5°：受力最重的那一點變成多少？</h2></div>
+    <div class="head"><div class="kicker">17 · 偏離 5° 的受力</div><h2>只要偏 5°：受力最重的那一點變成多少？</h2></div>
     <div class="card chart-box"><canvas id="chart-canvas"></canvas></div>
     <p class="src">數據：Grant Prattley〈Two-Point Anchor Angles: The Case for Building in Error〉Over The Edge Rescue（2025）；數值已依 F = sin(θ/2±5°) ÷ sin θ 驗算</p>
   </div>
@@ -892,9 +935,9 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
 </section>
 
 <!-- ================= P16 甜蜜點 ================= -->
-<section data-page="18" data-section="喚起行動" data-background-image="images/angle.jpg" data-background-opacity="0.2" data-background-size="cover">
+<section data-page="19" data-section="喚起行動" data-background-image="images/angle.jpg" data-background-opacity="0.2" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">17 · 結論</div><h2>45°～60° 是甜蜜點，30°～75° 是底線</h2></div>
+    <div class="head"><div class="kicker">18 · 結論</div><h2>45°～60° 是甜蜜點，30°～75° 是底線</h2></div>
     <div class="zbar">
       <div style="flex:30;background:#ef5350">＜30° 太窄</div><div style="flex:15;background:#ffb74d">30–45</div><div style="flex:15;background:#81c784">45–60 ✔</div><div style="flex:15;background:#ffb74d">60–75</div><div style="flex:45;background:#ef5350">＞75° 太寬</div>
     </div>
@@ -910,9 +953,9 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
 </section>
 
 <!-- ================= 腿長：原理 ================= -->
-<section id="slide-legs" data-page="19" data-section="喚起行動" data-background-image="images/rigging.jpg" data-background-opacity="0.14" data-background-size="cover">
+<section id="slide-legs" data-page="20" data-section="喚起行動" data-background-image="images/rigging.jpg" data-background-opacity="0.14" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">18 · 腿長 Length of Anchor Legs</div><h2>腿長不等：越短的腳，扛越多的力</h2><p class="sub">固定點沿受力方向排成一直線（各腳接近平行），主力點綁死後，各腳被拉長<b class="hl">同樣的距離</b>；短腳伸長的比例較大，受力就較多</p></div>
+    <div class="head"><div class="kicker">19 · 腿長 Length of Anchor Legs</div><h2>腿長不等：越短的腳，扛越多的力</h2><p class="sub">固定點沿受力方向排成一直線（各腳接近平行），主力點綁死後，各腳被拉長<b class="hl">同樣的距離</b>；短腳伸長的比例較大，受力就較多</p></div>
     <div class="legs-grid">
       <figure class="card zoom-fig" data-photo="legs" data-title="腿長與受力：Cordelette 三腳理論例" title="點一下放大（共 2 張）">
         <img src="images/photos/legs.jpg" alt="Cordelette 連三個點：1 呎承受 55%、2 呎 27%、3 呎 18%">
@@ -939,9 +982,9 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
 </section>
 
 <!-- ================= 腿長：計算器 ================= -->
-<section id="slide-legcalc" data-page="20" data-section="喚起行動" data-background-image="images/rigging.jpg" data-background-opacity="0.12" data-background-size="cover">
+<section id="slide-legcalc" data-page="21" data-section="喚起行動" data-background-image="images/rigging.jpg" data-background-opacity="0.12" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">19 · 腿長計算器</div><h2>算算看：每隻腳各扛幾 kgf？</h2><p class="sub">受力 ∝ 1／腳長。選範例或拖拉腳長，看負荷怎麼分</p></div>
+    <div class="head"><div class="kicker">20 · 腿長計算器</div><h2>算算看：每隻腳各扛幾 kgf？</h2><p class="sub">受力 ∝ 1／腳長。選範例或拖拉腳長，看負荷怎麼分</p></div>
     <div class="legs-grid">
       <figure class="card zoom-fig" id="calcFig" data-photo="legs-jp" data-title="腿長受力計算例（日文教材 圖 3、圖 4）" title="點一下放大">
         <img id="calcImg" src="images/photos/legs-jp.jpg" alt="日文教材圖例：腳長與受力">
@@ -981,9 +1024,9 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
 </section>
 
 <!-- ================= P18 偏離點（COD）強度值 ================= -->
-<section id="slide-cord" data-page="21" data-section="喚起行動" data-background-image="images/cord.jpg" data-background-opacity="0.18" data-background-size="cover">
+<section id="slide-cord" data-page="22" data-section="喚起行動" data-background-image="images/cord.jpg" data-background-opacity="0.18" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">20 · 偏離點的強度值</div><h2>偏離點或 COD：繩子偏得越多，受力越大</h2><p class="sub">COD＝Change of Direction。<b class="hl">偏離角</b>＝繩子被改變方向的角度：直線通過 0°、完全折返 180°</p></div>
+    <div class="head"><div class="kicker">21 · 偏離點的強度值</div><h2>偏離點或 COD：繩子偏得越多，受力越大</h2><p class="sub">COD＝Change of Direction。<b class="hl">偏離角</b>＝繩子被改變方向的角度：直線通過 0°、完全折返 180°</p></div>
     <div class="cod-grid">
       <figure class="card zoom-fig" data-photo="cod" data-title="Deviation Forces：偏離角與偏離點受力" title="點一下放大">
         <img src="images/photos/cod.jpg" alt="偏離角 10° 到 180° 時，偏離點受力 17% 到 200%">
@@ -1019,9 +1062,9 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
 </section>
 
 <!-- ================= P19 檢核清單 ================= -->
-<section data-page="22" data-section="喚起行動" data-background-image="images/ending.jpg" data-background-opacity="0.3" data-background-size="cover">
+<section data-page="23" data-section="喚起行動" data-background-image="images/ending.jpg" data-background-opacity="0.3" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">21 · 現場檢核</div><h2>架完之後，從 S 檢查到 A 再受力</h2><p class="sub">逐項點選，全部打勾才能受力</p></div>
+    <div class="head"><div class="kicker">22 · 現場檢核</div><h2>架完之後，從 S 檢查到 A 再受力</h2><p class="sub">逐項點選，全部打勾才能受力</p></div>
     <div class="checks">
       <div class="card chk"><div class="L">S</div><div><h4>每個點、每個元件都夠強？</h4><p>弱方向也評估過了</p></div><div class="box"></div></div>
       <div class="card chk"><div class="L">R</div><div><h4>任一元件失效，系統還站得住？</h4><p>至少兩個獨立固定點</p></div><div class="box"></div></div>
