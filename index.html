@@ -237,21 +237,72 @@ html.clean .photo-btn.pending{display:none}
 #slide-cord .cord.on{background:rgba(76,201,240,.14)}
 
 
-/* ---------- 腿長與受力 ---------- */
-.legs-grid{display:grid;grid-template-columns:300px 1fr;gap:28px;align-items:start}
-.leg-fig{margin:0;padding:10px;cursor:zoom-in;text-align:center}
-.leg-fig img{height:405px;width:auto;border-radius:10px;display:block;margin:0 auto !important}
-.leg-fig figcaption{font-size:15.5px;white-space:nowrap;color:var(--ink-2);margin-top:8px;line-height:1.4}
+/* ---------- 圖片＋說明（共用） ---------- */
+.fig-grid,.legs-grid{display:grid;grid-template-columns:300px 1fr;gap:28px;align-items:start}
+.zoom-fig{margin:0;padding:10px;cursor:zoom-in;text-align:center}
+.zoom-fig img{height:405px;width:auto;max-width:100%;object-fit:contain;border-radius:10px;display:block;margin:0 auto !important}
+.zoom-fig figcaption{font-size:15.5px;color:var(--ink-2);margin-top:8px;line-height:1.4}
 .legs-q{font-size:24px;margin-bottom:12px}
 .legs-seg{display:flex;gap:10px;margin-bottom:16px}
-.legs-seg button{flex:1;font:700 22px 'JetBrains Mono',monospace;padding:8px 0;border-radius:10px;border:1px solid var(--ink-4);background:rgba(255,255,255,.04);color:var(--ink-2);cursor:pointer;transition:all .2s}
+.legs-seg button{flex:1;font:700 21px 'JetBrains Mono','Noto Sans TC',monospace;padding:8px 0;border-radius:10px;border:1px solid var(--ink-4);background:rgba(255,255,255,.04);color:var(--ink-2);cursor:pointer;transition:all .2s}
 .legs-seg button.on{background:var(--accent2);border-color:var(--accent2);color:#0d1117}
 .legs-bars .cord{grid-template-columns:80px 1fr 90px}
 .legs-bars .cord .track{height:20px;border-radius:10px}
-body.mobile .legs-grid{grid-template-columns:1fr;gap:14px}
-body.mobile .leg-fig img{height:340px}
+/* 受力方向 */
+.dirs{display:flex;flex-direction:column;gap:14px}
+.dir{display:grid;grid-template-columns:60px 1fr;gap:16px;align-items:center;padding:14px 20px}
+.dir .ar{font:900 50px/1 'Noto Sans TC',sans-serif;text-align:center}
+.dir h4{font-size:25px;margin-bottom:4px}
+.dir p{font-size:20px;color:var(--ink-2);line-height:1.5}
+/* 虎克定律 */
+.eq{font:700 26px 'JetBrains Mono','Noto Sans TC',monospace;color:var(--accent2);background:rgba(76,201,240,.08);border:1px solid rgba(76,201,240,.3);border-radius:10px;padding:10px 16px;margin-bottom:10px;text-align:center}
+.eq small{display:block;margin:2px 0 0 !important;font:500 15px 'Noto Sans TC',sans-serif;color:var(--ink-3);margin-left:10px}
+.steps{margin:0 0 6px;padding-left:1.5em !important}
+.steps li{font-size:21px;line-height:1.6;color:var(--ink-2);padding:2px 0}
+.steps li b{color:var(--ink)}
+.calc-btn{position:static !important;margin:4px 0 8px !important}
+/* 腿長計算器 */
+.calc-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.calc-row .lab{font-size:18px;color:var(--ink-3);width:52px;flex:none;white-space:nowrap}
+.calc-row .legs-seg{margin:0;flex:1}
+.calc-row .legs-seg button{font-size:18px;padding:7px 0}
+.cl{display:grid;grid-template-columns:40px 1fr 80px 170px 104px;align-items:center;gap:12px;margin-top:10px}
+.cl .n{font:700 21px 'JetBrains Mono',monospace;color:var(--ink)}
+.cl input[type=range]{width:100%;accent-color:var(--accent2);margin:0}
+.cl .len{font:700 20px 'JetBrains Mono',monospace;text-align:right;color:var(--ink-2)}
+.cl .track{height:16px;border-radius:8px;background:rgba(255,255,255,.06);overflow:hidden}
+.cl .fill{height:100%;width:0;border-radius:8px;transition:width .5s,background .3s}
+.cl .kg{font:700 21px 'JetBrains Mono',monospace;text-align:right;color:var(--ink);line-height:1.15}
+.cl .kg small{display:block;font-size:14px;color:var(--ink-3)}
+/* 共享白板 */
+.board-grid{display:grid;grid-template-columns:1fr 260px;gap:28px;align-items:center}
+.reveal h2.board-q{font-size:40px;margin:2px 0 4px}
+.wb-tools{display:flex;align-items:center;gap:10px;margin:12px 0 10px;font-size:17px;color:var(--ink-3)}
+.wb-sw{width:28px;height:28px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0}
+.wb-sw.on{border-color:#fff;box-shadow:0 0 0 2px var(--accent2)}
+.wb-tools .btn{margin-left:4px}
+.wb-wrap{position:relative;width:100%;aspect-ratio:800/380;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;overflow:hidden;touch-action:none}
+.wb-base{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#wb-canvas{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair;touch-action:none;display:block}
+/* 偏離點 */
+.cod-grid{display:grid;grid-template-columns:270px 330px 1fr;gap:22px;align-items:start}
+.cod-grid .zoom-fig img{height:420px}
+.cods{gap:3px !important}
+.cods .cord{grid-template-columns:58px 1fr 64px;gap:10px}
+.cods .cord .dm{font-size:19px} .cods .cord .kn{font-size:18px} .cods .cord .kn small{font-size:13px}
+.cods .cord .track{height:11px}
+.cod-grid .list li{font-size:20px;padding:4px 0 4px 22px}
+.cod-grid .list li::before{top:16px}
+body.mobile .fig-grid,body.mobile .legs-grid,body.mobile .cod-grid,body.mobile .board-grid{grid-template-columns:1fr;gap:14px}
+body.mobile .zoom-fig img,body.mobile .cod-grid .zoom-fig img{height:340px}
 body.mobile .legs-q{font-size:19px}
-body.mobile .legs-seg button{font-size:18px}
+body.mobile .legs-seg button{font-size:16px}
+body.mobile .dir h4{font-size:20px} body.mobile .dir p{font-size:17px} body.mobile .dir .ar{font-size:38px}
+body.mobile .eq{font-size:20px} body.mobile .steps li{font-size:17px}
+body.mobile .cl{grid-template-columns:34px 1fr 64px;row-gap:4px}
+body.mobile .cl .track{grid-column:1 / 3}
+body.mobile .reveal h2.board-q{font-size:24px}
+body.mobile #wb-clear{display:none}
 
 /* ---------- 輔助繩 ---------- */
 .cords{display:flex;flex-direction:column;gap:10px}
@@ -513,13 +564,33 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
     </div>
     <p class="src">Distance／Direction 定義參考 A.D.D.R.E.S.S 原則（ZA Adventure，改編自 Bisson &amp; Barrington）</p>
   </div>
-  <aside class="notes" data-sec="60"><p>兩個 D。第一個 D 是距離：主力點要放在岩緣外側，讓繩子自由運行、不在岩角上摩擦；另外要想一想，萬一一個點失效，主力點會掉多遠，距離越長衝擊越大。腿長也會改變夾角，兩點距離固定時，腿越短夾角越大。</p><p>第二個 D 是方向：主力點要對準預期的受力方向，而且每個點都要問「它在這個方向夠不夠強」。螺栓被外拉、樹被往上撬，都是弱方向。北絲鬮溪的螺栓，就是在外拉的方向失效。</p></aside>
+  <aside class="notes" data-sec="60"><p>兩個 D。第一個 D 是距離：主力點要放在岩緣外側，讓繩子自由運行、不在岩角上摩擦；另外要想一想，萬一一個點失效，主力點會掉多遠，距離越長衝擊越大。腿長也會改變夾角，兩點距離固定時，腿越短夾角越大。</p><p>第二個 D 是方向：主力點要對準預期的受力方向，而且每個點都要問「它在這個方向夠不夠強」。螺栓被外拉、樹被往上撬，都是弱方向。北絲鬮溪的螺栓，就是在外拉的方向失效。下一頁再看：受力方向在使用過程中，其實會改變。</p></aside>
+</section>
+
+<!-- ================= 受力方向會變 ================= -->
+<section id="slide-dir" data-page="7" data-section="維持注意" data-background-image="images/edge.jpg" data-background-opacity="0.16" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">06 · 受力方向會變</div><h2>同一組固定點，要撐住每一個可能的方向</h2><p class="sub">架設前先想：使用過程中，這組固定點會被往哪些方向拉？</p></div>
+    <div class="fig-grid">
+      <figure class="card zoom-fig" data-photo="direction" data-title="固定點架設需考量可能的受力方向改變" title="點一下放大">
+        <img src="images/photos/direction.jpg" alt="多點固定點的主力點上，標出往下、往上、往側三個可能的受力方向">
+        <figcaption>圓圈＝主力點；箭頭＝可能受力方向</figcaption>
+      </figure>
+      <div class="dirs">
+        <div class="card dir"><div class="ar" style="color:var(--accent2)">↓</div><div><h4>往下：正常受力</h4><p>垂降、下放、確保跟攀者。主力點先對準這個方向</p></div></div>
+        <div class="card dir"><div class="ar" style="color:var(--bad)">↑</div><div><h4>往上：被往上拉</h4><p>例如先鋒墜落時確保者被往上拉。只朝下設計的點可能被拔起，要加<b>反向固定點</b>（圖中黃色扁帶）</p></div></div>
+        <div class="card dir"><div class="ar" style="color:var(--warn)">→</div><div><h4>往側：方向偏移</h4><p>橫移、擺盪、路線轉向。主力點和每個點都要承受得了側拉</p></div></div>
+      </div>
+    </div>
+    <p class="body" style="margin-top:14px">每多一個可能方向，就逐點再問一次：<b class="hl">它在這個方向夠不夠強？</b></p>
+  </div>
+  <aside class="notes" data-sec="50"><p>D 方向還有一件事：受力方向會變。看這張照片，圓圈是主力點，三個箭頭是它可能被拉的方向。往下，是正常的垂降、下放、確保跟攀者，主力點先對準這個方向。</p><p>往上，例如先鋒墜落時，確保者會被往上拉，只朝下設計的固定點可能被拔起，所以照片裡多了一條黃色扁帶往下拉住，這就是反向固定點。往側，像橫移、擺盪、路線轉向。架設前先想一輪：這組固定點在使用過程中會被往哪些方向拉？每一個方向，都要逐點問一次夠不夠強。</p></aside>
 </section>
 
 <!-- ================= P7 A ================= -->
-<section data-page="7" data-section="維持注意" data-background-image="images/angle.jpg" data-background-opacity="0.32" data-background-size="cover">
+<section data-page="8" data-section="維持注意" data-background-image="images/angle.jpg" data-background-opacity="0.32" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">06 · 角度</div><h2>A：夾角越大，每個點承受的力越大</h2><p class="sub">夾角 120° 時，每個點都承受 <b class="hl">100%</b> 的負荷，等於沒有分攤</p></div>
+    <div class="head"><div class="kicker">07 · 角度</div><h2>A：夾角越大，每個點承受的力越大</h2><p class="sub">夾角 120° 時，每個點都承受 <b class="hl">100%</b> 的負荷，等於沒有分攤</p></div>
     <svg viewBox="0 0 1180 330" style="width:100%;display:block">
       <g font-family="Noto Sans TC, sans-serif" text-anchor="middle">
         <circle cx="160" cy="40" r="10" fill="none" stroke="#b9c6d8" stroke-width="4"/><circle cx="280" cy="40" r="10" fill="none" stroke="#b9c6d8" stroke-width="4"/>
@@ -540,9 +611,9 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
 </section>
 
 <!-- ================= P8 原則對照 ================= -->
-<section data-page="8" data-section="維持注意" data-background-image="images/sredda.jpg" data-background-opacity="0.14" data-background-size="cover">
+<section data-page="9" data-section="維持注意" data-background-image="images/sredda.jpg" data-background-opacity="0.14" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">07 · 原則對照</div><h2>不同課程的縮寫，檢查的是同一件事</h2><p class="sub">點選列可以標示對照</p></div>
+    <div class="head"><div class="kicker">08 · 原則對照</div><h2>不同課程的縮寫，檢查的是同一件事</h2><p class="sub">點選列可以標示對照</p></div>
     <table class="t">
       <tr><th>核心概念</th><th>SREDDA<small>本課</small></th><th>SRENE(A)<small>攀登常用</small></th><th>ERNEST<small>繩索救援</small></th><th>A.D.D.R.E.S.S<small>ZA Adventure</small></th></tr>
       <tr class="row"><td class="l">夠強固</td><td>Strong</td><td>Solid</td><td>Solid／Strong</td><td>以 Score 評分</td></tr>
@@ -559,9 +630,9 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
 </section>
 
 <!-- ================= P9 分力 vs 均力 ================= -->
-<section data-page="9" data-section="維持注意" data-background-image="images/rigging.jpg" data-background-opacity="0.16" data-background-size="cover">
+<section data-page="10" data-section="維持注意" data-background-image="images/rigging.jpg" data-background-opacity="0.16" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">08 · 分力與均力</div><h2>主力點是「固定」還是「會滑」？</h2></div>
+    <div class="head"><div class="kicker">09 · 分力與均力</div><h2>主力點是「固定」還是「會滑」？</h2></div>
     <div class="vs">
       <div class="card col a">
         <h3>★ 分力<small>PRE-EQUALIZED</small></h3>
@@ -590,9 +661,9 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
 </section>
 
 <!-- ================= P10 分力四種 ================= -->
-<section data-page="10" data-section="維持注意" data-background-image="images/rigging.jpg" data-background-opacity="0.12" data-background-size="cover">
+<section data-page="11" data-section="維持注意" data-background-image="images/rigging.jpg" data-background-opacity="0.12" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">09 · 分力架設 ★</div><h2>分力：四種常見架法</h2><p class="sub">共同點：<b class="hl">先對準受力方向再綁死</b>。點卡片看架設要點</p></div>
+    <div class="head"><div class="kicker">10 · 分力架設 ★</div><h2>分力：四種常見架法</h2><p class="sub">共同點：<b class="hl">先對準受力方向再綁死</b>。點卡片看架設要點</p></div>
     <div class="rigs">
       <div class="card rig"><span class="tap">點擊 → 要點</span>
         <svg viewBox="0 0 200 160"><circle cx="40" cy="20" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><circle cx="160" cy="20" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><path d="M40 28 L100 110 L160 28" fill="none" stroke="#4cc9f0" stroke-width="5" stroke-linejoin="round"/><rect x="32" y="30" width="16" height="12" rx="4" fill="#ff7a2f"/><rect x="152" y="30" width="16" height="12" rx="4" fill="#ff7a2f"/><ellipse cx="100" cy="112" rx="10" ry="8" fill="#ffb74d"/><line x1="100" y1="120" x2="100" y2="156" stroke="#4cc9f0" stroke-width="5"/></svg>
@@ -620,9 +691,9 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
 </section>
 
 <!-- ================= P11 均力兩種 ================= -->
-<section data-page="11" data-section="維持注意" data-background-image="images/rigging.jpg" data-background-opacity="0.12" data-background-size="cover">
+<section data-page="12" data-section="維持注意" data-background-image="images/rigging.jpg" data-background-opacity="0.12" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">10 · 均力架設 ★</div><h2>均力：Sliding X 與 The Quad</h2><p class="sub">點卡片看架設要點</p></div>
+    <div class="head"><div class="kicker">11 · 均力架設 ★</div><h2>均力：Sliding X 與 The Quad</h2><p class="sub">點卡片看架設要點</p></div>
     <div class="rigs two">
       <div class="card rig"><span class="tap">點擊 → 要點</span>
         <svg viewBox="0 0 300 180"><circle cx="60" cy="20" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><circle cx="240" cy="20" r="8" fill="none" stroke="#b9c6d8" stroke-width="3"/><path d="M60 28 L156 112" stroke="#4cc9f0" stroke-width="5"/><path d="M240 28 L144 112" stroke="#4cc9f0" stroke-width="5"/><path d="M144 112 Q150 122 156 112" fill="none" stroke="#4cc9f0" stroke-width="5"/><ellipse cx="150" cy="122" rx="9" ry="14" fill="none" stroke="#fff" stroke-width="3"/><ellipse cx="108" cy="70" rx="9" ry="7" fill="#ff7a2f"/><ellipse cx="192" cy="70" rx="9" ry="7" fill="#ff7a2f"/><line x1="150" y1="136" x2="150" y2="176" stroke="#4cc9f0" stroke-width="4"/><text x="204" y="96" font-size="13" fill="#ffb74d">限制結</text><text x="40" y="96" font-size="13" fill="#ffb74d">限制結</text><text x="166" y="134" font-size="13" fill="#7d8ba3">扭成 X 再扣</text></svg>
@@ -639,10 +710,39 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
   <aside class="notes" data-sec="55"><p>均力常用兩種。Sliding X：繩環扣兩點，其中一股要扭成 X，勾環扣進扭轉的地方。這個 X 一定要扭，沒扭到的話，一個點失效，勾環會整個從繩環脫出。兩腳再各打一個限制結，把延展鎖在很短的距離。</p><p>The Quad：繩環對折，兩端各打一個單結，中間形成四股，主力點扣中間的繩股。它可以在小範圍內自動調整，延展又被兩個單結限制住，兼顧均力和低延展。</p></aside>
 </section>
 
-<!-- ================= P12 何時用 ================= -->
-<section data-page="12" data-section="維持注意" data-background-image="images/equal.jpg" data-background-opacity="0.14" data-background-size="cover">
+<!-- ================= 三個點的分配 ================= -->
+<section id="slide-three" data-page="13" data-section="維持注意" data-background-image="images/rigging.jpg" data-background-opacity="0.12" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">11 · 怎麼選</div><h2>看「受力方向會不會變」</h2><p class="sub">點選列可以標示對照</p></div>
+    <div class="head"><div class="kicker">12 · 三個點的分配</div><h2>三個點，不一定各扛 33%</h2><p class="sub">兩個點先串成一組，再和第三點合併，分配就變成 <b class="hl">25／25／50</b></p></div>
+    <div class="fig-grid">
+      <figure class="card zoom-fig" data-photo="three" data-title="3 個分力點承受不同的受力" title="點一下放大（共 2 張）">
+        <img src="images/photos/three.jpg" alt="左邊兩點先串成一組各 25%，右邊單點 50%">
+        <figcaption>左兩點串接各 25%，右單點 50%</figcaption>
+      </figure>
+      <div class="card" style="padding:18px 22px">
+        <h4 class="legs-q">怎麼連，決定怎麼分</h4>
+        <div class="legs-seg" id="threeSeg"><button data-m="cas" class="on">兩點先串接</button><button data-m="eq">三腳各自到主力點</button></div>
+        <div class="cords legs-bars">
+          <div class="cord"><span class="dm">點 A</span><div class="track"><div class="fill" id="thA"></div></div><span class="kn" id="thAv">25<small>%</small></span></div>
+          <div class="cord"><span class="dm">點 B</span><div class="track"><div class="fill" id="thB"></div></div><span class="kn" id="thBv">25<small>%</small></span></div>
+          <div class="cord"><span class="dm">點 C</span><div class="track"><div class="fill" id="thC"></div></div><span class="kn" id="thCv">50<small>%</small></span></div>
+        </div>
+        <p class="note" id="threeNote" style="margin:8px 0 6px"></p>
+        <ul class="list">
+          <li>串接那一組只分到 50%，組內兩點<b>各 25%</b>；單獨那一點扛 <b>50%</b></li>
+          <li>可以把較弱的兩點串成一組，讓<b>最可靠的點</b>單獨一腳</li>
+          <li>圖上的 % 是<b>分配比例</b>；V 字夾角越大，每腳實際受力還會再放大</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <aside class="notes" data-sec="50"><p>如果有三個點呢？很多人以為三個點就是各 33%。看這張照片：左邊兩個點先用扁帶串成一組，再和右邊的點合併。主力點先把負荷分成兩半，左邊那一組只拿到 50%，組內兩點再對分，各 25%；右邊單獨那一點扛 50%。點右邊切換看看，三腳各自連到主力點、而且等長的理想狀態，才會接近各 33%。</p><p>所以怎麼連，決定怎麼分。這也可以拿來用：把比較弱的兩點串成一組，讓最可靠的那一點單獨一腳。要提醒，照片上的百分比是分配比例，V 字的夾角越大，每隻腳實際受力還會再放大，跟後面角度的道理一樣。</p></aside>
+</section>
+
+<!-- ================= P12 何時用 ================= -->
+<section data-page="14" data-section="維持注意" data-background-image="images/equal.jpg" data-background-opacity="0.14" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">13 · 怎麼選</div><h2>看「受力方向會不會變」</h2><p class="sub">點選列可以標示對照</p></div>
     <table class="t">
       <tr><th style="width:20%"></th><th style="color:var(--accent)">分力<small>Y-hang · 雙耳 8 · Girth · BFK</small></th><th>均力<small>Sliding X＋Knot · The Quad</small></th></tr>
       <tr class="row"><td class="l">主力點</td><td>固定不動</td><td>可滑動、自動調整</td></tr>
@@ -654,6 +754,38 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
     <p class="body" style="margin-top:16px">兩種都不是萬靈丹。分力要靠<b class="hl">正確的方向</b>和<b class="hl">合適的夾角</b>才分得平均，下一單元用數字說明。</p>
   </div>
   <aside class="notes" data-sec="45"><p>那要怎麼選？關鍵在受力方向會不會變。受力方向固定，例如垂降站、溪降、救援主系統，分力很穩，失效時也幾乎不延展；受力方向會小幅移動，例如橫移、擺盪、確保站，均力比較能跟著調整，但一定要扭 X、加限制結。</p><p>分力要分得平均，靠的是方向和夾角，我們進入第三單元。</p></aside>
+</section>
+
+<!-- ================= 共享白板：換你架架看 ================= -->
+<section id="board" data-page="Q" data-section="維持注意" data-background-image="images/rigging.jpg" data-background-opacity="0.12" data-background-size="cover">
+  <div class="inner board-grid">
+    <div>
+      <div class="kicker">共享白板 · 換你架架看 <span class="live-badge">LIVE</span></div>
+      <h2 class="board-q">三個固定點、往下受力：你會怎麼連？</h2>
+      <p class="sub">用手機畫出繩子和主力點，所有人的筆畫會即時出現</p>
+      <div class="wb-tools" data-prevent-swipe>筆色
+        <button class="wb-sw on" data-color="#4cc9f0" style="background:#4cc9f0" aria-label="藍"></button>
+        <button class="wb-sw" data-color="#ff7a2f" style="background:#ff7a2f" aria-label="橘"></button>
+        <button class="wb-sw" data-color="#81c784" style="background:#81c784" aria-label="綠"></button>
+        <button class="wb-sw" data-color="#ffffff" style="background:#fff" aria-label="白"></button>
+        <button class="btn" id="wb-undo">↶ 復原我的上一筆</button>
+        <button class="btn" id="wb-clear">🗑 清空全部</button>
+        <span class="ixStatus" id="wbStatus" style="margin:0 0 0 auto"></span>
+      </div>
+      <div class="wb-wrap" data-prevent-swipe>
+        <svg class="wb-base" viewBox="0 0 800 380" aria-hidden="true">
+          <g fill="none" stroke="#b9c6d8" stroke-width="4"><circle cx="170" cy="62" r="13"/><circle cx="270" cy="48" r="13"/><circle cx="640" cy="74" r="13"/></g>
+          <g font-family="JetBrains Mono,monospace" font-size="24" font-weight="700" fill="#eef3fa"><text x="140" y="104">A</text><text x="282" y="92">B</text><text x="660" y="116">C</text></g>
+          <line x1="400" y1="300" x2="400" y2="356" stroke="#ff7a2f" stroke-width="6" stroke-dasharray="10 7"/>
+          <path d="M386 350 L400 372 L414 350z" fill="#ff7a2f"/>
+          <text x="416" y="340" font-size="20" fill="#ff7a2f" font-family="Noto Sans TC,sans-serif">受力方向</text>
+        </svg>
+        <canvas id="wb-canvas"></canvas>
+      </div>
+    </div>
+    <div class="card qr-card"><div class="qr" id="qr-board"></div><h4>手機掃描一起畫</h4><div class="url" id="qr-board-url"></div></div>
+  </div>
+  <aside class="notes" data-sec="60"><p>換大家動手。白板上有 A、B、C 三個固定點，A 和 B 靠得近、C 在比較遠的地方，受力方向往下。請用手機掃 QR code，畫出你會怎麼連：用分力還是均力？主力點放在哪裡？要不要先把兩點串起來？（等 1～2 分鐘）</p><p>我們一起看看大家畫的……（挑兩三種畫法討論：先串接 A、B 再和 C 合併，就是剛剛 25／25／50 的例子；三腳各自連到主力點，就要注意腳長差異，等一下「腿長」那兩頁會算給大家看）。</p></aside>
 </section>
 
 <!-- ================= 投票：先猜再看 ================= -->
@@ -678,9 +810,9 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
 </section>
 
 <!-- ================= P13 3·6·9·12 ================= -->
-<section data-page="13" data-section="維持注意" data-background-image="images/angle.jpg" data-background-opacity="0.14" data-background-size="cover">
+<section data-page="15" data-section="維持注意" data-background-image="images/angle.jpg" data-background-opacity="0.14" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">12 · 兩個固定點的受力</div><h2>白板速記：3·6·9·12 → 5·6·7·10</h2></div>
+    <div class="head"><div class="kicker">14 · 兩個固定點的受力</div><h2>白板速記：3·6·9·12 → 5·6·7·10</h2></div>
     <div class="mnemo">
       <div class="n">30<small>度</small></div><div class="n">60<small>度</small></div><div class="n">90<small>度</small></div><div class="n">120<small>度</small></div>
       <div class="arrow">→</div>
@@ -708,9 +840,9 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
 </section>
 
 <!-- ================= P14 角度實驗室 ================= -->
-<section id="slide-lab" data-page="14" data-section="維持注意" data-background-image="images/lab.jpg" data-background-opacity="0.12" data-background-size="cover">
+<section id="slide-lab" data-page="16" data-section="維持注意" data-background-image="images/lab.jpg" data-background-opacity="0.12" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">13 · 角度實驗室</div><h2>拖拉看看：夾角＋偏離，每點受多少力？</h2></div>
+    <div class="head"><div class="kicker">15 · 角度實驗室</div><h2>拖拉看看：夾角＋偏離，每點受多少力？</h2></div>
     <div class="lab">
       <svg id="lab-svg" viewBox="0 0 520 380"></svg>
       <div class="ctrl" data-prevent-swipe>
@@ -732,9 +864,9 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
 </section>
 
 <!-- ================= P15 偏離 5° 圖表 ================= -->
-<section id="slide-chart" data-page="15" data-section="維持注意" data-background-image="images/lab.jpg" data-background-opacity="0.12" data-background-size="cover">
+<section id="slide-chart" data-page="17" data-section="維持注意" data-background-image="images/lab.jpg" data-background-opacity="0.12" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">14 · 偏離 5° 的受力</div><h2>只要偏 5°：受力最重的那一點變成多少？</h2></div>
+    <div class="head"><div class="kicker">16 · 偏離 5° 的受力</div><h2>只要偏 5°：受力最重的那一點變成多少？</h2></div>
     <div class="card chart-box"><canvas id="chart-canvas"></canvas></div>
     <p class="src">數據：Grant Prattley〈Two-Point Anchor Angles: The Case for Building in Error〉Over The Edge Rescue（2025）；數值已依 F = sin(θ/2±5°) ÷ sin θ 驗算</p>
   </div>
@@ -742,9 +874,9 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
 </section>
 
 <!-- ================= P16 甜蜜點 ================= -->
-<section data-page="16" data-section="喚起行動" data-background-image="images/angle.jpg" data-background-opacity="0.2" data-background-size="cover">
+<section data-page="18" data-section="喚起行動" data-background-image="images/angle.jpg" data-background-opacity="0.2" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">15 · 結論</div><h2>45°～60° 是甜蜜點，30°～75° 是底線</h2></div>
+    <div class="head"><div class="kicker">17 · 結論</div><h2>45°～60° 是甜蜜點，30°～75° 是底線</h2></div>
     <div class="zbar">
       <div style="flex:30;background:#ef5350">＜30° 太窄</div><div style="flex:15;background:#ffb74d">30–45</div><div style="flex:15;background:#81c784">45–60 ✔</div><div style="flex:15;background:#ffb74d">60–75</div><div style="flex:45;background:#ef5350">＞75° 太寬</div>
     </div>
@@ -759,69 +891,103 @@ html.clean .rv .a,html.clean .rig .sol,html.clean .sred .x{max-height:220px;opac
   <aside class="notes" data-sec="55"><p>結論：分力夾角以 45 到 60 度為甜蜜點，偏 5 度時最重的點也只到 65、66%。30 度和 75 度是底線，大約 68 到 70%。低於 30 度，一偏就衝到 84% 甚至 100%；高於 75 度，就算完美也已經 7 成以上。</p><p>所以架設時，不要把 30 度當起點，一開始就架在 45 到 60 度。這個區間就算受力方向偏了 5 度，最重的那一點也只到 65、66%，留有容錯空間；夾角再收窄，15 度會到 84%，5 度直接 100%。</p></aside>
 </section>
 
-<!-- ================= P17 腿長與受力 ================= -->
-<section id="slide-legs" data-page="17" data-section="喚起行動" data-background-image="images/rigging.jpg" data-background-opacity="0.14" data-background-size="cover">
+<!-- ================= 腿長：原理 ================= -->
+<section id="slide-legs" data-page="19" data-section="喚起行動" data-background-image="images/rigging.jpg" data-background-opacity="0.14" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">16 · 腿長 Length of Anchor Legs</div><h2>腿長不等：越短的腳，扛越多的力</h2><p class="sub">分力的主力點綁死後，各腳被拉長<b class="hl">同樣的距離</b>；短腳伸長的比例較大，所以受力較多</p></div>
+    <div class="head"><div class="kicker">18 · 腿長 Length of Anchor Legs</div><h2>腿長不等：越短的腳，扛越多的力</h2><p class="sub">主力點綁死後，各腳被拉長<b class="hl">同樣的距離</b>；短腳伸長的比例較大，受力就較多</p></div>
     <div class="legs-grid">
-      <figure class="card leg-fig" data-photo="legs" data-title="腿長與受力：三腳理論例（kevin-heinrich.com）" title="點一下放大">
-        <img src="images/photos/legs.jpg" alt="三條不同長度的腳：1ft 承受 55%、2ft 27%、3ft 18%">
-        <figcaption>理論例 1ft <b class="bad">55%</b>・2ft <b class="warn">27%</b>・3ft <b class="ok">18%</b></figcaption>
+      <figure class="card zoom-fig" data-photo="legs" data-title="腿長與受力：Cordelette 三腳理論例" title="點一下放大（共 2 張）">
+        <img src="images/photos/legs.jpg" alt="Cordelette 連三個點：1 呎承受 55%、2 呎 27%、3 呎 18%">
+        <figcaption>三腳：1ft <b class="bad">55%</b>・2ft <b class="warn">27%</b>・3ft <b class="ok">18%</b></figcaption>
       </figure>
       <div class="card" style="padding:18px 22px">
-        <h4 class="legs-q">兩腳時：長腳是短腳的幾倍長？</h4>
-        <div class="legs-seg" id="legsSeg"><button data-r="1">1×</button><button data-r="1.5">1.5×</button><button data-r="2" class="on">2×</button><button data-r="3">3×</button></div>
-        <div class="cords legs-bars" data-max="100">
-          <div class="cord"><span class="dm">短腳</span><div class="track"><div class="fill" id="legS" style="background:var(--bad)"></div></div><span class="kn" id="legSv">67<small>%</small></span></div>
-          <div class="cord"><span class="dm">長腳</span><div class="track"><div class="fill" id="legL" style="background:var(--ok)"></div></div><span class="kn" id="legLv">33<small>%</small></span></div>
-        </div>
-        <ul class="list" style="margin-top:12px">
-          <li>受力和腳長<b>成反比</b>：長腳 2 倍長，短腳扛 2 倍的力</li>
-          <li>腳長差很多時，長腳用<b>靜力材料</b>（Dyneema 扁帶）延長，讓兩腳的彈性段接近等長</li>
-          <li>分力結要<b>拉緊</b>：沒拉緊的結等於多一段鬆弛，影響比腿長更大</li>
+        <h4 class="legs-q">為什麼？用虎克定律算一次</h4>
+        <div class="eq">拉力 S ＝ E · A · Δ ／ ℓ<small>E 彈性係數・A 截面積・Δ 伸長量・ℓ 原長</small></div>
+        <ol class="steps">
+          <li>主力點綁死 → 每隻腳的伸長量 <b>Δ 相同</b></li>
+          <li>同一條繩 → <b>E、A 相同</b></li>
+          <li>所以 <b>S ∝ 1／ℓ</b>：受力和腳長<b>成反比</b></li>
+          <li>1 : 2 : 3 ft → 1/1 : 1/2 : 1/3 ＝ <b>6 : 3 : 2</b> → 55%、27%、18%</li>
+        </ol>
+        <button class="photo-btn calc-btn" data-photo="legs-calc" data-title="手寫推導：工程力學／材料力學軸力桿件公式"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 8h4l2-3h6l2 3h4v11H3z"/><circle cx="12" cy="13" r="3.6"/></svg><span>看手寫推導</span></button>
+        <ul class="list">
+          <li>這是<b>理論值</b>：現場會受結打得好不好、假設是否成立、應力集中影響</li>
+          <li>分力結沒拉緊，等於多一段鬆弛，影響<b>比腿長更大</b></li>
         </ul>
       </div>
     </div>
-    <p class="src">資料來源：Kevin Heinrich〈The Best Climbing Anchor: A Look at Anchor Research〉；Chasse（2016）〈Revisiting the Quad for Load Distribution and Stance Management〉；Beverly et al.（2005）〈Multi-point Pre-Equalized Anchoring Systems〉。百分比為理論值：同材質、各腳接近平行、不計結的鬆弛</p>
+    <p class="src">圖：John Long &amp; Bob Gaines《Climbing Anchors》；Kevin Heinrich〈The Best Climbing Anchor: A Look at Anchor Research〉。研究：Chasse（2016）〈Revisiting the Quad〉；Beverly et al.（2005）〈Multi-point Pre-Equalized Anchoring Systems〉</p>
   </div>
-  <aside class="notes" data-sec="50"><p>再看一個常被忽略的因素：腿長。分力的主力點綁死以後，受力時每一隻腳都被拉長同樣的距離。可是短腳本身比較短，同樣伸長幾公分，它被拉長的比例比較大，所以承受的力也比較多。受力和腳長成反比。左邊這張圖是理論例子：三隻腳分別 1 呎、2 呎、3 呎，最短的那隻扛 55%，2 呎 27%，最長的只有 18%。</p><p>右邊切換看看兩隻腳的情況：一樣長，各 50%；長腳是短腳的 2 倍，短腳就扛 67%；3 倍時變成 75%。所以腳長差很多的時候，可以用 Dyneema 這類靜力扁帶去延長長腳，讓兩隻腳會伸長的那一段接近等長。另外，研究也提醒：分力結沒有拉緊，等於那隻腳多了一段鬆弛，影響比腿長還大。打完結一定要整理、拉緊。</p></aside>
+  <aside class="notes" data-sec="55"><p>接下來看腿長。這張圖出自《Climbing Anchors》：一條 cordelette 連三個點，三隻腳分別 1 呎、2 呎、3 呎，最短的扛 55%，2 呎 27%，最長的只有 18%。</p><p>為什麼？用材料力學的虎克定律：拉力等於彈性係數乘截面積，再乘伸長量除以原長。主力點綁死以後，三隻腳被拉長同樣的距離；同一條繩，彈性係數和截面積也一樣，所以拉力只跟長度的倒數有關，受力和腳長成反比。1、2、3 的倒數比是 6 比 3 比 2，換算就是 55、27、18%。要提醒，這是理論值，結打得好不好、假設是否成立都會造成誤差；研究也指出，分力結沒拉緊的影響比腿長還大。</p></aside>
+</section>
+
+<!-- ================= 腿長：計算器 ================= -->
+<section id="slide-legcalc" data-page="20" data-section="喚起行動" data-background-image="images/rigging.jpg" data-background-opacity="0.12" data-background-size="cover">
+  <div class="inner">
+    <div class="head"><div class="kicker">19 · 腿長計算器</div><h2>算算看：每隻腳各扛幾 kgf？</h2><p class="sub">受力 ∝ 1／腳長。選範例或拖拉腳長，看負荷怎麼分</p></div>
+    <div class="legs-grid">
+      <figure class="card zoom-fig" id="calcFig" data-photo="legs-jp" data-title="腿長受力計算例（日文教材 圖 3、圖 4）" title="點一下放大">
+        <img id="calcImg" src="images/photos/legs-jp.jpg" alt="日文教材圖例：腳長與受力">
+        <figcaption id="calcCap">圖 3：50 cm／10 cm，負荷 700 kgf</figcaption>
+      </figure>
+      <div class="card" style="padding:18px 22px" data-prevent-swipe>
+        <div class="calc-row"><span class="lab">範例</span><div class="legs-seg" id="calcPreset"><button data-p="f3" class="on">圖 3</button><button data-p="f4">圖 4</button><button data-p="ft">1·2·3 ft</button><button data-p="eq">等長</button></div></div>
+        <div class="calc-row"><span class="lab">負荷</span><div class="legs-seg" id="calcLoad"><button data-l="100">100 kgf</button><button data-l="200">200 kgf</button><button data-l="700" class="on">700 kgf</button></div></div>
+        <div class="calc-row"><span class="lab">腳數</span><div class="legs-seg" id="calcN"><button data-n="2" class="on">2 腳</button><button data-n="3">3 腳</button></div></div>
+        <div id="calcLegs"></div>
+        <p class="note" id="calcNote" style="margin-top:12px"></p>
+        <ul class="list" style="margin-top:6px">
+          <li>分力時各腳<b>盡量等長</b>；差很多時，長腳用 <b>Dyneema 等靜力扁帶</b>延長，讓會伸長的那一段接近等長</li>
+        </ul>
+      </div>
+    </div>
+    <p class="src">圖 3、圖 4 出自日文教材（伸び率＝伸長率，各腳相同）。計算假設：同材質、各腳接近平行、不計結的鬆弛</p>
+  </div>
+  <aside class="notes" data-sec="55"><p>用日文教材的例子算一次。圖 3：負荷 700 公斤，一隻腳 50 公分、一隻 10 公分，長度差 5 倍，受力也差 5 倍：短腳 583 公斤，長腳只有 117 公斤。圖 4：三隻腳 50、35、20 公分，分別是 142、203、355 公斤，最短的那隻扛了一半以上。也可以自己拖拉腳長看看。</p><p>所以分力時，各腳盡量等長；腳長差很多時，可以用 Dyneema 這類靜力扁帶延長長腳，讓會伸長的那一段接近等長。不過 Dyneema 幾乎不吸收衝擊，整體還是要靠有延展性的材料。</p></aside>
 </section>
 
 <!-- ================= P18 偏離點（COD）強度值 ================= -->
-<section id="slide-cord" data-page="18" data-section="喚起行動" data-background-image="images/cord.jpg" data-background-opacity="0.18" data-background-size="cover">
+<section id="slide-cord" data-page="21" data-section="喚起行動" data-background-image="images/cord.jpg" data-background-opacity="0.18" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">17 · 偏離點的強度值</div><h2>偏離點或 COD：繩子彎得越急，受力越大</h2><p class="sub">COD＝Change of Direction（改變方向）。左欄是偏離點兩側繩子的<b class="hl">夾角</b>，負荷＝100%</p></div>
-    <div class="grid2" style="grid-template-columns:1.1fr 1fr">
-      <div class="card" style="padding:18px 20px">
-        <div class="cords" data-max="200">
-          <div class="cord"><span class="dm">180°</span><div class="track"><div class="fill" data-w="0" style="background:var(--ok)"></div></div><span class="kn">0<small>%</small></span></div>
-          <div class="cord"><span class="dm">150°</span><div class="track"><div class="fill" data-w="52" style="background:var(--ok)"></div></div><span class="kn">52<small>%</small></span></div>
-          <div class="cord"><span class="dm">120°</span><div class="track"><div class="fill" data-w="100" style="background:var(--accent2)"></div></div><span class="kn">100<small>%</small></span></div>
+    <div class="head"><div class="kicker">20 · 偏離點的強度值</div><h2>偏離點或 COD：繩子偏得越多，受力越大</h2><p class="sub">COD＝Change of Direction。<b class="hl">偏離角</b>＝繩子被改變方向的角度：直線通過 0°、完全折返 180°</p></div>
+    <div class="cod-grid">
+      <figure class="card zoom-fig" data-photo="cod" data-title="Deviation Forces：偏離角與偏離點受力" title="點一下放大">
+        <img src="images/photos/cod.jpg" alt="偏離角 10° 到 180° 時，偏離點受力 17% 到 200%">
+        <figcaption>偏離角越大，受力越大</figcaption>
+      </figure>
+      <div class="card" style="padding:16px 18px">
+        <div class="cords cods" data-max="200">
+          <div class="cord"><span class="dm">10°</span><div class="track"><div class="fill" data-w="17" style="background:var(--ok)"></div></div><span class="kn">17<small>%</small></span></div>
+          <div class="cord"><span class="dm">30°</span><div class="track"><div class="fill" data-w="52" style="background:var(--ok)"></div></div><span class="kn">52<small>%</small></span></div>
+          <div class="cord"><span class="dm">45°</span><div class="track"><div class="fill" data-w="77" style="background:var(--ok)"></div></div><span class="kn">77<small>%</small></span></div>
+          <div class="cord"><span class="dm">60°</span><div class="track"><div class="fill" data-w="100" style="background:var(--accent2)"></div></div><span class="kn">100<small>%</small></span></div>
+          <div class="cord"><span class="dm">75°</span><div class="track"><div class="fill" data-w="122" style="background:var(--warn)"></div></div><span class="kn">122<small>%</small></span></div>
           <div class="cord"><span class="dm">90°</span><div class="track"><div class="fill" data-w="141" style="background:var(--warn)"></div></div><span class="kn">141<small>%</small></span></div>
-          <div class="cord"><span class="dm">60°</span><div class="track"><div class="fill" data-w="173" style="background:var(--bad)"></div></div><span class="kn">173<small>%</small></span></div>
-          <div class="cord"><span class="dm">30°</span><div class="track"><div class="fill" data-w="193" style="background:var(--bad)"></div></div><span class="kn">193<small>%</small></span></div>
-          <div class="cord"><span class="dm">0°</span><div class="track"><div class="fill" data-w="200" style="background:var(--bad)"></div></div><span class="kn">200<small>%</small></span></div>
+          <div class="cord"><span class="dm">120°</span><div class="track"><div class="fill" data-w="173" style="background:var(--bad)"></div></div><span class="kn">173<small>%</small></span></div>
+          <div class="cord"><span class="dm">135°</span><div class="track"><div class="fill" data-w="185" style="background:var(--bad)"></div></div><span class="kn">185<small>%</small></span></div>
+          <div class="cord"><span class="dm">160°</span><div class="track"><div class="fill" data-w="197" style="background:var(--bad)"></div></div><span class="kn">197<small>%</small></span></div>
+          <div class="cord"><span class="dm">180°</span><div class="track"><div class="fill" data-w="200" style="background:var(--bad)"></div></div><span class="kn">200<small>%</small></span></div>
         </div>
-        <p class="note" style="margin-top:10px">點選任一列，右圖跟著改變夾角（180° 直線通過、0° 完全折返）</p>
+        <p class="note" style="margin-top:8px">點選任一列，右圖跟著改變偏離角</p>
       </div>
-      <div class="card" style="padding:18px 20px">
+      <div class="card" style="padding:16px 18px">
         <svg class="cod-svg" id="cod-svg" viewBox="0 0 480 210" aria-label="偏離點受力示意圖"></svg>
         <ul class="list">
-          <li>合力 ＝ <b>2 × 負荷 × cos(夾角 ÷ 2)</b></li>
-          <li>夾角小於 120°，偏離點受力<b>超過負荷</b>：90° 約 1.4 倍、完全折返 2 倍</li>
+          <li>合力 ＝ <b>2 × 負荷 × sin(偏離角 ÷ 2)</b></li>
+          <li>偏離角<b>超過 60°</b>，受力就超過負荷：90° 約 1.4 倍、完全折返 2 倍</li>
           <li>偏離點要用<b>合力</b>評估強度，不是用負荷</li>
         </ul>
       </div>
     </div>
-    <p class="src">數值以向量合成計算：F = 2T·cos(α/2)；假設偏離點兩側繩子張力相同、不計滑輪摩擦</p>
+    <p class="src">偏離角＝180° − 兩側繩夾角。F = 2T·sin(θ/2)，假設兩側繩張力相同、不計滑輪摩擦。圖：Deviation Forces</p>
   </div>
-  <aside class="notes" data-sec="45"><p>偏離點，也就是 COD，Change of Direction，是讓繩子改變方向的那個點。它承受的力不是負荷本身，而是兩側繩子張力的合力。合力等於 2 倍負荷乘以夾角一半的 cos 值。</p><p>大家看左邊，點任何一列，右邊的圖會跟著改變：繩子直線通過，180 度，偏離點不受力；夾角 120 度，偏離點剛好承受 100% 的負荷；90 度大約 141%；完全折返，例如頂端滑輪，就是 200%。所以架偏離點時，要用合力去評估它夠不夠強，繩子彎得越急，偏離點就要越強。</p></aside>
+  <aside class="notes" data-sec="55"><p>偏離點，也就是 COD，Change of Direction，是讓繩子改變方向的那個點。它承受的力不是負荷本身，而是兩側繩子張力的合力。這裡用「偏離角」來看：繩子被改變方向的角度，直線通過是 0 度，完全折返是 180 度。合力等於 2 倍負荷乘以偏離角一半的 sin 值。</p><p>大家看左邊這張圖和中間的表，點任何一列，右邊的圖會跟著改變：偏離 10 度，偏離點只受 17%；60 度剛好等於負荷，100%；90 度大約 141%；完全折返，例如頂端滑輪，就是 200%。所以架偏離點時，要用合力去評估它夠不夠強，繩子偏得越多，偏離點就要越強。</p></aside>
 </section>
 
 <!-- ================= P19 檢核清單 ================= -->
-<section data-page="19" data-section="喚起行動" data-background-image="images/ending.jpg" data-background-opacity="0.3" data-background-size="cover">
+<section data-page="22" data-section="喚起行動" data-background-image="images/ending.jpg" data-background-opacity="0.3" data-background-size="cover">
   <div class="inner">
-    <div class="head"><div class="kicker">18 · 現場檢核</div><h2>架完之後，從 S 檢查到 A 再受力</h2><p class="sub">逐項點選，全部打勾才能受力</p></div>
+    <div class="head"><div class="kicker">21 · 現場檢核</div><h2>架完之後，從 S 檢查到 A 再受力</h2><p class="sub">逐項點選，全部打勾才能受力</p></div>
     <div class="checks">
       <div class="card chk"><div class="L">S</div><div><h4>每個點、每個元件都夠強？</h4><p>弱方向也評估過了</p></div><div class="box"></div></div>
       <div class="card chk"><div class="L">R</div><div><h4>任一元件失效，系統還站得住？</h4><p>至少兩個獨立固定點</p></div><div class="box"></div></div>
@@ -875,7 +1041,8 @@ function makeQR(id, size, hash) {
   const el = document.getElementById(id); if (!el || typeof QRCode === 'undefined') return;
   el.innerHTML = ''; new QRCode(el, { text: BASE + hash, width: size, height: size, colorDark: '#0d1117', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
 }
-makeQR('qr-cover', 92, '#/wordcloud'); makeQR('qr-poll', 200, '#/poll');
+makeQR('qr-cover', 92, '#/wordcloud'); makeQR('qr-poll', 200, '#/poll'); makeQR('qr-board', 200, '#/board');
+document.getElementById('qr-board-url').textContent = (BASE + '#/board').replace('https://', '');
 document.getElementById('qr-url').textContent = (BASE + '#/poll').replace('https://', '');
 
 /* ============ Reveal 初始化 ============ */
@@ -941,6 +1108,7 @@ function onEnter(s) {
   if (id === 'slide-chart') setTimeout(initChart, 150);
   if (id === 'slide-lab') setTimeout(drawLab, 50);
   if (id === 'slide-cord') animateCords();
+  if (id === 'board') setTimeout(() => window.wbResize && window.wbResize(), 150);
 }
 setInterval(() => {
   if (!timerStart) return;
@@ -1000,40 +1168,88 @@ window.addEventListener('keydown', e => {
   if (e.key === 'Escape') lbClose(); else if (e.key === 'ArrowLeft') lbStep(-1); else if (e.key === 'ArrowRight') lbStep(1);
 }, true);
 
-/* ============ 腿長與受力 ============ */
-function setLegs(r) {
-  const sh = Math.round(r / (1 + r) * 100), lo = 100 - sh;
-  $('#legS').style.width = sh + '%'; $('#legL').style.width = lo + '%';
-  $('#legSv').innerHTML = sh + '<small>%</small>'; $('#legLv').innerHTML = lo + '<small>%</small>';
-  $('#legS').style.background = sh > 60 ? 'var(--bad)' : sh > 50 ? 'var(--warn)' : 'var(--ok)';
-  document.querySelectorAll('#legsSeg button').forEach(b => b.classList.toggle('on', +b.dataset.r === r));
+/* ============ 圖片放大（共用） ============ */
+document.querySelectorAll('.zoom-fig').forEach(f => f.addEventListener('click', () => lbOpen(f)));
+
+/* ============ 三個點的分配 ============ */
+function setThree(m) {
+  const v = m === 'cas' ? [25, 25, 50] : [33, 33, 33];
+  ['A', 'B', 'C'].forEach((k, i) => {
+    $('#th' + k).style.width = (v[i] * 1.6) + '%';
+    $('#th' + k).style.background = v[i] >= 50 ? 'var(--accent)' : 'var(--accent2)';
+    $('#th' + k + 'v').innerHTML = v[i] + '<small>%</small>';
+  });
+  $('#threeNote').textContent = m === 'cas' ? 'A、B 先串成一組（50%），組內再對分；C 單獨一腳 50%' : '理想狀態：三腳等長、夾角對稱才接近各 33%；腳長不等時看後面「腿長」頁';
+  document.querySelectorAll('#threeSeg button').forEach(b => b.classList.toggle('on', b.dataset.m === m));
 }
-document.querySelectorAll('#legsSeg button').forEach(b => b.addEventListener('click', () => setLegs(+b.dataset.r)));
-document.querySelectorAll('.leg-fig').forEach(f => f.addEventListener('click', () => lbOpen(f)));
-setLegs(2);
+document.querySelectorAll('#threeSeg button').forEach(b => b.addEventListener('click', () => setThree(b.dataset.m)));
+setThree('cas');
+
+/* ============ 腿長計算器 ============ */
+const CALC = { f3: { L: [50, 10], img: 'legs-jp.jpg', key: 'legs-jp', cap: '圖 3：50 cm／10 cm，負荷 700 kgf', load: 700 },
+  f4: { L: [50, 35, 20], img: 'legs-jp-2.jpg', key: 'legs-jp', cap: '圖 4：50／35／20 cm，負荷 700 kgf', load: 700 },
+  ft: { L: [90, 60, 30], img: 'legs-2.jpg', key: 'legs', cap: '3 ft／2 ft／1 ft ≈ 90／60／30 cm' },
+  eq: { L: [50, 50], cap: '各腳等長：平均分配' } };
+let cLen = [50, 10], cLoad = 700;
+function calcRender() {
+  const box = $('#calcLegs');
+  if (box.children.length !== cLen.length) box.innerHTML = cLen.map((_, i) => `<div class="cl"><span class="n">P${i + 1}</span><input type="range" min="10" max="100" step="5" data-i="${i}" data-prevent-swipe><span class="len"></span><div class="track"><div class="fill"></div></div><span class="kg"></span></div>`).join('');
+  const inv = cLen.map(l => 1 / l), sum = inv.reduce((a, b) => a + b, 0), share = inv.map(v => v / sum), mx = Math.max(...share);
+  [...box.children].forEach((row, i) => {
+    const r = row.querySelector('input'); if (+r.value !== cLen[i]) r.value = cLen[i];
+    row.querySelector('.len').textContent = cLen[i] + ' cm';
+    const f = row.querySelector('.fill'); f.style.width = (share[i] * 100) + '%';
+    f.style.background = share[i] === mx && share.length > 1 && mx > 1 / share.length + 0.01 ? 'var(--bad)' : share[i] > 1 / share.length + 0.01 ? 'var(--warn)' : 'var(--ok)';
+    row.querySelector('.kg').innerHTML = `${Math.round(share[i] * cLoad)} kgf<small>${Math.round(share[i] * 100)}%</small>`;
+  });
+  const ratio = Math.max(...cLen) / Math.min(...cLen);
+  $('#calcNote').innerHTML = ratio < 1.01 ? '各腳等長 → 平均分配' : `最長腳是最短腳的 <b>${+ratio.toFixed(1)}</b> 倍長 → 最短腳的受力也是最長腳的 <b>${+ratio.toFixed(1)}</b> 倍`;
+  document.querySelectorAll('#calcN button').forEach(b => b.classList.toggle('on', +b.dataset.n === cLen.length));
+  document.querySelectorAll('#calcLoad button').forEach(b => b.classList.toggle('on', +b.dataset.l === cLoad));
+}
+function calcPreset(k) {
+  const c = CALC[k]; cLen = c.L.slice(); if (c.load) cLoad = c.load;
+  if (c.img) { $('#calcImg').src = 'images/photos/' + c.img; $('#calcFig').dataset.photo = c.key; }
+  $('#calcCap').textContent = c.cap;
+  document.querySelectorAll('#calcPreset button').forEach(b => b.classList.toggle('on', b.dataset.p === k));
+  calcRender();
+}
+function calcCustom() { document.querySelectorAll('#calcPreset button').forEach(b => b.classList.remove('on')); $('#calcCap').textContent = '自訂腳長：' + cLen.map(l => l + ' cm').join('／'); }
+$('#calcLegs').addEventListener('input', e => { if (e.target.dataset.i == null) return; cLen[+e.target.dataset.i] = +e.target.value; calcCustom(); calcRender(); });
+document.querySelectorAll('#calcPreset button').forEach(b => b.addEventListener('click', () => calcPreset(b.dataset.p)));
+document.querySelectorAll('#calcLoad button').forEach(b => b.addEventListener('click', () => { cLoad = +b.dataset.l; calcRender(); }));
+document.querySelectorAll('#calcN button').forEach(b => b.addEventListener('click', () => {
+  const n = +b.dataset.n; if (n === cLen.length) return;
+  cLen = n === 3 ? [...cLen, 20] : cLen.slice(0, 2); calcCustom(); calcRender();
+}));
+['touchstart', 'touchmove', 'touchend'].forEach(ev => $('#calcLegs').addEventListener(ev, e => e.stopPropagation(), { passive: false }));
+calcPreset('f3');
 
 /* ============ 偏離點示意圖 ============ */
-function drawCOD(a) {
+function drawCOD(t) {
   const svg = $('#cod-svg'); if (!svg) return;
-  const P = [240, 54], L = 118, h = a / 2 * Math.PI / 180, F = 2 * Math.cos(h);
+  const a = 180 - t, P = [240, 58], L = 118, h = a / 2 * Math.PI / 180, F = 2 * Math.sin(t / 2 * Math.PI / 180);
   const dx = L * Math.sin(h), dy = L * Math.cos(h), off = a < 8 ? 16 : 0;
   const lx = P[0] - dx - off, rx = P[0] + dx + off, ly = P[1] + dy, ry = P[1] + dy;
-  const r = 36, ax0 = P[0] - r * Math.sin(h), ay = P[1] + r * Math.cos(h), ax1 = P[0] + r * Math.sin(h);
-  const aL = Math.max(0, F * 52), col = F < 0.6 ? '#81c784' : F <= 1.0001 ? '#4cc9f0' : F < 1.6 ? '#ffb74d' : '#ef5350';
+  const E = 64, ex = P[0] + E * Math.sin(h), ey = P[1] - E * Math.cos(h);
+  const r = 34, sx = P[0] + r * Math.sin(h), sy = P[1] - r * Math.cos(h), qy = P[1] + r * Math.cos(h);
+  const aL = Math.max(0, F * 52), col = F < 0.8 ? '#81c784' : F <= 1.0001 ? '#4cc9f0' : F < 1.6 ? '#ffb74d' : '#ef5350';
   const tip = P[1] + 14 + aL;
   svg.innerHTML = `
     <defs><marker id="codArr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="${col}"/></marker></defs>
     <rect x="200" y="2" width="80" height="10" rx="3" fill="#45526b"/><text x="292" y="12" font-size="14" fill="#7d8ba3">偏離點的固定點</text>
     <line x1="240" y1="12" x2="240" y2="${P[1] - 13}" stroke="#ffb74d" stroke-width="4"/>
+    ${t > 3 ? `<line x1="${P[0]}" y1="${P[1]}" x2="${ex}" y2="${ey}" stroke="#7d8ba3" stroke-width="2.5" stroke-dasharray="6 5"/>` : ''}
     <line x1="${P[0]}" y1="${P[1]}" x2="${lx}" y2="${ly}" stroke="#eef3fa" stroke-width="5" stroke-linecap="round"/>
     <line x1="${P[0]}" y1="${P[1]}" x2="${rx}" y2="${ry}" stroke="#eef3fa" stroke-width="5" stroke-linecap="round"/>
-    ${a > 4 && a < 176 ? `<path d="M${ax0} ${ay} A${r} ${r} 0 0 0 ${ax1} ${ay}" fill="none" stroke="#4cc9f0" stroke-width="2.5"/>` : ''}
+    ${t > 3 ? `<path d="M${sx} ${sy} A${r} ${r} 0 0 1 ${sx} ${qy}" fill="none" stroke="#4cc9f0" stroke-width="3"/>` : ''}
     <circle cx="${P[0]}" cy="${P[1]}" r="12" fill="#0d1117" stroke="#ffb74d" stroke-width="4"/>
     ${aL > 6 ? `<line x1="${P[0]}" y1="${P[1] + 14}" x2="${P[0]}" y2="${tip - 6}" stroke="${col}" stroke-width="7" marker-end="url(#codArr)"/>` : ''}
-    <text x="${P[0] - 24}" y="${P[1] - 20}" font-size="18" font-weight="700" fill="#4cc9f0" text-anchor="end">夾角 ${a}°</text>
+    <text x="${P[0] + 48}" y="${P[1] - 12}" font-size="19" font-weight="700" fill="#4cc9f0" stroke="#141a26" stroke-width="6" paint-order="stroke">偏離角 ${t}°</text>
+    <text x="${P[0] - 24}" y="${P[1] - 20}" font-size="14" fill="#7d8ba3" text-anchor="end">兩繩夾角 ${a}°</text>
     <text x="${P[0]}" y="${Math.max(P[1] + 50, tip + 24)}" font-size="22" font-weight="900" fill="${col}" text-anchor="middle" stroke="#141a26" stroke-width="7" paint-order="stroke" stroke-linejoin="round">受力 ${Math.round(F * 100)}%</text>
     <text x="${lx < 70 ? 6 : lx - 6}" y="${Math.min(206, ly + (a > 150 ? -10 : 0))}" font-size="15" fill="#b9c6d8" text-anchor="${lx < 70 ? 'start' : 'end'}">負荷 100%</text>`;
-  document.querySelectorAll('#slide-cord .cord').forEach(c => c.classList.toggle('on', +c.dataset.a === a));
+  document.querySelectorAll('#slide-cord .cord').forEach(c => c.classList.toggle('on', +c.dataset.a === t));
 }
 document.querySelectorAll('#slide-cord .cord').forEach(c => { c.dataset.a = parseInt(c.querySelector('.dm').textContent); c.addEventListener('click', () => drawCOD(+c.dataset.a)); });
 drawCOD(90);
@@ -1255,16 +1471,43 @@ document.querySelectorAll('[data-prevent-swipe]').forEach(el => ['touchstart', '
   document.getElementById('qa-handle').addEventListener('click', () => window.toggleQA());
   qaOverlay.addEventListener('click', () => window.toggleQA(false));
 
+  /* ---------- 共享白板 ---------- */
+  const boardRef = collection(fdb, SLUG + '_board');
+  const wbCanvas = document.getElementById('wb-canvas'), wbCtx = wbCanvas.getContext('2d');
+  let wbColor = '#4cc9f0', wbStrokes = [], wbDrawing = false, wbCur = null; const wbMine = [];
+  document.querySelectorAll('.wb-sw').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('.wb-sw').forEach(x => x.classList.remove('on')); b.classList.add('on'); wbColor = b.dataset.color; }));
+  function wbResize() { const w = wbCanvas.offsetWidth, h = wbCanvas.offsetHeight; if (w < 10) return; const d = Math.max(2, window.devicePixelRatio || 1); wbCanvas.width = w * d; wbCanvas.height = h * d; wbCtx.setTransform(d, 0, 0, d, 0, 0); wbRedraw(); }
+  function wbStroke(st) { const w = wbCanvas.offsetWidth, h = wbCanvas.offsetHeight; if (!st.points || !st.points.length) return; wbCtx.strokeStyle = st.color; wbCtx.lineWidth = 4; wbCtx.lineCap = 'round'; wbCtx.lineJoin = 'round'; wbCtx.beginPath(); st.points.forEach((p, i) => i ? wbCtx.lineTo(p.x * w, p.y * h) : wbCtx.moveTo(p.x * w, p.y * h)); if (st.points.length === 1) wbCtx.lineTo(st.points[0].x * w + 0.1, st.points[0].y * h); wbCtx.stroke(); }
+  function wbRedraw() { wbCtx.clearRect(0, 0, wbCanvas.offsetWidth, wbCanvas.offsetHeight); wbStrokes.forEach(wbStroke); if (wbCur) wbStroke(wbCur); }
+  function wbPt(e) { const r = wbCanvas.getBoundingClientRect(), c = e.touches ? e.touches[0] : e; return { x: +((c.clientX - r.left) / r.width).toFixed(4), y: +((c.clientY - r.top) / r.height).toFixed(4) }; }
+  function wbStart(e) { e.preventDefault(); e.stopPropagation(); wbDrawing = true; wbCur = { color: wbColor, points: [wbPt(e)] }; }
+  function wbMove(e) { if (!wbDrawing) return; e.preventDefault(); e.stopPropagation(); const p = wbPt(e), q = wbCur.points[wbCur.points.length - 1]; if (Math.hypot(p.x - q.x, p.y - q.y) < 0.003 || wbCur.points.length > 600) return; wbCur.points.push(p); wbRedraw(); }
+  async function wbEnd() {
+    if (!wbDrawing) return; wbDrawing = false; const st = wbCur; if (!st) return;
+    try { const ref = await addDoc(boardRef, { color: st.color, points: st.points, created_at: serverTimestamp() }); wbMine.push(ref); } catch (err) { console.error(err); $('#wbStatus').textContent = '送出失敗，請重試'; }
+    wbCur = null;
+  }
+  wbCanvas.addEventListener('mousedown', wbStart); wbCanvas.addEventListener('mousemove', wbMove); window.addEventListener('mouseup', wbEnd);
+  wbCanvas.addEventListener('touchstart', wbStart, { passive: false }); wbCanvas.addEventListener('touchmove', wbMove, { passive: false }); wbCanvas.addEventListener('touchend', wbEnd);
+  document.getElementById('wb-undo').addEventListener('click', async () => { const ref = wbMine.pop(); if (ref) try { await deleteDoc(ref); } catch (e) { console.error(e); } });
+  document.getElementById('wb-clear').addEventListener('click', async () => {
+    if (!confirm('清空所有人的筆畫？')) return;
+    try { const snap = await getDocs(boardRef); await Promise.all(snap.docs.map(d => deleteDoc(d.ref))); } catch (e) { console.error(e); }
+  });
+  onSnapshot(query(boardRef, orderBy('created_at', 'asc')), snap => { wbStrokes = []; snap.forEach(d => wbStrokes.push(d.data())); wbRedraw(); $('#wbStatus').textContent = wbStrokes.length ? `共 ${wbStrokes.length} 筆` : ''; }, err => console.error(err));
+  window.wbResize = wbResize; Reveal.on('resize', () => setTimeout(wbResize, 50));
+  if (Reveal.getCurrentSlide() && Reveal.getCurrentSlide().id === 'board') setTimeout(wbResize, 200);
+
   /* ---------- 講者課後清除：網址加 ?reset=1 ---------- */
   window.clearInteractions = async function (silent) {
     let total = 0;
-    for (const c of [SLUG + '_wordcloud', SLUG + '_qa']) { const snap = await getDocs(collection(fdb, c)); for (const d of snap.docs) { await deleteDoc(d.ref); total++; } }
+    for (const c of [SLUG + '_wordcloud', SLUG + '_qa', SLUG + '_board']) { const snap = await getDocs(collection(fdb, c)); for (const d of snap.docs) { await deleteDoc(d.ref); total++; } }
     try { await deleteDoc(pollRef); } catch (e) {}
-    if (!silent) alert('已清空文字雲、投票與提問牆，共刪除 ' + total + ' 筆。');
+    if (!silent) alert('已清空文字雲、投票、提問牆與白板，共刪除 ' + total + ' 筆。');
     return total;
   };
   if (new URLSearchParams(location.search).get('reset') === '1') {
-    setTimeout(() => { if (confirm('【講者專用】確定清空本簡報的文字雲、投票與提問牆資料？')) window.clearInteractions(); }, 800);
+    setTimeout(() => { if (confirm('【講者專用】確定清空本簡報的文字雲、投票、提問牆與白板資料？')) window.clearInteractions(); }, 800);
   }
 </script>
 </body>
