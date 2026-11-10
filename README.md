@@ -43,7 +43,7 @@ P10、P11 卡片上的「真實照片」按鈕：
 | Sliding X＋限制結 | `sliding-x.jpg` |
 | The Quad | `quad.jpg` |
 
-六張卡片都已放入照片（BFK 有 2 張）。沒有照片的卡片，按鈕會顯示「照片待補」（聽眾版 `?clean` 會隱藏）。要換照片或加張數，覆蓋檔案後推送即可，不必改程式。其他頁面的圖：`angle-force.jpg`（P5 夾角受力卡）、`direction.jpg`（受力方向會變）、`three.jpg`／`three-2.jpg`（三個點的分配）、`legs.jpg`／`legs-2.jpg`（腿長原理）、`legs-jp.jpg`／`legs-jp-2.jpg`（計算器的圖 3、圖 4）、`cod.jpg`（Deviation Forces）。
+六張卡片都已放入照片（BFK 有 2 張）。沒有照片的卡片，按鈕會顯示「照片待補」（聽眾版 `?clean` 會隱藏）。要換照片或加張數，覆蓋檔案後推送即可，不必改程式。P10 單一強壯固定點的「真實照片」：`single-basket.jpg`（繩圈雙環）、`single-girth.jpg`（雀頭結）、`single-base.jpg`／`-2`／`-3`（基部固定）、`single-fig8.jpg`（8 字結＋自我確保）、`single-clove.jpg`（雙套結＋自我確保）、`single-mmo.jpg`（MMO）。其他頁面的圖：`angle-force.jpg`（P5 夾角受力卡）、`direction.jpg`（受力方向會變）、`three.jpg`／`three-2.jpg`（三個點的分配）、`legs.jpg`／`legs-2.jpg`（腿長原理）、`legs-jp.jpg`／`legs-jp-2.jpg`（計算器的圖 3、圖 4）、`cod.jpg`（Deviation Forces）。
 
 ## 講稿與講義
 
